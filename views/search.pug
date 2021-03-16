@@ -1,5 +1,15 @@
 extends layouts/main.pug
+include mixins/photoBlock
 
 block content
     .search__header
-        h3 Searching By #{searchingBy}
+        h3 Searching For: #{searchingBy}
+    .search__photos
+        if photos.length === 0
+            h5 No Photos Found
+        each item in photos
+            +photoBlock({
+                fileUrl: item.fileUrl,
+                description: item.description,
+                id: item.id
+            })
