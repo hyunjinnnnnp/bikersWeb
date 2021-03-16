@@ -15,7 +15,7 @@ const USER_DETAIL = "/:id";
 const PHOTOS = "/photos";
 const UPLOAD = "/upload";
 const PHOTO_DETAIL = "/:id";
-const EDIT_PHOTO = "/:id/edit-photo";
+const EDIT_PHOTO = "/:id/edit";
 const DELETE_PHOTO = "/:id/delete";
 
 const routes = {
@@ -43,8 +43,20 @@ const routes = {
       return PHOTO_DETAIL;
     }
   },
-  editPhoto: EDIT_PHOTO,
-  deletePhoto: DELETE_PHOTO,
+  editPhoto: (id) => {
+    if (id) {
+      return `/photos/${id}/edit`;
+    } else {
+      return EDIT_PHOTO;
+    }
+  },
+  deletePhoto: (id) => {
+    if (id) {
+      return `/photos/${id}/delete`;
+    } else {
+      return DELETE_PHOTO;
+    }
+  },
 };
 
 export default routes;

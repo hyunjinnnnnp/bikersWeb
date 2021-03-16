@@ -6,10 +6,6 @@ const PhotoSchema = new mongoose.Schema({
     required: "File URL is required",
   },
   description: String,
-  views: {
-    type: Number,
-    default: 0,
-  },
   createdAt: {
     type: Date,
     default: Date.now,

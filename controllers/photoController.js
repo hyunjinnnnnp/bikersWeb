@@ -41,18 +41,56 @@ export const postUpload = async (req, res) => {
   console.log(newPhoto);
   res.redirect(routes.photoDetail(newPhoto.id));
 };
-export const photoDetail = (req, res) => {
-  res.render("photoDetail", {
-    pageTitle: "Photo Detail",
-  });
+export const photoDetail = async (req, res) => {
+  const {
+    params: { id },
+  } = req;
+  try {
+    const photo = await Photo.findById({ _id: id });
+    // TO DO : ID 받아오기
+    res.render("photoDetail", {
+      pageTitle: `ID: ${photo.description}`,
+      photo,
+    });
+  } catch (error) {
+    console.log(error);
+    res.redirect(routes.home);
+  }
 };
-export const editPhoto = (req, res) => {
-  res.render("editPhoto", {
-    pageTitle: "Edit Photo",
-  });
+export const getEditPhoto = async (req, res) => {
+  const {
+    params: { id },
+  } = req;
+  try {
+    const photo = await Photo.findById(id);
+    res.render("editPhoto", { pageTitle: "Edit", photo });
+  } catch (error) {
+    console.log(error);
+    res.redirect(routes.home);
+  }
 };
-export const deletePhoto = (req, res) => {
-  res.render("deletePhoto", {
-    pageTitle: "Delete Photo",
-  });
+export const postEditPhoto = async (req, res) => {
+  const {
+    params: { id },
+    body: { description },
+  } = req;
+  try {
+    await Photo.findOneAndUpdate({ _id: id }, { description });
+    res.redirect(routes.photoDetail(id));
+  } catch (error) {
+    console.log(error);
+    res.redirect(rotes.home);
+  }
+};
+export const deletePhoto = async (req, res) => {
+  const {
+    params: { id },
+  } = req;
+  try {
+    //TO DO : uploads/photos 디렉토리 안에 남는 파일 삭제하기
+    await Photo.findOneAndRemove({ _id: id });
+  } catch (error) {
+    console.log(error);
+  }
+  res.redirect(routes.home);
 };

@@ -1,4 +1,8 @@
 extends layouts/main.pug
 
 block content
-    p hello
+    .photo__container
+        img(src=`/${photo.fileUrl}`, alt="Photo")
+    .photo__info
+        a(href=routes.editPhoto(photo.id)) Edit
+        p.photo__description=photo.description
