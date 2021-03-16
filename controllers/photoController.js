@@ -28,12 +28,18 @@ export const getUpload = (req, res) => {
     pageTitle: "Upload Photo",
   });
 };
-export const postUpload = (req, res) => {
+export const postUpload = async (req, res) => {
   const {
-    body: { file, description },
+    body: { description },
+    file: { path },
   } = req;
   // TO DO : DB에 저장시키기
-  res.redirect(routes.photoDetail(321323));
+  const newPhoto = await Photo.create({
+    fileUrl: path,
+    description,
+  });
+  console.log(newPhoto);
+  res.redirect(routes.photoDetail(newPhoto.id));
 };
 export const photoDetail = (req, res) => {
   res.render("photoDetail", {
