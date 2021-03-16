@@ -1,11 +1,17 @@
-import { photos } from "../db";
 import routes from "../routes";
+import Photo from "../models/Photo";
 
-export const home = (req, res) => {
-  res.render("home", {
-    pageTitle: "Home",
-    photos,
-  });
+export const home = async (req, res) => {
+  try {
+    const photos = await Photo.find({});
+    res.render("home", {
+      pageTitle: "Home",
+      photos,
+    });
+  } catch (error) {
+    console.log(error);
+    res.render("home", { pageTitle: "Home", photos: [] });
+  }
 };
 
 export const search = (req, res) => {

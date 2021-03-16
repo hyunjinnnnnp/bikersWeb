@@ -1,35 +1,17 @@
-export const photos = [
-  {
-    id: 321323,
-    description: "this is something i love",
-    views: 23,
-    fileUrl: "https://source.unsplash.com/random",
-    creator: {
-      id: 121212,
-      name: "Nicolas",
-      email: "nico@las.com",
-    },
-  },
-  {
-    id: 12,
-    description: " love",
-    views: 233,
-    fileUrl: "https://source.unsplash.com/random",
-    creator: {
-      id: 121212,
-      name: "Nicolas",
-      email: "nico@las.com",
-    },
-  },
-  {
-    id: 32133423,
-    description: "this",
-    views: 0,
-    fileUrl: "https://source.unsplash.com/random",
-    creator: {
-      id: 121212,
-      name: "Nicolas",
-      email: "nico@las.com",
-    },
-  },
-];
+import mongoose from "mongoose";
+import dotenv from "dotenv";
+dotenv.config();
+
+mongoose.connect(process.env.MONGO_URL, {
+  userNewUrlParser: true,
+  useFindAndModify: false,
+});
+
+const db = mongoose.connection;
+
+const handleOpen = () => console.log(`✅ Connected to DB`);
+const handleError = (error) =>
+  console.log(`❌ Error on DB Connection: ${error}`);
+
+db.once("open", handleOpen);
+db.on("error", handleError);
