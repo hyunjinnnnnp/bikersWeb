@@ -1,0 +1,5 @@
+mixin photoBlock(photo = {})
+    .photoBlock
+        a(href=routes.photoDetail(photo.id))
+            img.photoBlock__img(src=photo.fileUrl, alt="img")
+            h6.photoBlock__description=photo.description

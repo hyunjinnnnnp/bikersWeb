@@ -27,10 +27,22 @@ const routes = {
   users: USERS,
   editProfile: EDIT_PROFILE,
   changePassword: CHANGE_PASSWORD,
-  userDetail: USER_DETAIL,
+  userDetail: (id) => {
+    if (id) {
+      return `/users/${id}`;
+    } else {
+      return USER_DETAIL;
+    }
+  },
   photos: PHOTOS,
   upload: UPLOAD,
-  photoDetail: PHOTO_DETAIL,
+  photoDetail: (id) => {
+    if (id) {
+      return `/photos/${id}`;
+    } else {
+      return PHOTO_DETAIL;
+    }
+  },
   editPhoto: EDIT_PHOTO,
   deletePhoto: DELETE_PHOTO,
 };

@@ -1,4 +1,12 @@
 extends layouts/main.pug
+include mixins/photoBlock
 
 block content
-    p hello
+    .photos__container
+        each item in photos
+            +photoBlock({
+                id: item.id,
+                fileUrl: item.fileUrl,
+                views: item.views,
+                description: item.description
+            })
