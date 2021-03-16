@@ -3,7 +3,7 @@ import Photo from "../models/Photo";
 
 export const home = async (req, res) => {
   try {
-    const photos = await Photo.find({});
+    const photos = await Photo.find({}).sort({ _id: -1 });
     res.render("home", {
       pageTitle: "Home",
       photos,
@@ -14,13 +14,23 @@ export const home = async (req, res) => {
   }
 };
 
-export const search = (req, res) => {
+export const search = async (req, res) => {
   const {
     query: { term: searchingBy },
   } = req;
+  let photos = [];
+  try {
+    photos = await Photo.find({
+      description: { $regex: searchingBy, $options: "i" },
+    });
+  } catch (error) {
+    console.log(error);
+  }
+
   res.render("search", {
     pageTitle: "Search",
     searchingBy,
+    photos,
   });
 };
 export const getUpload = (req, res) => {
@@ -79,7 +89,7 @@ export const postEditPhoto = async (req, res) => {
     res.redirect(routes.photoDetail(id));
   } catch (error) {
     console.log(error);
-    res.redirect(rotes.home);
+    res.redirect(routes.home);
   }
 };
 export const deletePhoto = async (req, res) => {
