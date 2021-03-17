@@ -18,6 +18,10 @@ const PHOTO_DETAIL = "/:id";
 const EDIT_PHOTO = "/:id/edit";
 const DELETE_PHOTO = "/:id/delete";
 
+//kakao
+const KAKAO = "/auth/kakao";
+const KAKAO_CALLBACK = "/auth/kakao/callback";
+
 const routes = {
   home: HOME,
   join: JOIN,
@@ -57,6 +61,8 @@ const routes = {
       return DELETE_PHOTO;
     }
   },
+  kakao: KAKAO,
+  kakaoCallback: KAKAO_CALLBACK,
 };
 
 export default routes;

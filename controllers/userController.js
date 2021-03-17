@@ -1,10 +1,12 @@
+import passport from "passport";
 import routes from "../routes";
+import User from "../models/User";
 
 export const getJoin = (req, res) =>
   res.render("join", {
     pageTitle: "Join",
   });
-export const postJoin = (req, res) => {
+export const postJoin = async (req, res, next) => {
   const {
     body: { name, email, password, password2 },
   } = req;
@@ -12,8 +14,17 @@ export const postJoin = (req, res) => {
     res.status(400);
     res.render("join", { pageTitle: "Join" });
   } else {
-    res.redirect(routes.home);
-    //TO DO : register User
+    try {
+      const user = await User({
+        name,
+        email,
+      });
+      await User.register(user, password);
+      next();
+    } catch (error) {
+      console.log(error);
+      res.redirect(routes.home);
+    }
     //TO DO : log User In
   }
 };
@@ -22,9 +33,44 @@ export const getLogin = (req, res) => {
     pageTitle: "LogIn",
   });
 };
-export const postLogin = (req, res) => res.redirect(routes.home);
+export const postLogin = passport.authenticate("local", {
+  failureRedirect: routes.login,
+  successRedirect: routes.home,
+});
+
+export const kakaoLogin = passport.authenticate("kakao");
+
+export const postKakaoLogin = (req, res) => {
+  res.redirect(routes.home);
+};
+
+export const kakaoLoginCallback = async (_, __, profile, done) => {
+  const {
+    _json: { id, properties, kakao_account: kakaoAccount },
+  } = profile;
+  const { email } = kakaoAccount;
+  const { profile_image_url: profileImg, nickname } = properties;
+  try {
+    const user = await User.findOne({ email });
+    if (user) {
+      user.kakaoId = id;
+      user.save();
+      return done(null, user);
+    }
+    const newUser = await User.create({
+      email,
+      name: nickname,
+      kakaoId: id,
+      avatarUrl: profileImg,
+    });
+    return done(null, newUser);
+  } catch (error) {
+    return done(error);
+  }
+};
 
 export const logout = (req, res) => {
+  req.logout();
   //TO DO : process log out
   res.redirect(routes.home);
 };
