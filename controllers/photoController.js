@@ -48,7 +48,6 @@ export const postUpload = async (req, res) => {
     fileUrl: path,
     description,
   });
-  console.log(newPhoto);
   res.redirect(routes.photoDetail(newPhoto.id));
 };
 export const photoDetail = async (req, res) => {
