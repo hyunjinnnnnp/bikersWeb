@@ -25,7 +25,6 @@ export const postJoin = async (req, res, next) => {
       console.log(error);
       res.redirect(routes.home);
     }
-    //TO DO : log User In
   }
 };
 export const getLogin = (req, res) => {
@@ -128,7 +127,6 @@ export const naverLoginCallback = async (_, __, profile, cb) => {
 
 export const logout = (req, res) => {
   req.logout();
-  //TO DO : process log out
   res.redirect(routes.home);
 };
 
@@ -166,8 +164,26 @@ export const postEditProfile = async (req, res) => {
     res.redirect(routes.editProfile);
   }
 };
-export const changePassword = (req, res) => {
+export const getChangePassword = (req, res) => {
   res.render("changePassword", {
     pageTitle: "Change Password",
   });
+};
+export const postChangePassword = async (req, res) => {
+  const {
+    body: { oldPassword, newPassword, newPassword1 },
+  } = req;
+  try {
+    if (newPassword !== newPassword1) {
+      res.status(400);
+      res.redirect(`/users${routes.changePassword}`);
+      return;
+    }
+    await req.user.changePassword(oldPassword, newPassword);
+    res.redirect(routes.me);
+  } catch (error) {
+    console.log(error);
+    res.status(400);
+    res.redirect(`/users${routes.changePassword}`);
+  }
 };

@@ -9,5 +9,6 @@ block content
             .user-profile__btns
                 a(href=`/users${routes.editProfile}`)
                     button Edit Profile
-                a(href=`/users${routes.changePassword}`)
-                    button Change Password
+                if !loggedUser.googleId||loggedUser.kakaoId||loggedUser.naverId
+                    a(href=`/users${routes.changePassword}`)
+                        button Change Password
