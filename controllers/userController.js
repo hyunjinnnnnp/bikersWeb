@@ -68,6 +68,37 @@ export const kakaoLoginCallback = async (_, __, profile, done) => {
     return done(error);
   }
 };
+export const postGoogleLogin = (req, res) => {
+  res.redirect(routes.home);
+};
+export const googleLogin = passport.authenticate("google", {
+  scope: ["profile", "email"],
+});
+
+export const googleLoginCallback = async (_, __, profile, cb) => {
+  const {
+    id,
+    _json: { name, picture: avatarUrl, email },
+  } = profile;
+  try {
+    const user = await User.findOne({ email });
+    if (user) {
+      user.googleId = id;
+      user.save();
+      return cb(null, user);
+    }
+    const newUser = await User.create({
+      email,
+      name,
+      avatarUrl,
+      googleId: id,
+    });
+    return cb(null, newUser);
+  } catch (error) {
+    console.log(error);
+    return cb(error);
+  }
+};
 
 export const logout = (req, res) => {
   req.logout();
@@ -75,15 +106,39 @@ export const logout = (req, res) => {
   res.redirect(routes.home);
 };
 
-export const userDetail = (req, res) => {
-  res.render("userDetail", {
-    pageTitle: "User Detail",
-  });
+export const getMe = (req, res) => {
+  res.render("userDetail", { pageTitle: "Users Detail", user: req.user });
 };
-export const editProfile = (req, res) => {
+export const userDetail = async (req, res) => {
+  const { params: id } = req;
+  try {
+    const user = await User.findById(id);
+    res.render("userDetail", { pageTitle: "User Detail", user });
+  } catch (error) {
+    res.redirect(routes.home);
+  }
+};
+export const getEditProfile = (req, res) => {
   res.render("editProfile", {
     pageTitle: "Edit Profile",
   });
+};
+export const postEditProfile = async (req, res) => {
+  const {
+    body: { name, email },
+    file,
+  } = req;
+  try {
+    await User.findByIdAndUpdate(req.user.id, {
+      name,
+      email,
+      avatarUrl: file ? file.path : req.user.avatarUrl,
+    });
+    res.redirect(routes.me);
+  } catch (error) {
+    console.log(error);
+    res.redirect(routes.editProfile);
+  }
 };
 export const changePassword = (req, res) => {
   res.render("changePassword", {

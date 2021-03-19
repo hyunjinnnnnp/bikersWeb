@@ -6,6 +6,7 @@ const LOGOUT = "/logout";
 const SEARCH = "/search";
 
 //Users
+const ME = "/me";
 const USERS = "/users";
 const EDIT_PROFILE = "/edit-profile";
 const CHANGE_PASSWORD = "/change-password";
@@ -21,6 +22,9 @@ const DELETE_PHOTO = "/:id/delete";
 //kakao
 const KAKAO = "/auth/kakao";
 const KAKAO_CALLBACK = "/auth/kakao/callback";
+
+const GOOGLE = "/auth/google";
+const GOOGLE_CALLBACK = "/auth/google/callback";
 
 const routes = {
   home: HOME,
@@ -63,6 +67,9 @@ const routes = {
   },
   kakao: KAKAO,
   kakaoCallback: KAKAO_CALLBACK,
+  google: GOOGLE,
+  googleCallback: GOOGLE_CALLBACK,
+  me: ME,
 };
 
 export default routes;

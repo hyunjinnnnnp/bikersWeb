@@ -18,11 +18,13 @@ import "./passport";
 
 const app = express();
 
-// const CookieStore = MongoStore(session);
-
 dotenv.config();
 
-app.use(helmet());
+app.use(
+  helmet({
+    contentSecurityPolicy: false,
+  })
+);
 app.set("view engine", "pug");
 app.use("/uploads", express.static("uploads"));
 app.use(express.static(path.join(__dirname, "/src/static")));
