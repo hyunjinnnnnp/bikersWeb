@@ -2,10 +2,12 @@ import dotenv from "dotenv";
 import passport from "passport";
 import KakaoStrategy from "passport-kakao";
 import GoogleStrategy from "passport-google-oauth20";
+import NaverStrategy from "passport-naver";
 import User from "./models/User";
 import {
   kakaoLoginCallback,
   googleLoginCallback,
+  naverLoginCallback,
   // eslint-disable-next-line import/named
 } from "./controllers/userController";
 
@@ -32,6 +34,17 @@ passport.use(
       callbackURL: process.env.GOOGLE_CALLBACK_URL,
     },
     googleLoginCallback
+  )
+);
+
+passport.use(
+  new NaverStrategy(
+    {
+      clientID: process.env.NAVER_ID,
+      clientSecret: process.env.NAVER_SECRET,
+      callbackURL: process.env.NAVER_CALLBACK_URL,
+    },
+    naverLoginCallback
   )
 );
 passport.serializeUser(User.serializeUser());

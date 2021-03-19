@@ -12,6 +12,8 @@ import {
   googleLogin,
   postGoogleLogin,
   getMe,
+  naverLogin,
+  postNaverLogin,
 } from "../controllers/userController";
 import { home, search } from "../controllers/photoController";
 import { onlyPublic, onlyPrivate } from "../middlewares";
@@ -32,6 +34,12 @@ globalRouter.get(
   routes.googleCallback,
   passport.authenticate("google", { failureRedirect: routes.login }),
   postGoogleLogin
+);
+globalRouter.get(routes.naver, naverLogin);
+globalRouter.get(
+  routes.naverCallback,
+  passport.authenticate("naver", { failureRedirect: routes.login }),
+  postNaverLogin
 );
 
 globalRouter.get(routes.join, onlyPublic, getJoin);

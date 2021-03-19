@@ -22,9 +22,12 @@ const DELETE_PHOTO = "/:id/delete";
 //kakao
 const KAKAO = "/auth/kakao";
 const KAKAO_CALLBACK = "/auth/kakao/callback";
-
+//google
 const GOOGLE = "/auth/google";
 const GOOGLE_CALLBACK = "/auth/google/callback";
+//naver
+const NAVER = "/auth/naver";
+const NAVER_CALLBACK = "/auth/naver/callback";
 
 const routes = {
   home: HOME,
@@ -69,6 +72,8 @@ const routes = {
   kakaoCallback: KAKAO_CALLBACK,
   google: GOOGLE,
   googleCallback: GOOGLE_CALLBACK,
+  naver: NAVER,
+  naverCallback: NAVER_CALLBACK,
   me: ME,
 };
 

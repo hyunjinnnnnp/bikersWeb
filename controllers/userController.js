@@ -100,6 +100,32 @@ export const googleLoginCallback = async (_, __, profile, cb) => {
   }
 };
 
+export const naverLogin = passport.authenticate("naver");
+export const postNaverLogin = (req, res) => res.redirect(routes.home);
+export const naverLoginCallback = async (_, __, profile, cb) => {
+  const {
+    _json: { email, nickname: name, profile_image: avatarUrl, id },
+  } = profile;
+  try {
+    const user = await User.findOne({ email });
+    if (user) {
+      user.naverId = id;
+      user.save();
+      return cb(null, user);
+    }
+    const newUser = await User.create({
+      email,
+      name,
+      avatarUrl,
+      naverId: id,
+    });
+    return cb(null, newUser);
+  } catch (error) {
+    console.log(error);
+    return cb(error);
+  }
+};
+
 export const logout = (req, res) => {
   req.logout();
   //TO DO : process log out
