@@ -73,7 +73,14 @@ export const getEditPhoto = async (req, res) => {
   } = req;
   try {
     const photo = await Photo.findById(id);
-    res.render("editPhoto", { pageTitle: "Edit", photo });
+    if (photo.creator !== req.user.id) {
+      throw Error();
+    } else {
+      res.render("editPhoto", {
+        pageTitle: `Edit: ${photo.description}`,
+        photo,
+      });
+    }
   } catch (error) {
     console.log(error);
     res.redirect(routes.home);
@@ -98,7 +105,12 @@ export const deletePhoto = async (req, res) => {
   } = req;
   try {
     //TO DO : uploads/photos 디렉토리 안에 남는 파일 삭제하기
-    await Photo.findOneAndRemove({ _id: id });
+    const photo = await Photo.findById(id);
+    if (photo.creator !== req.user.id) {
+      throw Error();
+    } else {
+      await Photo.findOneAndRemove({ _id: id });
+    }
   } catch (error) {
     console.log(error);
   }
