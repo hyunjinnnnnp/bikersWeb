@@ -5,6 +5,10 @@ const PhotoSchema = new mongoose.Schema({
     type: String,
     required: "File URL is required",
   },
+  creator: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
+  },
   description: String,
   createdAt: {
     type: Date,

@@ -43,11 +43,13 @@ export const postUpload = async (req, res) => {
     body: { description },
     file: { path },
   } = req;
-  // TO DO : DB에 저장시키기
   const newPhoto = await Photo.create({
     fileUrl: path,
     description,
+    creator: req.user.id,
   });
+  req.user.photos.push(newPhoto.id);
+  req.user.save();
   res.redirect(routes.photoDetail(newPhoto.id));
 };
 export const photoDetail = async (req, res) => {
@@ -55,10 +57,9 @@ export const photoDetail = async (req, res) => {
     params: { id },
   } = req;
   try {
-    const photo = await Photo.findById({ _id: id });
-    // TO DO : ID 받아오기
+    const photo = await Photo.findById(id).populate("creator");
     res.render("photoDetail", {
-      pageTitle: `ID: ${photo.description}`,
+      pageTitle: `${photo.creator.name}: ${photo.description}`,
       photo,
     });
   } catch (error) {

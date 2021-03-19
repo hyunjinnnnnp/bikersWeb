@@ -3,8 +3,11 @@ extends layouts/main.pug
 block content
     .photo__container
         img(src=`/${photo.fileUrl}`, alt="Photo")
+    .photo__author
+        a(href=routes.userDetail(photo.creator.id))=photo.creator.name
     .photo__info
-        a(href=routes.editPhoto(photo.id)) Edit
+        if photo.creator.id === loggedUser.id
+            a(href=routes.editPhoto(photo.id)) Edit
         p.photo__description=photo.description
     .photo__comments
         if photo.comments.length === 1 || 0
