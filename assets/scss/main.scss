@@ -3,12 +3,82 @@ body {
   height: 100%;
 }
 body {
-  background-color: $gray;
+  background-color: $white;
   font-family: "Open Sans", sans-serif -apple-system, BlinkMacSystemFont,
     "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue",
     sans-serif;
 }
 main {
   width: 100%;
-  min-height: 70vh;
+  height: 100vh;
+}
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover,
+textarea:-webkit-autofill:focus {
+  background-color: $red;
+  transition: background-color 5000s ease-in-out 0s;
+}
+input:not(.edit-photo-input),
+button,
+textarea {
+  border-bottom: 1px solid $black;
+  background-color: transparent;
+  padding: 3px;
+  color: $black;
+  min-width: 200px;
+  max-width: 300px;
+  margin-bottom: 5px;
+  &::placeholder {
+    color: $black;
+    font-weight: 800px;
+  }
+}
+input[type="submit"] {
+  border: none;
+  padding: 5px 10px;
+}
+button,
+textarea,
+label {
+  padding: 5px 10px;
+  border-style: none;
+  outline: none;
+  font-family: inherit;
+  border: 1px solid $black;
+}
+a:active,
+a:visited,
+a:focus {
+  color: $black;
+}
+
+button,
+a,
+input[type="submit"],
+label:hover {
+  cursor: pointer;
+}
+.author-avatar,
+.no-avatar {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+}
+.no-avatar {
+  background-color: $red;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.author-name {
+  font-size: 14px;
+  font-weight: 800;
+  margin-right: 10px;
+}
+.home__main {
+  padding-top: $headerHeight;
 }

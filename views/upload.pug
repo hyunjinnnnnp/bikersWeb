@@ -1,9 +1,11 @@
 extends layouts/main.pug
 
 block content
-    .form__container
+    .form__container.upload
         form(action=`/photos${routes.upload}`, method="post", enctype="multipart/form-data")
-            label(for="file") Photo
-            input(type="file", id="file", name="file", required=true, accept="image/*, video/*")
-            textarea(placeholder="description", name="description", required=true)
+            label(for="file") 
+                i.xi-camera-o
+                span Click to choose photo
+            input(type="file", id="file", name="file", required=true, accept="image/*")
+            textarea(placeholder="description", name="description", required=true, cols="37", rows="10")
             input(type="submit", value="Upload Photo")

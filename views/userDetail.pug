@@ -1,15 +1,22 @@
 extends layouts/main.pug
+include mixins/photoBlock.pug
 
 block content
-    .user-profile
+    .user-profile__wrapper
         .user-profile__header
-            img.avatar(src=user.avatarUrl)
-            h4.profile__username=user.name
-        .
-        if user.id === loggedUser.id
-            .user-profile__btns
-                a(href=`/users${routes.editProfile}`)
-                    button Edit Profile
-                if !loggedUser.googleId||loggedUser.kakaoId||loggedUser.naverId
-                    a(href=`/users${routes.changePassword}`)
-                        button Change Password
+            .user-info
+                img.avatar(src=user.avatarUrl)
+                h4.profile__username=user.name
+            if user.id === loggedUser.id
+                .user-profile__btns
+                    a(href=`/users${routes.editProfile}`)
+                        button Edit Profile
+                    if !loggedUser.googleId||loggedUser.kakaoId||loggedUser.naverId
+                        a(href=`/users${routes.changePassword}`)
+                            button Change Password
+        .user-profile__photos
+            each item in user.photos
+                a.profile__img(href=routes.photoDetail(item._id))
+                    img(src=item.fileUrl)
+                    .photo-comments-number
+                        .number=item.comments.length

@@ -130,8 +130,17 @@ export const logout = (req, res) => {
   res.redirect(routes.home);
 };
 
-export const getMe = (req, res) => {
-  res.render("userDetail", { pageTitle: "Users Detail", user: req.user });
+export const getMe = async (req, res) => {
+  // eslint-disable-next-line no-underscore-dangle
+  const user = await User.findById(req.user._id).populate("photos");
+  try {
+    res.render("userDetail", {
+      pageTitle: "Users Detail",
+      user,
+    });
+  } catch (error) {
+    res.redirect(routes.home);
+  }
 };
 export const userDetail = async (req, res) => {
   const { params: id } = req;

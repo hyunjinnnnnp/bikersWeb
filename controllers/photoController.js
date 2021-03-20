@@ -3,7 +3,7 @@ import Photo from "../models/Photo";
 
 export const home = async (req, res) => {
   try {
-    const photos = await Photo.find({}).sort({ _id: -1 });
+    const photos = await Photo.find({}).sort({ _id: -1 }).populate("creator");
     res.render("home", {
       pageTitle: "Home",
       photos,
@@ -73,7 +73,7 @@ export const getEditPhoto = async (req, res) => {
   } = req;
   try {
     const photo = await Photo.findById(id);
-    if (photo.creator !== req.user.id) {
+    if (photo.creator.toString() !== req.user.id) {
       throw Error();
     } else {
       res.render("editPhoto", {
@@ -106,7 +106,7 @@ export const deletePhoto = async (req, res) => {
   try {
     //TO DO : uploads/photos 디렉토리 안에 남는 파일 삭제하기
     const photo = await Photo.findById(id);
-    if (photo.creator !== req.user.id) {
+    if (photo.creator.toString() !== req.user.id) {
       throw Error();
     } else {
       await Photo.findOneAndRemove({ _id: id });

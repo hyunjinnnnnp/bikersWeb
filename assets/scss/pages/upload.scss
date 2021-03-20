@@ -1,0 +1,15 @@
+.form__container.upload {
+  form {
+    justify-content: space-around;
+    label {
+      text-transform: uppercase;
+      font-weight: 600;
+      i {
+        margin-right: 5px;
+      }
+    }
+    input[type="file"] {
+      display: hidden;
+    }
+  }
+}

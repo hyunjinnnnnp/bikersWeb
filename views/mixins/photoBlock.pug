@@ -2,4 +2,8 @@ mixin photoBlock(photo = {})
     .photoBlock
         a(href=routes.photoDetail(photo.id))
             img.photoBlock__img(src=photo.fileUrl, alt="img")
+        .photoBlock__info
+            span.author-name=photo.creator
             h6.photoBlock__description=photo.description
+        .add-comment
+            input(type="text", placeholder="Add a Comment")

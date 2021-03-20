@@ -2,10 +2,13 @@ extends layouts/main.pug
 include mixins/photoBlock
 
 block content
-    .photos__container
-        each item in photos
-            +photoBlock({
-                id: item.id,
-                fileUrl: item.fileUrl,
-                description: item.description
-            })
+    .photos__container.home__main
+        if photos
+            each item in photos
+                +photoBlock({
+                    id: item.id,
+                    fileUrl: item.fileUrl,
+                    description: item.description,
+                    avatarUrl: item.creator.avatarUrl,
+                    creator: item.creator.name
+                })

@@ -1,0 +1,10 @@
+.photoBlock {
+  padding: 50px;
+  .photoBlock__img {
+    width: 100%;
+  }
+  .photoBlock__info {
+    display: flex;
+    margin: 10px 0;
+  }
+}

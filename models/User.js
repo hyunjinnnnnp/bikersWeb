@@ -1,10 +1,15 @@
 import mongoose from "mongoose";
 import passportLocalMongoose from "passport-local-mongoose";
+import dotenv from "dotenv";
+dotenv.config();
 
 const UserSchema = new mongoose.Schema({
   name: String,
   email: String,
-  avatarUrl: String,
+  avatarUrl: {
+    type: String,
+    default: "uploads/nonAvatar.png",
+  },
   naverId: Number,
   kakaoId: Number,
   googleId: Number,

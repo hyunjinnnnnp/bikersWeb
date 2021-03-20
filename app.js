@@ -13,7 +13,6 @@ import globalRouter from "./routers/globalRouter";
 import userRouter from "./routers/userRouter";
 import photoRouter from "./routers/photoRouter";
 import { localsMiddleware } from "./middlewares";
-
 import "./passport";
 
 const app = express();
@@ -27,6 +26,7 @@ app.use(
 );
 app.set("view engine", "pug");
 app.use("/uploads", express.static("uploads"));
+app.use(express.static(path.join(__dirname, "uploads")));
 app.use(express.static(path.join(__dirname, "src/static")));
 app.set("views", path.join(__dirname, "views"));
 app.use(cookieParser());

@@ -1,6 +1,13 @@
 @import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700;800&display=swap");
 @import "config/_variables";
-@import "config/reset.scss";
+@import "config/_reset.scss";
 @import "main.scss";
 @import "partials/header.scss";
-@import "pages/home.scss";
+@import "partials/footer.scss";
+@import "partials/form.scss";
+@import "partials/socialLogin.scss";
+@import "pages/upload.scss";
+@import "pages/photoDetail.scss";
+@import "partials/photoBlock.scss";
+@import "pages/userDetail.scss";
+@import "pages/editPhoto.scss";
