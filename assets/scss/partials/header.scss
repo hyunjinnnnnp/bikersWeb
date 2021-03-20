@@ -1,0 +1,19 @@
+.header {
+  position: fixed;
+  width: 100%;
+  height: 55px;
+  background-color: $white;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  ul {
+    display: flex;
+    li:not(:last-child) {
+      margin-right: 15px;
+    }
+  }
+  .header__column {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}

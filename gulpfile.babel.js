@@ -26,7 +26,7 @@ const clean = () => del(["src/static"]);
 const styles = () =>
   gulp
     .src(paths.styles.src)
-    .pipe(sass())
+    .pipe(sass().on("error", sass.logError))
     .pipe(
       autoprefixer({
         cascade: false,

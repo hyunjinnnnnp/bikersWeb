@@ -6,7 +6,7 @@ block content
     .photo__author
         a(href=routes.userDetail(photo.creator.id))=photo.creator.name
     .photo__info
-        if photo.creator.id === loggedUser.id
+        if loggedUser && photo.creator.id === loggedUser.id
             a(href=routes.editPhoto(photo.id)) Edit
         p.photo__description=photo.description
     .photo__comments

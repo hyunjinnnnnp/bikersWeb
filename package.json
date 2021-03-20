@@ -46,5 +46,8 @@
     "eslint-plugin-prettier": "^3.3.1",
     "nodemon": "^2.0.7",
     "prettier": "^2.2.1"
-  }
+  },
+  "browserslist": [
+    "last 2 versions"
+  ]
 }
