@@ -29,6 +29,10 @@ const GOOGLE_CALLBACK = "/auth/google/callback";
 const NAVER = "/auth/naver";
 const NAVER_CALLBACK = "/auth/naver/callback";
 
+//api
+const API = "/api";
+const ADD_COMMENT = "/:id/comment";
+
 const routes = {
   home: HOME,
   join: JOIN,
@@ -75,6 +79,8 @@ const routes = {
   naver: NAVER,
   naverCallback: NAVER_CALLBACK,
   me: ME,
+  api: API,
+  addComment: ADD_COMMENT,
 };
 
 export default routes;

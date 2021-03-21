@@ -14,6 +14,7 @@ import userRouter from "./routers/userRouter";
 import photoRouter from "./routers/photoRouter";
 import { localsMiddleware } from "./middlewares";
 import "./passport";
+import apiRouter from "./routers/apiRouter";
 
 const app = express();
 
@@ -51,5 +52,6 @@ app.use(localsMiddleware);
 app.use(routes.home, globalRouter);
 app.use(routes.users, userRouter);
 app.use(routes.photos, photoRouter);
+app.use(routes.api, apiRouter);
 
 export default app;

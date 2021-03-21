@@ -1,5 +1,6 @@
 import routes from "../routes";
 import Photo from "../models/Photo";
+import Comment from "../models/Comment";
 
 export const home = async (req, res) => {
   try {
@@ -57,7 +58,9 @@ export const photoDetail = async (req, res) => {
     params: { id },
   } = req;
   try {
-    const photo = await Photo.findById(id).populate("creator");
+    const photo = await Photo.findById(id)
+      .populate("creator")
+      .populate("comments");
     res.render("photoDetail", {
       pageTitle: `${photo.creator.name}: ${photo.description}`,
       photo,
@@ -65,6 +68,29 @@ export const photoDetail = async (req, res) => {
   } catch (error) {
     console.log(error);
     res.redirect(routes.home);
+  }
+};
+
+export const postAddComment = async (req, res) => {
+  const {
+    params: { id },
+    body: { comment },
+    user,
+  } = req;
+  try {
+    const photo = await Photo.findById(id);
+    const newComment = await Comment.create({
+      text: comment,
+      creatorId: user.id,
+      creatorName: user.name,
+      creatorAvatar: user.avatarUrl,
+    });
+    photo.comments.push(newComment.id);
+    photo.save();
+  } catch (error) {
+    res.status(400);
+  } finally {
+    res.end();
   }
 };
 export const getEditPhoto = async (req, res) => {

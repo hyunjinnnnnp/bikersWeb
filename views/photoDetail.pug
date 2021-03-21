@@ -15,8 +15,18 @@ block content
             p.photo__description=photo.description
             .photo__comments
                 if photo.comments.length === 1 || 0
-                    span.photo__comment-number #{photo.comments.length} comment
+                    span.photo__comment-number#jsCommentNumber=photo.comments.length
+                    |comment
                 else
-                    span.photo__comment-number #{photo.comments.length} comments
-        .photo-detail__input.add-comment
-            input(type="text", placeholder="Add a Comment")
+                    span.photo__comment-number#jsCommentNumber=photo.comments.length 
+                    |comments
+        .photo-detail__input
+            form.add__comment#jsAddComment
+                input(type="text", placeholder="Add a Comment")
+            ul.photo__coments-list#jsCommentList
+                each comment in photo.comments.reverse()
+                    li
+                        a(href=routes.userDetail(comment.creatorId))
+                            img(src=comment.creatorAvatar)
+                            span=comment.creatorName
+                        span=comment.text

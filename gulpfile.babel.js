@@ -36,7 +36,10 @@ const styles = () =>
     .pipe(gulp.dest(paths.styles.dest));
 
 const js = () =>
-  gulp.src(paths.js.src).pipe(bro()).pipe(gulp.dest(paths.js.dest));
+  gulp
+    .src(paths.js.src)
+    .pipe(bro({ transform: ["babelify"] }))
+    .pipe(gulp.dest(paths.js.dest));
 
 const watchFiles = () => {
   gulp.watch(paths.styles.watch, styles);
