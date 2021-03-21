@@ -93,6 +93,23 @@ export const postAddComment = async (req, res) => {
     res.end();
   }
 };
+export const postEditComment = async (req, res) => {
+  console.log("wliejfliwefjelwi");
+  const {
+    params: { id },
+    body: { editedComment },
+  } = req;
+  try {
+    await Comment.findOneAndUpdate({ _id: id }, { text: editedComment });
+  } catch (error) {
+    res.status(400);
+  } finally {
+    res.end();
+  }
+};
+// export const postDeleteComment = (req, res) => {
+//   console.log("DELETE COMMENT");
+// };
 export const getEditPhoto = async (req, res) => {
   const {
     params: { id },

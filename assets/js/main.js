@@ -1,1 +1,2 @@
 import "./addComment";
+import "./editComment";

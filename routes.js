@@ -32,6 +32,8 @@ const NAVER_CALLBACK = "/auth/naver/callback";
 //api
 const API = "/api";
 const ADD_COMMENT = "/:id/comment";
+const EDIT_COMMENT = "/:id/edit-comment";
+const DELETE_COMMENT = "/:id/delete-comment";
 
 const routes = {
   home: HOME,
@@ -81,6 +83,20 @@ const routes = {
   me: ME,
   api: API,
   addComment: ADD_COMMENT,
+  editComment: (id) => {
+    if (id) {
+      return `/${id}/edit-comment`;
+    } else {
+      return EDIT_COMMENT;
+    }
+  },
+  deleteComment: (id) => {
+    if (id) {
+      return `/${id}/delete-comment`;
+    } else {
+      return DELETE_COMMENT;
+    }
+  },
 };
 
 export default routes;
