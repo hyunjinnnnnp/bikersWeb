@@ -143,7 +143,9 @@ export const getMe = async (req, res) => {
   }
 };
 export const userDetail = async (req, res) => {
-  const { params: id } = req;
+  const {
+    params: { id },
+  } = req;
   try {
     const user = await User.findById(id).populate("photos");
     res.render("userDetail", { pageTitle: "User Detail", user });

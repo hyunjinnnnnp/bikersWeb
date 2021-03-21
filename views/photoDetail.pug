@@ -27,7 +27,7 @@ block content
                 each comment in photo.comments.reverse()
                     li
                         a(href=routes.userDetail(comment.creatorId))
-                            img(src=comment.creatorAvatar)
+                            img(src=comment.creatorAvatar.includes("http") ? comment.creatorAvatar : `../${comment.creatorAvatar }`)
                             span=comment.creatorName
                         span#jsCurrentComment.show-element=comment.text
                         form#jsEditCommentForm.hide-element
