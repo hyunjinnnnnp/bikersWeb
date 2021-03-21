@@ -94,7 +94,6 @@ export const postAddComment = async (req, res) => {
   }
 };
 export const postEditComment = async (req, res) => {
-  console.log("wliejfliwefjelwi");
   const {
     params: { id },
     body: { editedComment },
@@ -107,9 +106,24 @@ export const postEditComment = async (req, res) => {
     res.end();
   }
 };
-// export const postDeleteComment = (req, res) => {
-//   console.log("DELETE COMMENT");
-// };
+export const postDeleteComment = async (req, res) => {
+  //TO DO : find photo's comment list and delete comment
+  const {
+    body: { commentId, photoId },
+  } = req;
+  try {
+    await Comment.findOneAndDelete({ _id: commentId });
+    const photo = await Photo.findById(photoId).populate("comment");
+    console.log(photo.comments.length);
+    photo.comments.pull({ _id: commentId });
+    photo.save();
+    console.log(photo.comments.length);
+  } catch (error) {
+    res.status(400);
+  } finally {
+    res.end();
+  }
+};
 export const getEditPhoto = async (req, res) => {
   const {
     params: { id },

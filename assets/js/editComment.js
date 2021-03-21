@@ -7,16 +7,6 @@ let editForm;
 let currentComment;
 let editIcon;
 
-const toggleShowing = (elem) => {
-  if (elem.classList.contains("show-element")) {
-    elem.classList.remove("show-element");
-    elem.classList.add("hide-element");
-  } else if (elem.classList.contains("hide-element")) {
-    elem.classList.remove("hide-element");
-    elem.classList.add("show-element");
-  }
-};
-
 const edit = (editedComment) => {
   //   currentComment = `me: ${editedComment}`;
   console.log(editIcon, currentComment, editForm);
@@ -48,6 +38,16 @@ const handleSubmit = (event) => {
   const editedComment = commentInput.value;
   sendComment(editedComment);
   commentInput.value = "";
+};
+
+const toggleShowing = (elem) => {
+  if (elem.classList.contains("show-element")) {
+    elem.classList.remove("show-element");
+    elem.classList.add("hide-element");
+  } else if (elem.classList.contains("hide-element")) {
+    elem.classList.remove("hide-element");
+    elem.classList.add("show-element");
+  }
 };
 
 const handleClick = (event) => {

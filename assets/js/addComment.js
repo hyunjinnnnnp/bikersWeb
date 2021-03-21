@@ -17,7 +17,8 @@ const addComment = (comment) => {
 };
 
 const sendComment = async (comment) => {
-  const photoId = window.location.href.split("/photos/")[1];
+  const photoId = window.location.pathname.split("/")[2];
+
   const response = await axios({
     url: `/api/${photoId}/comment`,
     method: "POST",
