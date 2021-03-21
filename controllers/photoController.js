@@ -56,6 +56,7 @@ export const postUpload = async (req, res) => {
 export const photoDetail = async (req, res) => {
   const {
     params: { id },
+    user,
   } = req;
   try {
     const photo = await Photo.findById(id)
@@ -64,6 +65,7 @@ export const photoDetail = async (req, res) => {
     res.render("photoDetail", {
       pageTitle: `${photo.creator.name}: ${photo.description}`,
       photo,
+      user,
     });
   } catch (error) {
     console.log(error);
@@ -107,7 +109,6 @@ export const postEditComment = async (req, res) => {
   }
 };
 export const postDeleteComment = async (req, res) => {
-  //TO DO : find photo's comment list and delete comment
   const {
     body: { commentId, photoId },
   } = req;

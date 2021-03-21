@@ -22,6 +22,7 @@ block content
                     |comments
         .photo-detail__input
             form.add__comment#jsAddComment
+                img(src=user.avatarUrl.includes("http") ? user.avatarUrl : `../${user.avatarUrl}`)#jsAvatarElement
                 input(type="text", placeholder="Add a Comment")
             ul.photo__coments-list#jsCommentList
                 each comment in photo.comments.reverse()
