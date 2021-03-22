@@ -3,11 +3,17 @@ import Photo from "../models/Photo";
 import Comment from "../models/Comment";
 
 export const home = async (req, res) => {
+  const { user } = req;
   try {
-    const photos = await Photo.find({}).sort({ _id: -1 }).populate("creator");
+    const photos = await Photo.find({})
+      .sort({ _id: -1 })
+      .populate("creator")
+      .populate("comments");
+
     res.render("home", {
       pageTitle: "Home",
       photos,
+      user,
     });
   } catch (error) {
     console.log(error);
@@ -115,10 +121,8 @@ export const postDeleteComment = async (req, res) => {
   try {
     await Comment.findOneAndDelete({ _id: commentId });
     const photo = await Photo.findById(photoId).populate("comment");
-    console.log(photo.comments.length);
     photo.comments.pull({ _id: commentId });
     photo.save();
-    console.log(photo.comments.length);
   } catch (error) {
     res.status(400);
   } finally {

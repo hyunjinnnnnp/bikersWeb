@@ -1,0 +1,13 @@
+mixin commentBlock(comment = {})
+    li
+        a(href=routes.userDetail(comment.creatorId))
+            img(src=comment.creatorAvatar.includes("http") ? comment.creatorAvatar : `../${comment.creatorAvatar }`)
+            span=comment.creatorName
+        span#jsCurrentComment.show-element=comment.text
+        form#jsEditCommentForm.hide-element
+                input(type="text", value=comment.text)
+        if loggedUser && comment.creatorId == loggedUser.id
+            a(href=`/api${routes.editComment(comment._id)}`)#jsEditComment.show-element
+                i.xi-pen-o
+            a(href=`/api${routes.deleteComment(comment._id)}`)#jsDeleteComment
+                i.xi-close-circle-o

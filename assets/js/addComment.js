@@ -1,15 +1,17 @@
 import axios from "axios";
 
-const addCommentForm = document.querySelector("#jsAddComment");
-const commentList = document.querySelector("#jsCommentList");
-const commentNumber = document.querySelector("#jsCommentNumber");
-const avatarElement = document.querySelector("#jsAvatarElement");
+const addCommentForms = document.querySelectorAll("#jsAddComment");
+
+let targetPhotoBlock;
 
 const increaseNumber = () => {
+  const commentNumber = targetPhotoBlock.querySelector("#jsCommentNumber");
   commentNumber.innerHTML = parseInt(commentNumber.innerHTML, 10) + 1;
 };
 const addComment = (comment) => {
+  const avatarElement = document.querySelector("#jsAvatarElement");
   const avatarUrl = avatarElement.getAttribute("src");
+  const commentList = targetPhotoBlock.querySelector("#jsCommentList");
   const li = document.createElement("li");
   const img = document.createElement("img");
   const span = document.createElement("span");
@@ -22,7 +24,17 @@ const addComment = (comment) => {
 };
 
 const sendComment = async (comment) => {
-  const photoId = window.location.pathname.split("/")[2];
+  const urlPath = window.location.pathname;
+  let photoId;
+  if (urlPath === "/") {
+    const a = targetPhotoBlock.querySelector("a");
+    // eslint-disable-next-line prefer-destructuring
+    photoId = a.getAttribute("href").split("/")[2];
+    console.log(photoId);
+  } else {
+    // eslint-disable-next-line prefer-destructuring
+    photoId = window.location.pathname.split("/")[2];
+  }
   const response = await axios({
     url: `/api/${photoId}/comment`,
     method: "POST",
@@ -37,15 +49,18 @@ const sendComment = async (comment) => {
 
 const handleSubmit = (event) => {
   event.preventDefault();
-  const commentInput = addCommentForm.querySelector("input");
-  const comment = commentInput.value;
+  const currentInput = event.currentTarget.querySelector("input");
+  targetPhotoBlock = currentInput.parentNode.parentNode.parentNode;
+  const comment = currentInput.value;
   sendComment(comment);
-  commentInput.value = "";
+  currentInput.value = "";
 };
 
 function init() {
-  addCommentForm.addEventListener("submit", handleSubmit);
+  addCommentForms.forEach((form) =>
+    form.addEventListener("submit", handleSubmit)
+  );
 }
-if (addCommentForm) {
+if (addCommentForms) {
   init();
 }

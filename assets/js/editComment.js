@@ -21,6 +21,7 @@ const edit = (editedComment) => {
 const sendComment = async (editedComment) => {
   const a = selectedList.querySelector("#jsEditComment");
   const url = a.getAttribute("href");
+
   const response = await axios({
     url,
     method: "POST",
@@ -36,6 +37,7 @@ const handleSubmit = (event) => {
   event.preventDefault();
   const commentInput = editForm.querySelector("input");
   const editedComment = commentInput.value;
+  console.log(editedComment);
   sendComment(editedComment);
   commentInput.value = "";
 };
