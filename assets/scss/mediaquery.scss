@@ -1,0 +1,14 @@
+@media all and (max-width: 767px) {
+  /* ~ 767px */
+  /*모바일*/
+}
+
+@media all and (min-width: 768px) and (max-width: 1023px) {
+  /*768px ~ 1023px */
+  /*태블릿*/
+}
+/* 766 이하의 작은 화면에서 적용할 내용을 적습니다. */
+
+@media all and (min-width: 1023px) {
+  /*1024 이상부터 작동하는 내용 (데스크탑)*/
+}

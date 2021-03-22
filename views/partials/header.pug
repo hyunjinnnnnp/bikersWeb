@@ -4,7 +4,7 @@ header.header
     .header__column
         form(action=routes.search, method="get")
             input(type="text", placeholder="Search", name="term")
-    .header__column
+    .header__column#jsUserNav
         ul
             if !loggedUser
                 li
