@@ -2,7 +2,7 @@ extends layouts/main.pug
 include mixins/photoBlock
 
 block content
-    .photos__container.home__main
+    .home__main
         if photos
             each item in photos
                 +photoBlock({
@@ -10,6 +10,7 @@ block content
                     fileUrl: item.fileUrl,
                     description: item.description,
                     avatarUrl: item.creator.avatarUrl,
+                    creatorId: item.creator._id,
                     creator: item.creator.name,
                     comments: item.comments
                 })

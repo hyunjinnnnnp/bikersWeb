@@ -1,0 +1,31 @@
+.commentBlock {
+  padding: 0.5rem 1rem;
+  display: flex;
+  .commentBlock__contents {
+    word-break: break-all;
+    color: $white;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+  }
+  .commentBlock__icons span {
+    margin-right: 0.5rem;
+    color: $gray;
+    font-weight: 800;
+  }
+}
+
+.show-element {
+  display: inline;
+}
+.hide-element {
+  display: none;
+}
+.fake-comment {
+  padding: 0.5rem 1rem;
+  color: $white;
+  word-break: break-all;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  display: flex;
+  align-items: center;
+}

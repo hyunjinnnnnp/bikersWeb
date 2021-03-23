@@ -14,8 +14,12 @@ const addComment = (comment) => {
   const commentList = targetPhotoBlock.querySelector("#jsCommentList");
   const li = document.createElement("li");
   const img = document.createElement("img");
+  //TO DO : 작성자 이름 추가 클래스 추가
+  // const name = document.createElement("span");
   const span = document.createElement("span");
   img.setAttribute("src", avatarUrl);
+  img.classList.add("author-avatar");
+  li.classList.add("fake-comment");
   span.innerHTML = comment;
   li.appendChild(img);
   li.appendChild(span);
@@ -30,7 +34,6 @@ const sendComment = async (comment) => {
     const a = targetPhotoBlock.querySelector("a");
     // eslint-disable-next-line prefer-destructuring
     photoId = a.getAttribute("href").split("/")[2];
-    console.log(photoId);
   } else {
     // eslint-disable-next-line prefer-destructuring
     photoId = window.location.pathname.split("/")[2];

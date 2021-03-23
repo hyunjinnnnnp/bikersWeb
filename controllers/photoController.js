@@ -17,7 +17,7 @@ export const home = async (req, res) => {
     });
   } catch (error) {
     console.log(error);
-    res.render("home", { pageTitle: "Home", photos: [] });
+    res.render("home", { pageTitle: "Home", photos: [], user });
   }
 };
 
@@ -119,8 +119,9 @@ export const postDeleteComment = async (req, res) => {
     body: { commentId, photoId },
   } = req;
   try {
+    console.log(commentId, photoId);
     await Comment.findOneAndDelete({ _id: commentId });
-    const photo = await Photo.findById(photoId).populate("comment");
+    const photo = await Photo.findById(photoId).populate("comments");
     photo.comments.pull({ _id: commentId });
     photo.save();
   } catch (error) {

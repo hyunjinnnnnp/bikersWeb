@@ -23,13 +23,13 @@ block content
         .photo-detail__input
             if user
                 form.add__comment#jsAddComment
-                    img(src=user.avatarUrl.includes("http") ? user.avatarUrl : `../${user.avatarUrl}`)#jsAvatarElement
+                    img(src=user.avatarUrl.includes("http") ? user.avatarUrl : `../${user.avatarUrl}`)#jsAvatarElement.author-avatar
                     input(type="text", placeholder="Add a Comment")
             ul.photo__coments-list#jsCommentList
                 each comment in photo.comments.reverse()
                     li
                         a(href=routes.userDetail(comment.creatorId))
-                            img(src=comment.creatorAvatar.includes("http") ? comment.creatorAvatar : `../${comment.creatorAvatar }`)
+                            img(src=comment.creatorAvatar.includes("http") ? comment.creatorAvatar : `../${comment.creatorAvatar }`).author-avatar
                             span=comment.creatorName
                         span#jsCurrentComment.show-element=comment.text
                         form#jsEditCommentForm.hide-element

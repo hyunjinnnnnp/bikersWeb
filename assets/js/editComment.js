@@ -1,29 +1,30 @@
 import axios from "axios";
 
 const editCommentElems = document.querySelectorAll("#jsEditComment");
-
 let selectedList;
 let editForm;
 let currentComment;
 let editIcon;
+let deleteIcon;
 
 const edit = (editedComment) => {
-  //   currentComment = `me: ${editedComment}`;
-  console.log(editIcon, currentComment, editForm);
-  //form 없애고 span 추가
-  const elem = document.createElement("span");
-  elem.innerHTML = editedComment;
-  selectedList.insertBefore(elem, editIcon);
+  const span = document.createElement("span");
+  span.innerHTML = editedComment;
+  const parent = selectedList.querySelector(".commentBlock__contents");
+  parent.appendChild(span);
   editForm.classList.remove("show-element");
   editForm.classList.add("hide-element");
+  editIcon.classList.remove("hide-element");
+  editIcon.classList.add("show-element");
+  deleteIcon.classList.remove("hide-element");
+  deleteIcon.classList.add("show-element");
 };
 
 const sendComment = async (editedComment) => {
   const a = selectedList.querySelector("#jsEditComment");
-  const url = a.getAttribute("href");
-
+  const commentId = a.getAttribute("href");
   const response = await axios({
-    url,
+    url: commentId,
     method: "POST",
     data: {
       editedComment,
@@ -37,11 +38,9 @@ const handleSubmit = (event) => {
   event.preventDefault();
   const commentInput = editForm.querySelector("input");
   const editedComment = commentInput.value;
-  console.log(editedComment);
   sendComment(editedComment);
   commentInput.value = "";
 };
-
 const toggleShowing = (elem) => {
   if (elem.classList.contains("show-element")) {
     elem.classList.remove("show-element");
@@ -51,16 +50,17 @@ const toggleShowing = (elem) => {
     elem.classList.add("show-element");
   }
 };
-
 const handleClick = (event) => {
   event.preventDefault();
-  selectedList = event.currentTarget.parentNode;
+  selectedList = event.currentTarget.parentNode.parentNode;
   editForm = selectedList.querySelector("#jsEditCommentForm");
   currentComment = selectedList.querySelector("#jsCurrentComment");
   editIcon = event.currentTarget;
+  deleteIcon = editIcon.nextSibling;
   toggleShowing(editForm);
   toggleShowing(currentComment);
   toggleShowing(editIcon);
+  toggleShowing(deleteIcon);
   editForm.addEventListener("submit", handleSubmit);
 };
 

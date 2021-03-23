@@ -3,14 +3,15 @@ import axios from "axios";
 const deleteBtns = document.querySelectorAll("#jsDeleteComment");
 let selectedBtn;
 let targetPhotoBlock;
+let deletedList;
+let parent;
 
 const decreaseNumber = () => {
   const commentNumber = targetPhotoBlock.querySelector("#jsCommentNumber");
   commentNumber.innerText = parseInt(commentNumber.innerText, 10) - 1;
 };
 const hideElement = () => {
-  const deletedList = selectedBtn.parentNode;
-  deletedList.parentNode.removeChild(deletedList);
+  parent.removeChild(deletedList);
   decreaseNumber();
 };
 const deleteComment = async (url) => {
@@ -39,8 +40,8 @@ const deleteComment = async (url) => {
 };
 const handleClick = (event) => {
   event.preventDefault();
+  [, , , , deletedList, parent, targetPhotoBlock] = event.path;
   selectedBtn = event.currentTarget;
-  targetPhotoBlock = selectedBtn.parentNode.parentNode.parentNode;
   const targetCommentUrl = selectedBtn.getAttribute("href");
   deleteComment(targetCommentUrl);
 };

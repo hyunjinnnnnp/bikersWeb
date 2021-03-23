@@ -2,25 +2,20 @@ include commentBlock.pug
 
 mixin photoBlock(photo = {})
     .photoBlock
-        a(href=routes.photoDetail(photo.id))
-            img.photoBlock__img(src=photo.fileUrl, alt="img")
+        a.photoBlock__img(href=routes.photoDetail(photo.id))
+            img(src=photo.fileUrl, alt="img")
         .photoBlock__info
-            span.author-name=photo.creator
-            h6.photoBlock__description=photo.description
-            .photo__comments
-                if photo.comments.length === 1 || 0
-                    span.photo__comment-number#jsCommentNumber=photo.comments.length
-                    |comment
-                else
-                    span.photo__comment-number#jsCommentNumber=photo.comments.length 
-                    |comments
-        .photo-detail__input
+            a.author-info(href=routes.userDetail(photo.creatorId))
+                img.author-avatar(src=photo.avatarUrl)
+                span.author-name=photo.creator
+            h6.photo-description=photo.description
+        .photoBlock__input
             if user
-                form.add__comment#jsAddComment
-                    img(src=user.avatarUrl.includes("http") ? user.avatarUrl : `../${user.avatarUrl}`)#jsAvatarElement
+                form.add-comment-form#jsAddComment
+                    img.author-avatar(src=user.avatarUrl.includes("http") ? user.avatarUrl : `../${user.avatarUrl}`)#jsAvatarElement
                     input(type="text", placeholder="Add a Comment")
-        ul.photo__coments-list#jsCommentList
-            each item in photo.comments
+        ul.photoBlock__coments-list#jsCommentList
+            each item in photo.comments.reverse()
                 +commentBlock({
                     creatorId: item.creatorId,
                     creatorAvatar: item.creatorAvatar,
@@ -28,3 +23,10 @@ mixin photoBlock(photo = {})
                     text: item.text,
                     _id: item._id
                 })
+        .info__comments-number
+            if photo.comments.length === 1 || 0
+                span.comments__comment-number#jsCommentNumber=photo.comments.length
+                | comment
+            else
+                span.comments__comment-number#jsCommentNumber=photo.comments.length 
+                | comments
