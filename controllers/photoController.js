@@ -9,7 +9,6 @@ export const home = async (req, res) => {
       .sort({ _id: -1 })
       .populate("creator")
       .populate("comments");
-
     res.render("home", {
       pageTitle: "Home",
       photos,
@@ -85,6 +84,8 @@ export const postAddComment = async (req, res) => {
     body: { comment },
     user,
   } = req;
+
+  let commentId;
   try {
     const photo = await Photo.findById(id);
     const newComment = await Comment.create({
@@ -93,7 +94,11 @@ export const postAddComment = async (req, res) => {
       creatorName: user.name,
       creatorAvatar: user.avatarUrl,
     });
-    photo.comments.push(newComment.id);
+    // eslint-disable-next-line no-underscore-dangle
+    commentId = await newComment._id;
+    photo.comments.push(commentId);
+    res.json(commentId);
+    console.log(`comment: ${comment}, commentId: ${commentId}`);
     photo.save();
   } catch (error) {
     res.status(400);
@@ -119,7 +124,6 @@ export const postDeleteComment = async (req, res) => {
     body: { commentId, photoId },
   } = req;
   try {
-    console.log(commentId, photoId);
     await Comment.findOneAndDelete({ _id: commentId });
     const photo = await Photo.findById(photoId).populate("comments");
     photo.comments.pull({ _id: commentId });

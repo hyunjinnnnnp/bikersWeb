@@ -1,41 +1,49 @@
 extends layouts/main.pug
+include ./mixins/commentBlock.pug
 
 block content
     .photo-detail__container
         .photo-detail__img
             img(src=`/${photo.fileUrl}`, alt="Photo")
         .photo-detail__info
-            .photo__author
-                a(href=routes.userDetail(photo.creator.id))
-                    img.author-avatar(src=`${photo.creator.avatarUrl.includes("https") ? photo.creator.avatarUrl : `../${photo.creator.avatarUrl}`}`)
-                    .author-name=photo.creator.name
-                .author-edit
-                    if loggedUser && photo.creator.id === loggedUser.id
-                        a(href=routes.editPhoto(photo.id)) Edit
-            p.photo__description=photo.description
-            .photo__comments
-                if photo.comments.length === 1 || 0
-                    span.photo__comment-number#jsCommentNumber=photo.comments.length
-                    |comment
-                else
-                    span.photo__comment-number#jsCommentNumber=photo.comments.length 
-                    |comments
+            a.author-info(href=routes.userDetail(photo.creator.id))
+                img.author-avatar(src=`${photo.creator.avatarUrl.includes("https") ? photo.creator.avatarUrl : `../${photo.creator.avatarUrl}`}`)
+                span.author-name=photo.creator.name
+            h6.photo__description=photo.description
         .photo-detail__input
-            if user
-                form.add__comment#jsAddComment
-                    img(src=user.avatarUrl.includes("http") ? user.avatarUrl : `../${user.avatarUrl}`)#jsAvatarElement.author-avatar
+            if loggedUser
+                form.add-comment-form#jsAddComment
+                    img.author-avatar(src=user.avatarUrl.includes("http") ? user.avatarUrl : `../${user.avatarUrl}`)#jsAvatarElement
                     input(type="text", placeholder="Add a Comment")
-            ul.photo__coments-list#jsCommentList
-                each comment in photo.comments.reverse()
-                    li
-                        a(href=routes.userDetail(comment.creatorId))
-                            img(src=comment.creatorAvatar.includes("http") ? comment.creatorAvatar : `../${comment.creatorAvatar }`).author-avatar
-                            span=comment.creatorName
-                        span#jsCurrentComment.show-element=comment.text
-                        form#jsEditCommentForm.hide-element
-                                input(type="text", value=comment.text)
-                        if loggedUser && comment.creatorId == loggedUser.id
-                            a(href=`/api${routes.editComment(comment._id)}`)#jsEditComment.show-element
-                                i.xi-pen-o
-                            a(href=`/api${routes.deleteComment(comment._id)}`)#jsDeleteComment
-                                i.xi-close-circle-o
+        ul.photoDetail__coments-list#jsCommentList
+            #jsFakeBlock.hide-element
+                .commentBlock__column
+                    a.commentBlock__link(href=routes.me)
+                        img.author-avatar
+                .commentBlock__column
+                    .commentBlock__contents
+                        span.author-name
+                        span.text#jsCurrentComment.show-element
+                    form.commentBlock__edit-form#jsEditCommentForm.hide-element
+                        input(type="text")
+                    if loggedUser && photo.comments
+                        .commentBlock__icons
+                            a(href="")#jsEditComment.show-element
+                                span edit
+                            a(href="")#jsDeleteComment.show-element
+                                span delete
+            each item in photo.comments.reverse()
+                +commentBlock({
+                creatorId: item.creatorId,
+                creatorAvatar: item.creatorAvatar,
+                creatorName: item.creatorName,
+                text: item.text,
+                _id: item._id
+            })
+        .info__comments-number
+            if photo.comments.length === 1 || 0
+                span.comments__comment-number#jsCommentNumber=photo.comments.length
+                | comment
+            else
+                span.comments__comment-number#jsCommentNumber=photo.comments.length 
+                | comments
