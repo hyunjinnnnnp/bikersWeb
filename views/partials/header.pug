@@ -5,22 +5,22 @@ header.header
     .header__column
         form(action=routes.search, method="get")
             input(type="text", placeholder="Search", name="term")
-    .header__column.drop-down#jsDropDown
-        if !loggedUser
+    if !loggedUser    
+        .header__column.drop-down#jsDropDown
             i.xi-bars.dropBtns
             ul.header__unknown-user-nav.drop-down-content#jsDropDownContent
                 li#jsDropDownList
                     a(href=routes.join) Join
                 li#jsDropDownList
                     a(href=routes.login) Login
-        else
-            ul.header__logged-in-user-nav
-                li
-                    a(href=`/photos${routes.upload}`) 
-                        i.xi-plus-square-o
-                li
-                    a(href=routes.me)
-                        img.avatar#userAvatar(src=userAvatar.includes('http') ? userAvatar : `../../${userAvatar}`)
-                        #jsUserInfo
-                            span#userName=userName
-                            span#userId=userId
+    else
+        ul.header__logged-in-user-nav
+            li
+                a(href=`/photos${routes.upload}`) 
+                    i.xi-plus-square-o
+            li
+                a(href=routes.me)
+                    img.avatar#userAvatar(src=userAvatar.includes('http') ? userAvatar : `../../${userAvatar}`)
+                    #jsUserInfo
+                        span#userName=userName
+                        span#userId=userId
