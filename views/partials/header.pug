@@ -7,11 +7,11 @@ header.header
             input(type="text", placeholder="Search", name="term")
     .header__column.drop-down#jsDropDown
         if !loggedUser
-            i.xi-bars#jsDropDownBtn
+            i.xi-bars.dropBtns
             ul.header__unknown-user-nav.drop-down-content#jsDropDownContent
-                li
+                li#jsDropDownList
                     a(href=routes.join) Join
-                li
+                li#jsDropDownList
                     a(href=routes.login) Login
         else
             ul.header__logged-in-user-nav

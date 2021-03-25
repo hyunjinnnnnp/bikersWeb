@@ -1,18 +1,17 @@
 const dropDown = document.querySelector("#jsDropDown");
+const dropBtn = dropDown.querySelector("i");
 const dropDownContent = dropDown.querySelector("#jsDropDownContent");
 
 const handleHover = (event) => {
-  // event.preventDefault();
-  // event.stopPropagation();
   dropDownContent.classList.toggle("dropdown-show");
-  const [a] = event.path;
-  if (a.tagName === `A`) {
-    console.log(event.path);
+  if (event.target !== dropBtn) {
+    if (dropDownContent.classList.contains("drop-down-show"))
+      dropDownContent.classList.remove("dropdown-show");
   }
 };
 
 function init() {
-  dropDown.addEventListener("click", handleHover);
+  window.addEventListener("click", handleHover);
 }
 
 if (dropDown) {
