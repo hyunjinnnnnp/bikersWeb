@@ -9,7 +9,14 @@
       }
     }
     input[type="file"] {
-      display: hidden;
+      display: none;
+    }
+    .upload__file-preview {
+      height: 60%;
+      img {
+        width: 80%;
+        max-height: 100%;
+      }
     }
   }
 }

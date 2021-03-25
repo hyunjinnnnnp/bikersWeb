@@ -28,12 +28,12 @@ textarea:-webkit-autofill:focus {
 input:not(.edit-photo-input),
 button,
 textarea {
+  resize: none;
   border-bottom: 0.1rem solid $gray;
   background-color: transparent;
   padding: 0.5rem;
   color: $gray;
-  min-width: 20rem;
-
+  width: 80%;
   &::placeholder {
     color: $gray;
     font-weight: 600;
