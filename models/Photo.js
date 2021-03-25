@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 const PhotoSchema = new mongoose.Schema({
   fileUrl: {
-    type: String,
+    type: Array,
     required: "File URL is required",
   },
   creator: {

@@ -12,7 +12,7 @@ import routes from "./routes";
 import globalRouter from "./routers/globalRouter";
 import userRouter from "./routers/userRouter";
 import photoRouter from "./routers/photoRouter";
-import { localsMiddleware, userInfo } from "./middlewares";
+import { localsMiddleware } from "./middlewares";
 import "./passport";
 import apiRouter from "./routers/apiRouter";
 

@@ -51,16 +51,22 @@ export const getUpload = (req, res) => {
 export const postUpload = async (req, res) => {
   const {
     body: { description },
-    file: { path },
+    files,
   } = req;
-  const newPhoto = await Photo.create({
-    fileUrl: path,
-    description,
-    creator: req.user.id,
-  });
-  req.user.photos.push(newPhoto.id);
-  req.user.save();
-  res.redirect(routes.photoDetail(newPhoto.id));
+  const fileUrl = files.map((file) => file.path);
+  try {
+    const newPhoto = await Photo.create({
+      fileUrl,
+      description,
+      creator: req.user.id,
+    });
+    req.user.photos.push(newPhoto.id);
+    req.user.save();
+    res.redirect(routes.photoDetail(newPhoto.id));
+  } catch (error) {
+    console.log(error);
+    res.redirect(routes.upload);
+  }
 };
 export const photoDetail = async (req, res) => {
   const {
