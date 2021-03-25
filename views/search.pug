@@ -1,6 +1,6 @@
 extends layouts/main.pug
 include mixins/photoBlock
-
+//-TO DO : 커맨트 리스트, fake 커맨트 추가
 block content
     .search__header
         h3 Searching For: #{searchingBy}
@@ -9,7 +9,10 @@ block content
             h5 No Photos Found
         each item in photos
             +photoBlock({
+                id: item.id,
                 fileUrl: item.fileUrl,
                 description: item.description,
-                id: item.id
+                avatarUrl: item.creator.avatarUrl,
+                creatorId: item.creator._id,
+                comments: item.comments
             })

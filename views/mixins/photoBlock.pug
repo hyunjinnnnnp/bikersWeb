@@ -12,6 +12,7 @@ mixin photoBlock(photo = {})
         .photoBlock__input
             if loggedUser
                 form.add-comment-form#jsAddComment
+                    //- ERROR: SEARCH PAGE -//
                     img.author-avatar(src=user.avatarUrl.includes("http") ? user.avatarUrl : `../${user.avatarUrl}`)#jsAvatarElement
                     input(type="text", placeholder="Add a Comment")
         ul.photoBlock__coments-list#jsCommentList
@@ -31,14 +32,15 @@ mixin photoBlock(photo = {})
                                 span edit
                             a(href="")#jsDeleteComment.show-element
                                 span delete
-            each item in photo.comments.reverse()
-                +commentBlock({
-                    creatorId: item.creatorId,
-                    creatorAvatar: item.creatorAvatar,
-                    creatorName: item.creatorName,
-                    text: item.text,
-                    _id: item._id
-                })
+            if photos.length > 1
+                each item in photo.comments.reverse()
+                    +commentBlock({
+                        creatorId: item.creatorId,
+                        creatorAvatar: item.creatorAvatar,
+                        creatorName: item.creatorName,
+                        text: item.text,
+                        _id: item._id
+                    })
         .info__comments-number
             if photo.comments.length === 1 || 0
                 span.comments__comment-number#jsCommentNumber=photo.comments.length

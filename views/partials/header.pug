@@ -1,24 +1,26 @@
 header.header
     .header__column
-        a(href=routes.home) 🏍
+        a(href=routes.home)
+            | Bikers
     .header__column
         form(action=routes.search, method="get")
             input(type="text", placeholder="Search", name="term")
-    .header__column#jsUserNav
-        ul
-            if !loggedUser
+    .header__column.drop-down#jsDropDown
+        if !loggedUser
+            i.xi-bars#jsDropDownBtn
+            ul.header__unknown-user-nav.drop-down-content#jsDropDownContent
                 li
                     a(href=routes.join) Join
                 li
-                    a(href=routes.login) Log In
-            else
+                    a(href=routes.login) Login
+        else
+            ul.header__logged-in-user-nav
                 li
-                    a(href=`/photos${routes.upload}`) Upload
+                    a(href=`/photos${routes.upload}`) 
+                        i.xi-plus-square-o
                 li
                     a(href=routes.me)
-                        if loggedUser
+                        img.avatar#userAvatar(src=userAvatar.includes('http') ? userAvatar : `../../${userAvatar}`)
+                        #jsUserInfo
                             span#userName=userName
-                            img.avatar#userAvatar(src=userAvatar.includes('http') ? userAvatar : `../../${userAvatar}`)
                             span#userId=userId
-                li
-                    a(href=routes.logout) Log Out

@@ -22,22 +22,26 @@ export const home = async (req, res) => {
 
 export const search = async (req, res) => {
   const {
+    user,
     query: { term: searchingBy },
   } = req;
-  let photos = [];
   try {
-    photos = await Photo.find({
+    const photos = await Photo.find({
       description: { $regex: searchingBy, $options: "i" },
+    })
+      .sort({ _id: -1 })
+      .populate("comments")
+      .populate("creator");
+    res.render("search", {
+      pageTitle: "Search",
+      searchingBy,
+      photos,
+      user,
     });
   } catch (error) {
     console.log(error);
+    res.render("home", { pageTitle: "Home", photos: [], user });
   }
-
-  res.render("search", {
-    pageTitle: "Search",
-    searchingBy,
-    photos,
-  });
 };
 export const getUpload = (req, res) => {
   res.render("upload", {

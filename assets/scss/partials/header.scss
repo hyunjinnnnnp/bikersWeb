@@ -1,23 +1,57 @@
 .header {
+  position: fixed;
+
+  & > * {
+    color: $white;
+  }
+  ul {
+    a {
+      color: $white;
+      font-size: 1.5rem;
+    }
+  }
+  #jsUserInfo {
+    display: none;
+  }
+  padding: 1rem 1.5rem;
   font-weight: 600;
   font-size: 1.4rem;
-  border: 1px solid $gray;
   position: fixed;
   width: 100%;
   height: $headerHeight;
   z-index: 9;
-  background-color: white;
+  background-color: $black;
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  ul {
-    display: flex;
-    li:not(:last-child) {
-      margin-right: 15px;
-    }
+  grid-template-columns: auto auto 1fr;
+  .header__column:nth-child(1) {
+    font-size: 2rem;
+    margin-right: 2rem;
+  }
+  .drop-down {
+    position: relative;
+    background-color: $black;
+  }
+  .drop-down-content {
+    top: $headerHeight;
+    display: none;
+    position: absolute;
+    background-color: $black;
+  }
+  .dropdown-show {
+    display: block;
   }
   .header__column {
     display: flex;
     align-items: center;
     justify-content: center;
+  }
+  .header__logged-in-user-nav {
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+  }
+  .avatar {
+    margin: 0;
   }
 }

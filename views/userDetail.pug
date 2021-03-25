@@ -14,6 +14,8 @@ block content
                     if !loggedUser.googleId||loggedUser.kakaoId||loggedUser.naverId
                         a(href=`/users${routes.changePassword}`)
                             button Change Password
+                    a(href=routes.logout)
+                        button Logout
         .user-profile__photos
             each item in user.photos
                 a.profile__img(href=routes.photoDetail(item._id))
