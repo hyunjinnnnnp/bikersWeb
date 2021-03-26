@@ -4,11 +4,12 @@ include ./mixins/commentBlock.pug
 block content
     .photo-detail__container
         .photo-detail__img
-            img(src=`/${photo.fileUrl[0]}`, alt="Photo")
-            img(src=`/${photo.fileUrl[1]}`, alt="Photo")
-            img(src=`/${photo.fileUrl[2]}`, alt="Photo")
-            img(src=`/${photo.fileUrl[3]}`, alt="Photo")
-            img(src=`/${photo.fileUrl[4]}`, alt="Photo")
+            .carousel__container#jsCarouselContainer
+                .carousel__img-list
+                    each item in photo.fileUrl
+                        img.carousel__photo(src=`../${item}`, alt="Photo")
+                i.carousel__prev-i.xi-arrow-left.carousel__btn-hide
+                i.carousel__next-i.xi-arrow-right.carousel__btn-show
         .photo-detail__info
             a.author-info(href=routes.userDetail(photo.creator.id))
                 img.author-avatar(src=`${photo.creator.avatarUrl.includes("https") ? photo.creator.avatarUrl : `../${photo.creator.avatarUrl}`}`)

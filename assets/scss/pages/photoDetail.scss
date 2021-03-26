@@ -1,9 +1,5 @@
 .photo-detail__container {
   padding-top: $headerHeight;
-
-  .photo-detail__img img {
-    width: 100%;
-  }
   .photo-detail__info {
     display: flex;
     align-items: center;
@@ -40,7 +36,6 @@
   .photo__comments {
     text-align: right;
   }
-
   .author-info {
     display: flex;
     justify-content: flex-start;
@@ -57,7 +52,6 @@
     text-align: right;
   }
 }
-
 .photo__coments-list {
   display: flex;
   flex-direction: column;
