@@ -3,8 +3,8 @@ include ./mixins/commentBlock.pug
 
 block content
     .photo-detail__container
-        .photo-detail__img
-            .carousel__container#jsCarouselContainer
+        .photo-detail__img#jsPhotoDetailCarousel
+            .carousel__container
                 .carousel__img-list
                     each item in photo.fileUrl
                         img.carousel__photo(src=`../${item}`, alt="Photo")

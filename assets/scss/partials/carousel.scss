@@ -1,4 +1,5 @@
-.photo-detail__img {
+.photo-detail__img,
+.photoBlock__img {
   overflow: hidden;
   width: 100%;
 }
@@ -8,35 +9,28 @@
   height: 100vw;
   background-color: $black;
   z-index: 150;
-  //   position: absolute;
 }
-// .carousel__img-list {
-//   position: absolute;
-// }
+
 .carousel__photo {
   width: 100%;
   min-height: 100%;
   object-fit: cover;
   position: absolute;
   z-index: 100;
-  transition: transform 0.5s;
-  //, opacity 0.5s, z-index 0.5s;
+  transition: transform 0.5s opacity 0.5s, z-index 0.5s;
 }
 
-// .carousel__photo.initial-photo,
 .carousel__photo.active {
   opacity: 1;
-  //   position: relative;
   z-index: 900;
 }
 .carousel__photo.prev {
   transform: translateX(-100%);
+  opacity: 0;
 }
 .carousel__photo.next {
+  opacity: 0;
   transform: translateX(100%);
-}
-.carousel__prev-i,
-.carousel__next-i {
 }
 .carousel__prev-i {
   left: 0.5rem;
