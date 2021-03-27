@@ -15,7 +15,6 @@ let activedElem;
 
 const toggleBtn = () => {
   if (activedElem === activedElem.parentNode.firstChild) {
-    //첫번째 사진일 때
     if (prevBtn.classList.contains(SHOW)) {
       prevBtn.classList.remove(SHOW);
     }
@@ -25,7 +24,6 @@ const toggleBtn = () => {
     }
     nextBtn.classList.add(SHOW);
   } else if (activedElem === activedElem.parentNode.lastChild) {
-    //마지막 인덱스 라면
     prevBtn = nextBtn.previousSibling;
     if (prevBtn.classList.contains(HIDE)) {
       prevBtn.classList.remove(HIDE);

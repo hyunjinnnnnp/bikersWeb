@@ -19,6 +19,6 @@ block content
         .user-profile__photos
             each item in user.photos
                 a.profile__img(href=routes.photoDetail(item._id))
-                    img(src=`../../${item.fileUrl}`)
+                    img(src=`../../${item.fileUrl[0]}`)
                     .photo-comments-number
                         .number=item.comments.length

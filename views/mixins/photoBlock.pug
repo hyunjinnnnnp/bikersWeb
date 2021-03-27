@@ -2,6 +2,10 @@ include commentBlock.pug
 
 mixin photoBlock(photo = {})
     .photoBlock
+        .photoBlock__info
+            a.author-info(href=routes.userDetail(photo.creatorId))
+                img.author-avatar(src=photo.avatarUrl)
+                span.author-name=photo.creator
         .photoBlock__img
             .carousel__container
                 a.carousel__img-list(href=routes.photoDetail(photo.id))
@@ -9,10 +13,8 @@ mixin photoBlock(photo = {})
                         img.carousel__photo(src=`../${item}`, alt="Photo")
                 i.carousel__prev-i.xi-arrow-left.carousel__btn-hide
                 i.carousel__next-i.xi-arrow-right.carousel__btn-show
-        .photoBlock__info
-            a.author-info(href=routes.userDetail(photo.creatorId))
-                img.author-avatar(src=photo.avatarUrl)
-                span.author-name=photo.creator
+        .photoBlock__description
+            span.author-name=photo.creator
             h6.photo-description=photo.description
         .photoBlock__input
             if loggedUser

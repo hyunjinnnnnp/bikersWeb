@@ -7,6 +7,8 @@ block content
                 i#jsUploadIcon.xi-camera-o
                 span Click to choose photo
             #jsFileList.upload__file-preview
+            span.geolocation#jsGeolocation
             input(type="file", multiple, id="file", name="file", required=true, accept="image/*")
             textarea(placeholder="description", name="description", required=true, cols="37", rows="10")
             input(type="submit", value="Upload Photo")
+            #map

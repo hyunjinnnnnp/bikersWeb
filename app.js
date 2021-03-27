@@ -20,6 +20,7 @@ const app = express();
 
 dotenv.config();
 
+app.locals.env = process.env;
 app.use(
   helmet({
     contentSecurityPolicy: false,

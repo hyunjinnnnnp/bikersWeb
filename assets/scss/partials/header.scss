@@ -19,7 +19,7 @@
   position: fixed;
   width: 100%;
   height: $headerHeight;
-  z-index: 9;
+  z-index: 9999;
   background-color: $black;
   display: grid;
   grid-template-columns: auto auto 1fr;
