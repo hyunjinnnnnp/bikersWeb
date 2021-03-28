@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 import passportLocalMongoose from "passport-local-mongoose";
 import dotenv from "dotenv";
+
 dotenv.config();
 
 const UserSchema = new mongoose.Schema({
@@ -25,10 +26,15 @@ const UserSchema = new mongoose.Schema({
       ref: "Photo",
     },
   ],
+  locations: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Location",
+    },
+  ],
 });
 
 UserSchema.plugin(passportLocalMongoose, { usernameField: "email" });
-
 const model = mongoose.model("User", UserSchema);
 
 export default model;

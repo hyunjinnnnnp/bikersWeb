@@ -1,6 +1,8 @@
 import routes from "../routes";
 import Photo from "../models/Photo";
 import Comment from "../models/Comment";
+import Location from "../models/Location";
+import User from "../models/User";
 
 export const home = async (req, res) => {
   const { user } = req;
@@ -50,24 +52,40 @@ export const getUpload = (req, res) => {
 };
 export const postUpload = async (req, res) => {
   const {
-    body: { description },
+    body: { description, location: currentLocation },
     files,
+    user,
   } = req;
   const fileUrl = files.map((file) => file.path);
   try {
-    const newPhoto = await Photo.create({
-      fileUrl,
-      description,
-      creator: req.user.id,
-    });
-    req.user.photos.push(newPhoto.id);
-    req.user.save();
-    res.redirect(routes.photoDetail(newPhoto.id));
+    if (currentLocation) {
+      const lng = currentLocation.split(",")[0];
+      const lat = currentLocation.split(",")[1];
+      const location = await Location.create({
+        name: "bla",
+        mark: {
+          type: "Point",
+          coordinates: [lng, lat],
+        },
+      });
+      // eslint-disable-next-line no-underscore-dangle
+      const locationId = await location._id;
+      user.locations.push(locationId);
+
+      const newPhoto = await Photo.create({
+        fileUrl,
+        description,
+        creator: user.id,
+      });
+      user.photos.push(newPhoto.id);
+      user.save();
+      res.redirect(routes.photoDetail(newPhoto.id));
+    }
   } catch (error) {
     console.log(error);
-    res.redirect(routes.upload);
   }
 };
+
 export const photoDetail = async (req, res) => {
   const {
     params: { id },
@@ -108,7 +126,6 @@ export const postAddComment = async (req, res) => {
     commentId = await newComment._id;
     photo.comments.push(commentId);
     res.json(commentId);
-    console.log(`comment: ${comment}, commentId: ${commentId}`);
     photo.save();
   } catch (error) {
     res.status(400);
