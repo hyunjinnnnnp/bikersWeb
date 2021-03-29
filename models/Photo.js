@@ -20,6 +20,10 @@ const PhotoSchema = new mongoose.Schema({
       ref: "Comment",
     },
   ],
+  location: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Location",
+  },
 });
 
 const model = mongoose.model("Photo", PhotoSchema);

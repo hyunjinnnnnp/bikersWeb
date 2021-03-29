@@ -6,6 +6,8 @@ mixin photoBlock(photo = {})
             a.author-info(href=routes.userDetail(photo.creatorId))
                 img.author-avatar(src=photo.avatarUrl)
                 span.author-name=photo.creator
+            if(photo.location)
+                span.author-location=photo.location.name
         .photoBlock__img
             .carousel__container
                 a.carousel__img-list(href=routes.photoDetail(photo.id))

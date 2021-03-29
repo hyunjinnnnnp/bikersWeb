@@ -34,6 +34,7 @@ const API = "/api";
 const ADD_COMMENT = "/:id/comment";
 const EDIT_COMMENT = "/:id/edit-comment";
 const DELETE_COMMENT = "/:id/delete-comment";
+const GET_USER_INFO = "/get-user-info";
 
 const routes = {
   home: HOME,
@@ -97,6 +98,7 @@ const routes = {
       return DELETE_COMMENT;
     }
   },
+  getUserInfo: GET_USER_INFO,
 };
 
 export default routes;

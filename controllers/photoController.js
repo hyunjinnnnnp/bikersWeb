@@ -10,7 +10,8 @@ export const home = async (req, res) => {
     const photos = await Photo.find({})
       .sort({ _id: -1 })
       .populate("creator")
-      .populate("comments");
+      .populate("comments")
+      .populate("location");
     res.render("home", {
       pageTitle: "Home",
       photos,
@@ -54,33 +55,38 @@ export const postUpload = async (req, res) => {
   const {
     body: { description, location: currentLocation },
     files,
-    user,
+    user: loggedUser,
   } = req;
   const fileUrl = files.map((file) => file.path);
+  let location;
   try {
-    if (currentLocation) {
+    if (currentLocation !== "") {
       const lng = currentLocation.split(",")[0];
       const lat = currentLocation.split(",")[1];
-      const location = await Location.create({
-        name: "bla",
+      const name = currentLocation.split(",")[2];
+
+      location = await Location.create({
+        name,
         mark: {
           type: "Point",
           coordinates: [lng, lat],
         },
       });
-      // eslint-disable-next-line no-underscore-dangle
-      const locationId = await location._id;
-      user.locations.push(locationId);
-
-      const newPhoto = await Photo.create({
-        fileUrl,
-        description,
-        creator: user.id,
-      });
-      user.photos.push(newPhoto.id);
-      user.save();
-      res.redirect(routes.photoDetail(newPhoto.id));
     }
+    // eslint-disable-next-line no-underscore-dangle
+    const newPhoto = await Photo.create({
+      fileUrl,
+      description,
+      creator: loggedUser.id,
+      location,
+    });
+    const user = await User.findById({ _id: loggedUser.id }).populate(
+      "locations"
+    );
+    user.locations.push(location.id);
+    user.photos.push(newPhoto.id);
+    user.save();
+    res.redirect(routes.photoDetail(newPhoto.id));
   } catch (error) {
     console.log(error);
   }
@@ -94,7 +100,8 @@ export const photoDetail = async (req, res) => {
   try {
     const photo = await Photo.findById(id)
       .populate("creator")
-      .populate("comments");
+      .populate("comments")
+      .populate("location");
     res.render("photoDetail", {
       pageTitle: `${photo.creator.name}: ${photo.description}`,
       photo,

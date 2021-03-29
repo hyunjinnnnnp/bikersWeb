@@ -1,6 +1,5 @@
 const uploadContainer = document.querySelector(".upload-container");
 
-//웹 보안은 매우 중요하며 가능하면 HTTPS를 사용하는 것이 좋습니다. 웹 보안을 강화하기위한 노력의 일환으로 모든 Maps JavaScript API를 HTTPS를 통해 사용할 수 있습니다??
 const { google } = window;
 let map;
 let userLocation;
@@ -54,7 +53,10 @@ const initSearchInput = () => {
 const sendLocation = () => {
   storeLocation = document.querySelector("#location");
   storeLocation.value = `${userLocation.lat}, ${userLocation.lng}`;
-  map.setCenter(userLocation);
+  if (userLocation) {
+    //????
+    map.setCenter(userLocation);
+  }
 };
 const moveMark = (event) => {
   const draggedPos = event.latLng;

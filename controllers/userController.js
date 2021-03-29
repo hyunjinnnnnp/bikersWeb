@@ -1,3 +1,4 @@
+import axios from "axios";
 import passport from "passport";
 import routes from "../routes";
 import User from "../models/User";
@@ -129,27 +130,51 @@ export const logout = (req, res) => {
   req.logout();
   res.redirect(routes.home);
 };
+export const userInfo = async (req, res) => {
+  const user = await User.findById({ _id: req.user.id })
+    .populate("photos")
+    .populate("locations");
+  const userLocations = user.locations;
+  console.log(userLocations);
 
+  // res.send(userLocations);
+  res.json(userLocations);
+};
 export const getMe = async (req, res) => {
   // eslint-disable-next-line no-underscore-dangle
-  const user = await User.findById(req.user._id).populate("photos");
+  const user = await User.findById({ _id: req.user.id })
+    .populate("photos")
+    .populate("locations");
+
+  const userLocations = user.locations;
   try {
     res.render("userDetail", {
       pageTitle: "Users Detail",
       user,
+      userLocations,
     });
   } catch (error) {
+    console.log(error);
     res.redirect(routes.home);
   }
 };
+
 export const userDetail = async (req, res) => {
   const {
     params: { id },
     user: loggedUser,
   } = req;
   try {
-    const user = await User.findById(id).populate("photos");
-    res.render("userDetail", { pageTitle: "User Detail", user, loggedUser });
+    const user = await User.findById({ _id: id })
+      .populate("photos")
+      .populate("locations");
+    const userLocations = user.locations;
+    res.render("userDetail", {
+      pageTitle: "User Detail",
+      user,
+      loggedUser,
+      userLocations,
+    });
   } catch (error) {
     res.redirect(routes.home);
   }

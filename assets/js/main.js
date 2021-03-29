@@ -4,5 +4,7 @@ import "./deleteComment";
 import "./navigation";
 import "./upload";
 import "./photoCarousel";
-import "./googleMap";
+import "./uploadLocation";
+import "./userDetailMap";
+import "./getUserData";
 // import "./mediaquery";
