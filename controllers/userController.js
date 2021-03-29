@@ -1,4 +1,3 @@
-import axios from "axios";
 import passport from "passport";
 import routes from "../routes";
 import User from "../models/User";
@@ -132,12 +131,12 @@ export const logout = (req, res) => {
 };
 export const userInfo = async (req, res) => {
   try {
-    const user = await User.findById({ _id: req.user.id })
+    const {
+    } = req;
+    const user = await User.findById({ _id: userId })
       .populate("photos")
       .populate("locations");
-    console.log(user.locations);
-    const userLocations = user.locations;
-    res.json(userLocations);
+    res.json(user.locations);
   } catch (error) {
     res.status(400);
   } finally {
@@ -149,7 +148,6 @@ export const getMe = async (req, res) => {
   const user = await User.findById({ _id: req.user.id })
     .populate("photos")
     .populate("locations");
-
   const userLocations = user.locations;
   try {
     res.render("userDetail", {

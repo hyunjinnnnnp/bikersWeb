@@ -6,5 +6,4 @@ import "./upload";
 import "./photoCarousel";
 import "./uploadLocation";
 import "./userDetailMap";
-import "./getUserData";
 // import "./mediaquery";
