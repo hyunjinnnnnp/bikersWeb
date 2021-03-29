@@ -132,6 +132,7 @@ export const logout = (req, res) => {
 export const userInfo = async (req, res) => {
   try {
     const {
+      body: { userId },
     } = req;
     const user = await User.findById({ _id: userId })
       .populate("photos")
