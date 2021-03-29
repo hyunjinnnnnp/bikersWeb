@@ -131,14 +131,18 @@ export const logout = (req, res) => {
   res.redirect(routes.home);
 };
 export const userInfo = async (req, res) => {
-  const user = await User.findById({ _id: req.user.id })
-    .populate("photos")
-    .populate("locations");
-  const userLocations = user.locations;
-  console.log(userLocations);
-
-  // res.send(userLocations);
-  res.json(userLocations);
+  try {
+    const user = await User.findById({ _id: req.user.id })
+      .populate("photos")
+      .populate("locations");
+    console.log(user.locations);
+    const userLocations = user.locations;
+    res.json(userLocations);
+  } catch (error) {
+    res.status(400);
+  } finally {
+    res.end();
+  }
 };
 export const getMe = async (req, res) => {
   // eslint-disable-next-line no-underscore-dangle
