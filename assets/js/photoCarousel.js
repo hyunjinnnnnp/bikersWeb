@@ -92,23 +92,28 @@ const handleClick = (event) => {
 const photoBlockCaseInit = () => {
   photoBlocks.forEach((block) => {
     imgs = block.querySelectorAll(".carousel__photo");
-    if (imgs.length > 1) {
+    const icons = block.querySelectorAll("i");
+    if (imgs.length >= 2) {
       imgs[0].classList.add("active");
       imgs[1].classList.add("next");
+      icons.forEach((item) => item.addEventListener("click", handleClick));
+    } else if (imgs.length === 1) {
+      icons.forEach((item) => item.classList.remove(SHOW));
     }
-    const icons = block.querySelectorAll("i");
-    icons.forEach((item) => item.addEventListener("click", handleClick));
   });
 };
 const photoDetailCaseInit = () => {
   imgs = photoDetailCarousel.querySelectorAll(".carousel__photo");
-  if (imgs.length > 1) {
+  const icons = photoDetailCarousel.querySelectorAll("i");
+  if (imgs.length >= 2) {
     imgs[0].classList.add("active");
     imgs[1].classList.add("next");
+    icons.forEach((item) => item.addEventListener("click", handleClick));
+  } else if (imgs.length === 1) {
+    icons.forEach((item) => item.classList.remove(SHOW));
   }
-  const icons = photoDetailCarousel.querySelectorAll("i");
-  icons.forEach((item) => item.addEventListener("click", handleClick));
 };
+
 if (photoBlocks) {
   photoBlockCaseInit();
 }
