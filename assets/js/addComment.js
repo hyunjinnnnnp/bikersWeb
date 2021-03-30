@@ -1,4 +1,6 @@
 import axios from "axios";
+import handleClick from "./editComment";
+import { deleteHandler } from "./deleteComment";
 
 const addCommentForms = document.querySelectorAll("#jsAddComment");
 let photoId;
@@ -17,10 +19,10 @@ const addComment = (comment) => {
   const fakeCommentBlock = document
     .querySelector("#jsFakeBlock")
     .cloneNode(true);
+  fakeCommentBlock.addEventListener("click", (event) => event.preventDefault());
   targetPhotoBlock.querySelector("#jsCommentList").prepend(fakeCommentBlock);
   fakeCommentBlock.classList.remove("hide-element");
   fakeCommentBlock.classList.add("commentBlock");
-
   fakeCommentBlock
     .querySelector(".commentBlock__link")
     .setAttribute("href", "/me");
@@ -28,23 +30,30 @@ const addComment = (comment) => {
     .querySelector(".author-avatar")
     .setAttribute("src", userAvatar);
   fakeCommentBlock.querySelector(".author-name").innerHTML = userName;
-  fakeCommentBlock.querySelector("#jsCurrentComment").innerText = comment; //바뀐 커맨트 내용
+  fakeCommentBlock.querySelector("#jsCurrentComment").innerText = comment;
   fakeCommentBlock.querySelector("#jsEditCommentForm input").value = comment;
   fakeCommentBlock
     .querySelector("#jsEditComment")
     .setAttribute("href", postEditUrl);
+
   fakeCommentBlock
     .querySelector("#jsDeleteComment")
     .setAttribute("href", postDelUrl);
+  fakeCommentBlock
+    .querySelector("#jsEditComment")
+    .addEventListener("click", handleClick);
+  fakeCommentBlock
+    .querySelector("#jsDeleteComment")
+    .addEventListener("click", deleteHandler);
   increaseNumber();
 };
 
 const sendComment = async (comment) => {
   const urlPath = window.location.pathname;
   if (urlPath === "/") {
-    const a = targetPhotoBlock.querySelector("a");
+    const a = targetPhotoBlock.querySelector(".carousel__img-list");
     // eslint-disable-next-line prefer-destructuring
-    photoId = a.getAttribute("href").split("/")[2];
+    photoId = a.getAttribute("href").split("/photos/")[1];
   } else {
     // eslint-disable-next-line prefer-destructuring
     photoId = window.location.pathname.split("/")[2];
@@ -73,8 +82,6 @@ const handleSubmit = (event) => {
 };
 
 function init() {
-  //HOME: 커맨트 폼이 여러개임
-  //PHOTO DETAIL: 커맨트 폼 하나밖에 없음
   addCommentForms.forEach((form) =>
     form.addEventListener("submit", handleSubmit)
   );

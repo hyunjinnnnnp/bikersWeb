@@ -19,12 +19,11 @@ const edit = (editedComment) => {
   deleteIcon.classList.remove("hide-element");
   deleteIcon.classList.add("show-element");
 };
-
 const sendComment = async (editedComment) => {
-  const a = selectedList.querySelector("#jsEditComment");
-  const commentId = a.getAttribute("href");
+  const btn = selectedList.querySelector("#jsEditComment");
+  const editCommentUrl = btn.getAttribute("href");
   const response = await axios({
-    url: commentId,
+    url: editCommentUrl,
     method: "POST",
     data: {
       editedComment,
@@ -63,7 +62,6 @@ const handleClick = (event) => {
   toggleShowing(deleteIcon);
   editForm.addEventListener("submit", handleSubmit);
 };
-
 function init() {
   editCommentElems.forEach((item) =>
     item.addEventListener("click", handleClick)
@@ -72,3 +70,4 @@ function init() {
 if (editCommentElems) {
   init();
 }
+export default handleClick;

@@ -18,7 +18,7 @@ const deleteComment = async (url) => {
   const commentId = url.split("/")[2];
   let photoId;
   if (window.location.pathname === "/") {
-    const a = targetPhotoBlock.querySelector("a");
+    const a = targetPhotoBlock.querySelector(".carousel__img-list");
     const photoUrl = a.getAttribute("href");
     // eslint-disable-next-line prefer-destructuring
     photoId = photoUrl.split("/")[2];
@@ -51,3 +51,4 @@ function init() {
 if (deleteBtns) {
   init();
 }
+export { handleClick as deleteHandler };

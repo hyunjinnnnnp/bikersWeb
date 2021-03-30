@@ -1,4 +1,3 @@
-import axios from "axios";
 import multer from "multer";
 import routes from "./routes";
 import User from "./models/User";
@@ -10,8 +9,6 @@ const multerPhoto = multer({
 const multerAvatar = multer({ dest: "uploads/avatars" });
 
 export const uploadPhoto = multerPhoto.array("file", 5);
-//TO DO : 최대 올릴 수 있는 이미지 갯수 지정하기
-//https://github.com/expressjs/multer/blob/master/doc/README-ko.md
 export const uploadAvatar = multerAvatar.single("avatar");
 
 export const localsMiddleware = async (req, res, next) => {
