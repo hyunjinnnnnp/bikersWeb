@@ -7,7 +7,8 @@ block content
             a.author-info(href=routes.userDetail(photo.creator.id))
                 img.author-avatar(src=`${photo.creator.avatarUrl.includes("https") ? photo.creator.avatarUrl : `../${photo.creator.avatarUrl}`}`)
                 span.author-name=photo.creator.name
-            .author-location=photo.location.name
+            if(photo.location)
+                .author-location=photo.location.name
             h6.photo__description=photo.description
         .photo-detail__img#jsPhotoDetailCarousel
             .carousel__container

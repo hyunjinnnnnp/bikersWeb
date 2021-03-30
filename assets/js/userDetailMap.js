@@ -1,3 +1,4 @@
+/* eslint-disable no-new */
 import axios from "axios";
 import MarkerClusterer from "@googlemaps/markerclustererplus";
 
@@ -7,14 +8,17 @@ let locations;
 const { google } = window;
 
 const drawMarkers = () => {
+  let infowindow;
   const markers = locations.map((location) => {
     const { name } = location;
     const [lat, lng] = location.mark.coordinates;
+    infowindow = new google.maps.InfoWindow();
+    infowindow.setContent(name);
     return new google.maps.Marker({
       position: { lat, lng },
-      title: name,
       map,
       visible: true,
+      title: name,
     });
   });
   new MarkerClusterer(map, markers, {
@@ -32,8 +36,13 @@ const initMap = (data) => {
 };
 
 const init = async () => {
-  const userId = window.location.pathname.split("/users/")[1];
-  //   if (urlPath === "/me") {        일단 유저디텔만. /me는 나중에
+  const urlPath = window.location.pathname;
+  let userId;
+  if (urlPath.split("/")[1] === "me") {
+    userId = document.querySelector("#userId").innerText;
+  } else {
+    [, userId] = urlPath.split("/users");
+  }
   await axios
     .request({
       url: `/api/${userId}/get-user-info`,
