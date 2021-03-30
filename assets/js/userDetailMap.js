@@ -1,33 +1,31 @@
 import axios from "axios";
+import MarkerClusterer from "@googlemaps/markerclustererplus";
 
 const userDetailMap = document.querySelector("#userDetailMap");
 let map;
-let userLocations;
-
+let locations;
 const { google } = window;
 
 const drawMarkers = () => {
-  let lng;
-  let lat;
-  console.log(userLocations);
-  //   userLocations.forEach((loc) => {
-  //     lng = loc.mark.coordinates[0];
-  //     lat = loc.mark.coordinates[1];
-  //   });
-  const marker = new google.maps.Marker({
-    // The below line is equivalent to writing:
-    // position: new google.maps.LatLng(-34.397, 150.644)
-    position: { lat, lng },
-    map,
+  const markers = locations.map((location) => {
+    const { name } = location;
+    const [lat, lng] = location.mark.coordinates;
+    return new google.maps.Marker({
+      position: { lat, lng },
+      title: name,
+      map,
+      visible: true,
+    });
   });
-
-  //coordinates: [lng, lat], : DATA
-  //google
+  new MarkerClusterer(map, markers, {
+    imagePath: "/clusterImg/m",
+  });
 };
-const initMap = () => {
+const initMap = (data) => {
+  locations = data;
   const seoul = { lat: 37.5642135, lng: 127.0016985 };
   map = new google.maps.Map(document.querySelector("#userDetailMap"), {
-    zoom: 12,
+    zoom: 6,
     center: seoul,
   });
   drawMarkers();
@@ -45,7 +43,9 @@ const init = async () => {
       },
     })
     .then((response) => {
-      userLocations = response.data;
+      const userLocations = response.data;
+      //google.maps.event.addDomListener(window, "load", () => )
+      initMap(userLocations);
     })
     .catch((error) => {
       console.log(error);
@@ -53,6 +53,7 @@ const init = async () => {
 };
 
 if (userDetailMap) {
-  google.maps.event.addDomListener(window, "load", initMap);
+  window.addEventListener("touchstart", { passive: true });
+
   init();
 }
