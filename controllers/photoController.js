@@ -23,27 +23,32 @@ export const home = async (req, res) => {
     res.render("home", { pageTitle: "Home", photos: [], loggedUser });
   }
 };
-
-export const postAddLike = async (req, res) => {
+export const postToggleLike = async (req, res) => {
   const {
     body: { photoId },
     user: loggedUser,
   } = req;
+  let isLiked;
   try {
-    //라이크 모델을 없애고 그냥 photo.likes에 유저 아이디를 저장하면 더 편하지않나?
-    //왜 안됐을까?
     const photo = await Photo.findById(photoId);
     const user = await User.findById(loggedUser._id);
-    // const newLike = await Like.create({
-    //   userId: loggedUser,
-    //   photoId,
-    // });
-    user.likes.push(photoId);
-    photo.likes.push(user._id);
-    user.save();
-    photo.save();
-
-    console.log(`✅ ${photo}, ✅ ${user}`);
+    if (!photo.likes.includes(user._id)) {
+      console.log("not INCLUDED");
+      isLiked = true;
+      photo.likes.push(user._id);
+      user.likes.push(photo._id);
+      photo.save();
+      user.save();
+      res.json(isLiked);
+    } else {
+      console.log("INCLUDED");
+      isLiked = false;
+      photo.likes.pull(user._id);
+      user.likes.pull(photo._id);
+      photo.save();
+      user.save();
+      res.json(isLiked);
+    }
   } catch (error) {
     console.log(error);
     res.status(400);
@@ -51,7 +56,6 @@ export const postAddLike = async (req, res) => {
     res.end();
   }
 };
-
 export const search = async (req, res) => {
   const {
     user,

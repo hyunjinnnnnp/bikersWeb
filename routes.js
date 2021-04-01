@@ -35,8 +35,7 @@ const ADD_COMMENT = "/:id/comment";
 const EDIT_COMMENT = "/:id/edit-comment";
 const DELETE_COMMENT = "/:id/delete-comment";
 const GET_USER_LOC = "/:id/get-user-locations";
-const ADD_LIKE = "/:id/add-like";
-const UNDO_LIKE = "/:id/undo-like";
+const TOOGLE_LIKE = "/:id/like";
 
 const routes = {
   home: HOME,
@@ -107,18 +106,11 @@ const routes = {
       return GET_USER_LOC;
     }
   },
-  addLike: (id) => {
+  toggleLike: (id) => {
     if (id) {
-      return `/${id}/add-like`;
+      return `/${id}/like`;
     } else {
-      return ADD_LIKE;
-    }
-  },
-  undoLike: (id) => {
-    if (id) {
-      return `/${id}/undo-like`;
-    } else {
-      return UNDO_LIKE;
+      return TOOGLE_LIKE;
     }
   },
 };

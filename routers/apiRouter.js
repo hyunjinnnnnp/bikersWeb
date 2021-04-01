@@ -4,7 +4,7 @@ import {
   postAddComment,
   postEditComment,
   postDeleteComment,
-  postAddLike,
+  postToggleLike,
 } from "../controllers/photoController";
 import { getUserLocations } from "../controllers/userController";
 
@@ -14,6 +14,5 @@ apiRouter.post(routes.addComment, postAddComment);
 apiRouter.post(routes.editComment(), postEditComment);
 apiRouter.post(routes.deleteComment(), postDeleteComment);
 apiRouter.post(routes.getUserLocations(), getUserLocations);
-apiRouter.post(routes.addLike(), postAddLike);
-// apiRouter.post(routes.undoLike());
+apiRouter.post(routes.toggleLike(), postToggleLike);
 export default apiRouter;

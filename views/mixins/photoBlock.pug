@@ -10,7 +10,7 @@ mixin photoBlock(photo = {})
                 span.author-location=photo.location.name
         .photoBlock__img
             .carousel__container
-                if !photo.likes.includes(loggedUser.id)
+                if loggedUser && !photo.likes.includes(loggedUser.id)
                     #jsLikesOverlay
                         i.jsHide.xi-heart#jsLikedFalse
                 a.carousel__img-list(href=routes.photoDetail(photo.id))
@@ -19,7 +19,7 @@ mixin photoBlock(photo = {})
                 i.carousel__prev-i.xi-arrow-left.carousel__btn-hide
                 i.carousel__next-i.xi-arrow-right.carousel__btn-show
         .photoBlock__description
-            if photo.likes.includes(loggedUser._id)
+            if loggedUser && photo.likes.includes(loggedUser._id)
                 i#jsTrueIndicator.xi-heart
             else
                 i#jsFalseIndicator.xi-heart-o

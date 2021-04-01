@@ -4,12 +4,27 @@ import axios from "axios";
 
 //포토 디테일은 다루지 않을 것임.
 //포토디테일 라우터 막고 업로드했을 때 홈으로 가게 바꿀 거야
+//preventDefault떄문에 슬라이더도 막혔음
 
-const photoArray = document.querySelectorAll(".carousel__container");
-const userId = document.querySelector("#userId");
+const photoBlocks = document.querySelectorAll(".photoBlock");
 
 let targetPhotoBlock;
-let FALSE_ELEM;
+
+const decreaseNumber = () => {
+  const likesCount = targetPhotoBlock.querySelector("#jsLikesCount");
+  likesCount.innerText = parseInt(likesCount.innerText, 10) - 1;
+};
+const changeIndicatorBtn = () => {
+  const TRUE_ELEM = targetPhotoBlock.querySelector("#jsTrueIndicator");
+  const parent = TRUE_ELEM.parentNode;
+  parent.removeChild(TRUE_ELEM);
+  const falseIndicator = document.createElement("i");
+  parent.prepend(falseIndicator);
+  falseIndicator.className = "xi-heart-o";
+  falseIndicator.id = "jsFalseIndicator";
+  decreaseNumber();
+};
+
 const increaseNumber = () => {
   const likesCount = targetPhotoBlock.querySelector("#jsLikesCount");
   likesCount.innerText = parseInt(likesCount.innerText, 10) + 1;
@@ -26,6 +41,7 @@ const changeIndicator = () => {
 };
 
 const showOverlayBtn = () => {
+  const FALSE_ELEM = targetPhotoBlock.querySelector("#jsLikedFalse");
   FALSE_ELEM.classList.remove("jsHide");
   FALSE_ELEM.classList.add("likes-fade-out");
   FALSE_ELEM.addEventListener("animationend", () => {
@@ -35,36 +51,36 @@ const showOverlayBtn = () => {
   changeIndicator();
 };
 
-const sendData = async () => {
+const postLikeData = async () => {
   const photoLink = targetPhotoBlock
     .querySelector(".carousel__img-list")
     .getAttribute("href");
   const photoId = photoLink.split("/photos/")[1];
   const response = await axios({
-    url: `api/${photoId}/add-like`,
+    url: `api/${photoId}/like`,
     method: "POST",
     data: { photoId },
   });
   if (response.status === 200) {
-    showOverlayBtn();
-  }
-};
-const handleDblClick = (e) => {
-  [, , , targetPhotoBlock] = e.path;
-  FALSE_ELEM = targetPhotoBlock.querySelector("#jsLikedFalse");
-  if (FALSE_ELEM) {
-    sendData();
-  }
-};
-
-function init() {
-  photoArray.forEach((photo) => {
-    photo.addEventListener("click", (e) => e.preventDefault());
-    if (userId) {
-      photo.addEventListener("dblclick", handleDblClick);
+    const isLiked = response.data;
+    console.log(response.data);
+    if (isLiked) {
+      showOverlayBtn();
+    } else {
+      changeIndicatorBtn();
     }
+  }
+};
+const handleLikeClick = (e) => {
+  [, , , targetPhotoBlock] = e.path;
+  postLikeData();
+};
+function addLikeInit() {
+  photoBlocks.forEach((photoBlock) => {
+    photoBlock.addEventListener("click", (e) => e.preventDefault());
+    photoBlock.addEventListener("dblclick", handleLikeClick);
   });
 }
-if (photoArray) {
-  init();
+if (photoBlocks) {
+  addLikeInit();
 }
