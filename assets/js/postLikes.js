@@ -8,7 +8,6 @@ import axios from "axios";
 
 const photoBlocks = document.querySelectorAll(".photoBlock");
 let targetPhotoBlock;
-
 const SHOW_CLASS = "jsShow";
 const HIDE_CLASS = "jsHide";
 const TRUE_CLASS = "xi-heart";
@@ -19,32 +18,19 @@ const decreaseNumber = () => {
   likesCount.innerText = parseInt(likesCount.innerText, 10) - 1;
 };
 const showFalseBtn = () => {
-  const parent = targetPhotoBlock.querySelector(".photoBlock__description");
   const trueIndicator = targetPhotoBlock.querySelector("#jsTrueIndicator");
-  let falseIndicator = targetPhotoBlock.querySelector("#jsFalseIndicator");
-  if (!falseIndicator) {
-    falseIndicator = document.createElement("i");
-    parent.prepend(falseIndicator);
-    falseIndicator.id = "jsFalseIndicator";
-  }
+  const falseIndicator = targetPhotoBlock.querySelector("#jsFalseIndicator");
   trueIndicator.className = `${TRUE_CLASS} ${HIDE_CLASS}`;
   falseIndicator.className = `${FALSE_CLASS} ${SHOW_CLASS}`;
   decreaseNumber();
 };
-
 const increaseNumber = () => {
   const likesCount = targetPhotoBlock.querySelector("#jsLikesCount");
   likesCount.innerText = parseInt(likesCount.innerText, 10) + 1;
 };
 const showTrueIndicator = () => {
-  const parent = targetPhotoBlock.querySelector(".photoBlock__description");
   const falseIndicator = targetPhotoBlock.querySelector("#jsFalseIndicator");
-  let trueIndicator = targetPhotoBlock.querySelector("#jsTrueIndicator");
-  if (!trueIndicator) {
-    trueIndicator = document.createElement("i");
-    trueIndicator.id = "jsTrueIndicator";
-    parent.prepend(trueIndicator);
-  }
+  const trueIndicator = targetPhotoBlock.querySelector("#jsTrueIndicator");
   trueIndicator.className = `${TRUE_CLASS} ${SHOW_CLASS}`;
   falseIndicator.className = `${FALSE_CLASS} ${HIDE_CLASS}`;
   increaseNumber();
@@ -82,12 +68,13 @@ const postLikeData = async () => {
 const handleLikeClick = (e) => {
   [, , , targetPhotoBlock] = e.path;
   postLikeData();
+  console.log("clicked");
 };
 function addLikeInit() {
-  const userId = document.querySelector("#userId");
+  const userInfo = document.querySelector("#jsUserInfo");
   photoBlocks.forEach((photoBlock) => {
     photoBlock.addEventListener("click", (e) => e.preventDefault());
-    if (userId) {
+    if (userInfo) {
       photoBlock.addEventListener("dblclick", handleLikeClick);
     }
   });

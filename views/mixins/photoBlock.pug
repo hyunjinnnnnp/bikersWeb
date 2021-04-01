@@ -20,9 +20,11 @@ mixin photoBlock(photo = {})
                 i.carousel__next-i.xi-arrow-right.carousel__btn-show
         .photoBlock__description
             if loggedUser && photo.likes.includes(loggedUser._id)
-                i#jsTrueIndicator.xi-heart
+                i#jsTrueIndicator.xi-heart.jsShow
+                i#jsFalseIndicator.xi-heart-o.jsHide
             else
-                i#jsFalseIndicator.xi-heart-o
+                i#jsTrueIndicator.xi-heart.jsHide
+                i#jsFalseIndicator.xi-heart-o.jsShow
             span#jsLikesCount=photo.likes.length
             span.author-name=photo.creator
             h6.photo-description=photo.description
