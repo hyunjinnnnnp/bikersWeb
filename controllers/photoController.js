@@ -32,8 +32,7 @@ export const postToggleLike = async (req, res) => {
   try {
     const photo = await Photo.findById(photoId);
     const user = await User.findById(loggedUser._id);
-    if (!photo.likes.includes(user._id)) {
-      console.log("not INCLUDED");
+    if (loggedUser && !photo.likes.includes(user._id)) {
       isLiked = true;
       photo.likes.push(user._id);
       user.likes.push(photo._id);
@@ -41,7 +40,6 @@ export const postToggleLike = async (req, res) => {
       user.save();
       res.json(isLiked);
     } else {
-      console.log("INCLUDED");
       isLiked = false;
       photo.likes.pull(user._id);
       user.likes.pull(photo._id);

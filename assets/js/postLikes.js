@@ -7,21 +7,28 @@ import axios from "axios";
 //preventDefault떄문에 슬라이더도 막혔음
 
 const photoBlocks = document.querySelectorAll(".photoBlock");
-
 let targetPhotoBlock;
+
+const SHOW_CLASS = "jsShow";
+const HIDE_CLASS = "jsHide";
+const TRUE_CLASS = "xi-heart";
+const FALSE_CLASS = "xi-heart-o";
 
 const decreaseNumber = () => {
   const likesCount = targetPhotoBlock.querySelector("#jsLikesCount");
   likesCount.innerText = parseInt(likesCount.innerText, 10) - 1;
 };
-const changeIndicatorBtn = () => {
-  const TRUE_ELEM = targetPhotoBlock.querySelector("#jsTrueIndicator");
-  const parent = TRUE_ELEM.parentNode;
-  parent.removeChild(TRUE_ELEM);
-  const falseIndicator = document.createElement("i");
-  parent.prepend(falseIndicator);
-  falseIndicator.className = "xi-heart-o";
-  falseIndicator.id = "jsFalseIndicator";
+const showFalseBtn = () => {
+  const parent = targetPhotoBlock.querySelector(".photoBlock__description");
+  const trueIndicator = targetPhotoBlock.querySelector("#jsTrueIndicator");
+  let falseIndicator = targetPhotoBlock.querySelector("#jsFalseIndicator");
+  if (!falseIndicator) {
+    falseIndicator = document.createElement("i");
+    parent.prepend(falseIndicator);
+    falseIndicator.id = "jsFalseIndicator";
+  }
+  trueIndicator.className = `${TRUE_CLASS} ${HIDE_CLASS}`;
+  falseIndicator.className = `${FALSE_CLASS} ${SHOW_CLASS}`;
   decreaseNumber();
 };
 
@@ -29,14 +36,17 @@ const increaseNumber = () => {
   const likesCount = targetPhotoBlock.querySelector("#jsLikesCount");
   likesCount.innerText = parseInt(likesCount.innerText, 10) + 1;
 };
-const changeIndicator = () => {
+const showTrueIndicator = () => {
+  const parent = targetPhotoBlock.querySelector(".photoBlock__description");
   const falseIndicator = targetPhotoBlock.querySelector("#jsFalseIndicator");
-  const trueIndicator = document.createElement("i");
-  trueIndicator.className = "xi-heart";
-  trueIndicator.id = "jsTrueIndicator";
-  const parent = falseIndicator.parentNode;
-  parent.prepend(trueIndicator);
-  parent.removeChild(falseIndicator);
+  let trueIndicator = targetPhotoBlock.querySelector("#jsTrueIndicator");
+  if (!trueIndicator) {
+    trueIndicator = document.createElement("i");
+    trueIndicator.id = "jsTrueIndicator";
+    parent.prepend(trueIndicator);
+  }
+  trueIndicator.className = `${TRUE_CLASS} ${SHOW_CLASS}`;
+  falseIndicator.className = `${FALSE_CLASS} ${HIDE_CLASS}`;
   increaseNumber();
 };
 
@@ -48,9 +58,7 @@ const showOverlayBtn = () => {
     FALSE_ELEM.classList.add("jsHide");
     FALSE_ELEM.classList.remove("likes-fade-out");
   });
-  changeIndicator();
 };
-
 const postLikeData = async () => {
   const photoLink = targetPhotoBlock
     .querySelector(".carousel__img-list")
@@ -63,11 +71,11 @@ const postLikeData = async () => {
   });
   if (response.status === 200) {
     const isLiked = response.data;
-    console.log(response.data);
     if (isLiked) {
       showOverlayBtn();
+      showTrueIndicator();
     } else {
-      changeIndicatorBtn();
+      showFalseBtn();
     }
   }
 };
@@ -76,9 +84,12 @@ const handleLikeClick = (e) => {
   postLikeData();
 };
 function addLikeInit() {
+  const userId = document.querySelector("#userId");
   photoBlocks.forEach((photoBlock) => {
     photoBlock.addEventListener("click", (e) => e.preventDefault());
-    photoBlock.addEventListener("dblclick", handleLikeClick);
+    if (userId) {
+      photoBlock.addEventListener("dblclick", handleLikeClick);
+    }
   });
 }
 if (photoBlocks) {
