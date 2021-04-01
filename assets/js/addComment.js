@@ -1,6 +1,6 @@
 import axios from "axios";
-import handleClick from "./editComment";
-import { deleteHandler } from "./deleteComment";
+import editHandler from "./editComment";
+import deleteHandler from "./deleteComment";
 
 const addCommentForms = document.querySelectorAll("#jsAddComment");
 let photoId;
@@ -11,6 +11,7 @@ const increaseNumber = () => {
   const commentNumber = targetPhotoBlock.querySelector("#jsCommentNumber");
   commentNumber.innerHTML = parseInt(commentNumber.innerHTML, 10) + 1;
 };
+//TO DO : Refactoring..... 쿼리셀렉터 다 올리기
 const addComment = (comment) => {
   const postEditUrl = `/api/${commentId}/edit-comment`;
   const postDelUrl = `/api/${commentId}/delete-comment`;
@@ -41,7 +42,7 @@ const addComment = (comment) => {
     .setAttribute("href", postDelUrl);
   fakeCommentBlock
     .querySelector("#jsEditComment")
-    .addEventListener("click", handleClick);
+    .addEventListener("click", editHandler);
   fakeCommentBlock
     .querySelector("#jsDeleteComment")
     .addEventListener("click", deleteHandler);

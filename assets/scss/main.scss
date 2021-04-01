@@ -102,3 +102,11 @@ label:hover {
 
   z-index: 10000;
 }
+#jsLikesCount,
+#jsLikedTrue,
+#jsLikedFalse {
+  color: $white;
+}
+.photoBlock__description i {
+  color: $white;
+}

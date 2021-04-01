@@ -20,7 +20,7 @@ block content
         .photo-detail__input
             if loggedUser
                 form.add-comment-form#jsAddComment
-                    img.author-avatar(src=user.avatarUrl.includes("http") ? user.avatarUrl : `../${user.avatarUrl}`)#jsAvatarElement
+                    img.author-avatar(src=loggedUser.avatarUrl.includes("http") ? loggedUser.avatarUrl : `../${loggedUser.avatarUrl}`)#jsAvatarElement
                     input(type="text", placeholder="Add a Comment")
         ul.photoDetail__coments-list#jsCommentList
             #jsFakeBlock.hide-element

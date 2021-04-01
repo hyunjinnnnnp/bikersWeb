@@ -24,10 +24,12 @@ const PhotoSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "Location",
   },
-  likes: {
-    type: String,
-    default: "0",
-  },
+  likes: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+    },
+  ],
 });
 
 const model = mongoose.model("Photo", PhotoSchema);

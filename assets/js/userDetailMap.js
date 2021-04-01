@@ -41,11 +41,11 @@ const init = async () => {
   if (urlPath.split("/")[1] === "me") {
     userId = document.querySelector("#userId").innerText;
   } else {
-    [, userId] = urlPath.split("/users");
+    [, userId] = urlPath.split("/users/");
   }
   await axios
     .request({
-      url: `/api/${userId}/get-user-info`,
+      url: `/api/${userId}/get-user-locations`,
       method: "POST",
       data: {
         userId,

@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 import routes from "../routes";
 import Photo from "../models/Photo";
 import Comment from "../models/Comment";
@@ -5,7 +6,7 @@ import Location from "../models/Location";
 import User from "../models/User";
 
 export const home = async (req, res) => {
-  const { user } = req;
+  const { user: loggedUser } = req;
   try {
     const photos = await Photo.find({})
       .sort({ _id: -1 })
@@ -15,11 +16,39 @@ export const home = async (req, res) => {
     res.render("home", {
       pageTitle: "Home",
       photos,
-      user,
+      loggedUser,
     });
   } catch (error) {
     console.log(error);
-    res.render("home", { pageTitle: "Home", photos: [], user });
+    res.render("home", { pageTitle: "Home", photos: [], loggedUser });
+  }
+};
+
+export const postAddLike = async (req, res) => {
+  const {
+    body: { photoId },
+    user: loggedUser,
+  } = req;
+  try {
+    //라이크 모델을 없애고 그냥 photo.likes에 유저 아이디를 저장하면 더 편하지않나?
+    //왜 안됐을까?
+    const photo = await Photo.findById(photoId);
+    const user = await User.findById(loggedUser._id);
+    // const newLike = await Like.create({
+    //   userId: loggedUser,
+    //   photoId,
+    // });
+    user.likes.push(photoId);
+    photo.likes.push(user._id);
+    user.save();
+    photo.save();
+
+    console.log(`✅ ${photo}, ✅ ${user}`);
+  } catch (error) {
+    console.log(error);
+    res.status(400);
+  } finally {
+    res.end();
   }
 };
 
@@ -95,24 +124,24 @@ export const postUpload = async (req, res) => {
 export const photoDetail = async (req, res) => {
   const {
     params: { id },
-    user,
+    user: loggedUser,
   } = req;
   try {
     const photo = await Photo.findById(id)
       .populate("creator")
       .populate("comments")
-      .populate("location");
+      .populate("location")
+      .populate("likes");
     res.render("photoDetail", {
       pageTitle: `${photo.creator.name}: ${photo.description}`,
       photo,
-      user,
+      loggedUser,
     });
   } catch (error) {
     console.log(error);
     res.redirect(routes.home);
   }
 };
-
 export const postAddComment = async (req, res) => {
   const {
     params: { id },

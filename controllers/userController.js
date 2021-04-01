@@ -129,7 +129,7 @@ export const logout = (req, res) => {
   req.logout();
   res.redirect(routes.home);
 };
-export const userInfo = async (req, res) => {
+export const getUserLocations = async (req, res) => {
   try {
     const {
       body: { userId },

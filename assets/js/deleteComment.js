@@ -51,4 +51,5 @@ function init() {
 if (deleteBtns) {
   init();
 }
-export { handleClick as deleteHandler };
+// eslint-disable-next-line import/prefer-default-export
+export default handleClick;

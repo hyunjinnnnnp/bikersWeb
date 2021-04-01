@@ -34,7 +34,9 @@ const API = "/api";
 const ADD_COMMENT = "/:id/comment";
 const EDIT_COMMENT = "/:id/edit-comment";
 const DELETE_COMMENT = "/:id/delete-comment";
-const GET_USER_INFO = "/:id/get-user-info";
+const GET_USER_LOC = "/:id/get-user-locations";
+const ADD_LIKE = "/:id/add-like";
+const UNDO_LIKE = "/:id/undo-like";
 
 const routes = {
   home: HOME,
@@ -98,11 +100,25 @@ const routes = {
       return DELETE_COMMENT;
     }
   },
-  getUserInfo: (id) => {
+  getUserLocations: (id) => {
     if (id) {
-      return `/${id}/get-user-info`;
+      return `/${id}/get-user-locations`;
     } else {
-      return GET_USER_INFO;
+      return GET_USER_LOC;
+    }
+  },
+  addLike: (id) => {
+    if (id) {
+      return `/${id}/add-like`;
+    } else {
+      return ADD_LIKE;
+    }
+  },
+  undoLike: (id) => {
+    if (id) {
+      return `/${id}/undo-like`;
+    } else {
+      return UNDO_LIKE;
     }
   },
 };

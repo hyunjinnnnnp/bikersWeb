@@ -34,3 +34,42 @@
     text-align: right;
   }
 }
+.jsLikesBtns,
+.jsBookmarkBtns {
+  color: $white;
+}
+#jsLikesOverlay {
+  color: $white;
+  font-size: 10rem;
+  position: absolute;
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+// #jsLikesOverlay i {
+//shape 깎아야함
+//   box-shadow: 7px 7px 10px 1px rgba(0, 0, 0, 0.5);
+// }
+.jsShow {
+  display: block;
+}
+.jsHide {
+  display: none !important;
+}
+@keyframes fade-likes {
+  0% {
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+.likes-fade-out {
+  animation: fade-likes 1s;
+}

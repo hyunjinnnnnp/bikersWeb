@@ -32,6 +32,12 @@ const UserSchema = new mongoose.Schema({
       ref: "Location",
     },
   ],
+  likes: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Photo",
+    },
+  ],
 });
 
 UserSchema.plugin(passportLocalMongoose, { usernameField: "email" });
