@@ -13,7 +13,6 @@ export const home = async (req, res) => {
       .populate("creator")
       .populate("comments")
       .populate("location");
-    console.log(photos);
     res.render("home", {
       pageTitle: "Home",
       photos,

@@ -8,4 +8,5 @@ import "./uploadLocation";
 import "./userDetailMap";
 import "./postLikes";
 import "./timestamp";
+import "./truncate";
 // import "./mediaquery";

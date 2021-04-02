@@ -35,7 +35,7 @@ mixin photoBlock(photo = {})
             span#jsLikesCount=photo.likes.length
             span.author-name=photo.creator
             span.photo-timestamp#jsTimestamp=photo.createdAt
-            h6.photo-description=photo.description
+            h6.photo-description#jsTruncate=photo.description
         .photoBlock__input
             if loggedUser
                 form.add-comment-form#jsAddComment

@@ -23,6 +23,7 @@
     align-items: center;
   }
   .photo-description {
+    width: 100%;
     font-size: 1.5rem;
     color: $white;
     font-weight: 700;
@@ -78,3 +79,10 @@
   color: $white;
 }
 // DROPDOWN 에 관한 거 지금 HEADER에 있음
+
+//TRUNCATE ellipsis text
+// #jsTruncate {
+//   overflow: hidden;
+//   text-overflow: ellipsis;
+//   white-space: nowrap;
+// }
