@@ -1,6 +1,7 @@
 import passport from "passport";
 import routes from "../routes";
 import User from "../models/User";
+import Photo from "../models/Photo";
 
 export const getJoin = (req, res) =>
   res.render("join", {
@@ -161,7 +162,24 @@ export const getMe = async (req, res) => {
     res.redirect(routes.home);
   }
 };
-
+export const getLikeList = async (req, res) => {
+  const { user: loggedUser } = req;
+  try {
+    const user = await User.findById({ _id: loggedUser.id });
+    const photos = await Photo.find({ _id: { $in: user.likes } })
+      .populate("creator")
+      .populate("comments")
+      .populate("location");
+    res.render("likeList", {
+      pageTitle: "Likes",
+      user,
+      photos,
+    });
+  } catch (error) {
+    console.log(error);
+    res.redirect(routes.home);
+  }
+};
 export const userDetail = async (req, res) => {
   const {
     params: { id },

@@ -11,6 +11,7 @@ mixin commentBlock(comment = {})
                 input(type="text", value=comment.text)
             if loggedUser && comment.creatorId == loggedUser.id
                 .commentBlock__icons
+                    .comment-timestamp#jsTimestamp=comment.createdAt
                     a(href=`/api${routes.editComment(comment._id)}`)#jsEditComment.show-element
                         span edit
                     a(href=`/api${routes.deleteComment(comment._id)}`)#jsDeleteComment.show-element

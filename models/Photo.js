@@ -1,5 +1,14 @@
 import mongoose from "mongoose";
 
+export const getCurrentDate = () => {
+  const date = new Date();
+  const year = date.getFullYear();
+  const month = date.getMonth();
+  const today = date.getDate();
+  const hours = date.getHours();
+  const minutes = date.getMinutes();
+  return new Date(year, month, today, hours, minutes);
+};
 const PhotoSchema = new mongoose.Schema({
   fileUrl: {
     type: Array,
@@ -11,8 +20,8 @@ const PhotoSchema = new mongoose.Schema({
   },
   description: String,
   createdAt: {
-    type: Date,
-    default: Date.now,
+    type: String,
+    default: getCurrentDate,
   },
   comments: [
     {

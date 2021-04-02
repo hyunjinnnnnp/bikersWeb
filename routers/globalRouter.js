@@ -14,6 +14,7 @@ import {
   getMe,
   naverLogin,
   postNaverLogin,
+  getLikeList,
 } from "../controllers/userController";
 import { home, search } from "../controllers/photoController";
 import { onlyPublic, onlyPrivate } from "../middlewares";
@@ -52,5 +53,5 @@ globalRouter.get(routes.logout, onlyPrivate, logout);
 globalRouter.get(routes.search, search);
 
 globalRouter.get(routes.me, onlyPrivate, getMe);
-
+globalRouter.get(routes.likeList, onlyPrivate, getLikeList);
 export default globalRouter;

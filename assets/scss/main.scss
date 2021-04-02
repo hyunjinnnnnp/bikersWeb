@@ -127,3 +127,15 @@ label:hover {
   font-size: 1rem;
   color: $white;
 }
+
+//라이크 리스트//
+
+.like-list-header {
+  padding-top: $headerHeight;
+  color: $white;
+}
+
+.photo-timestamp,
+.comment-timestamp {
+  color: $white;
+}

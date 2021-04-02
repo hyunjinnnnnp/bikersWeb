@@ -7,5 +7,5 @@ import "./photoCarousel";
 import "./uploadLocation";
 import "./userDetailMap";
 import "./postLikes";
-
+import "./timestamp";
 // import "./mediaquery";

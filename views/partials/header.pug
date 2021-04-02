@@ -19,6 +19,9 @@ header.header
                 a(href=`/photos${routes.upload}`) 
                     i.xi-plus-square-o
             li
+                a(href=routes.likeList)
+                    i.xi-heart-o
+            li
                 a(href=routes.me)
                     img.avatar#userAvatar(src=loggedUser.avatarUrl.includes('http') ? loggedUser.avatarUrl : `../../${loggedUser.avatarUrl}`)
                     #jsUserInfo

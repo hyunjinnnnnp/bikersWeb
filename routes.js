@@ -7,6 +7,7 @@ const SEARCH = "/search";
 
 //Users
 const ME = "/me";
+const LIKE_LIST = "/like-list";
 const USERS = "/users";
 const EDIT_PROFILE = "/edit-profile";
 const CHANGE_PASSWORD = "/change-password";
@@ -52,6 +53,7 @@ const routes = {
       return USER_DETAIL;
     }
   },
+  likeList: LIKE_LIST,
   photos: PHOTOS,
   upload: UPLOAD,
   editPhoto: (id) => {

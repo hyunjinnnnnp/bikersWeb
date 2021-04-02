@@ -34,6 +34,7 @@ mixin photoBlock(photo = {})
                 i#jsFalseIndicator.xi-heart-o.jsShow
             span#jsLikesCount=photo.likes.length
             span.author-name=photo.creator
+            span.photo-timestamp#jsTimestamp=photo.createdAt
             h6.photo-description=photo.description
         .photoBlock__input
             if loggedUser
@@ -54,6 +55,7 @@ mixin photoBlock(photo = {})
                         input(type="text")
                     if loggedUser && photo.comments
                         .commentBlock__icons
+                            .comment-timestamp 방금 전
                             a(href="")#jsEditComment.show-element
                                 span edit
                             a(href="")#jsDeleteComment.show-element
@@ -64,7 +66,8 @@ mixin photoBlock(photo = {})
                     creatorAvatar: item.creatorAvatar,
                     creatorName: item.creatorName,
                     text: item.text,
-                    _id: item._id
+                    _id: item._id,
+                    createdAt: item.createdAt
                 })
         .info__comments-number
             if photo.comments.length === 1 || 0
