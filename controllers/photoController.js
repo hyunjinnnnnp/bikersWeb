@@ -56,7 +56,7 @@ export const postToggleLike = async (req, res) => {
 };
 export const search = async (req, res) => {
   const {
-    user,
+    user: loggedUser,
     query: { term: searchingBy },
   } = req;
   try {
@@ -64,17 +64,18 @@ export const search = async (req, res) => {
       description: { $regex: searchingBy, $options: "i" },
     })
       .sort({ _id: -1 })
+      .populate("creator")
       .populate("comments")
-      .populate("creator");
+      .populate("location");
     res.render("search", {
       pageTitle: "Search",
       searchingBy,
       photos,
-      user,
+      loggedUser,
     });
   } catch (error) {
     console.log(error);
-    res.render("home", { pageTitle: "Home", photos: [], user });
+    res.render("home", { pageTitle: "Home", photos: [], loggedUser });
   }
 };
 export const getUpload = (req, res) => {
@@ -117,33 +118,12 @@ export const postUpload = async (req, res) => {
     user.locations.push(location.id);
     user.photos.push(newPhoto.id);
     user.save();
-    res.redirect(routes.photoDetail(newPhoto.id));
+    res.redirect(routes.home);
   } catch (error) {
     console.log(error);
   }
 };
 
-export const photoDetail = async (req, res) => {
-  const {
-    params: { id },
-    user: loggedUser,
-  } = req;
-  try {
-    const photo = await Photo.findById(id)
-      .populate("creator")
-      .populate("comments")
-      .populate("location")
-      .populate("likes");
-    res.render("photoDetail", {
-      pageTitle: `${photo.creator.name}: ${photo.description}`,
-      photo,
-      loggedUser,
-    });
-  } catch (error) {
-    console.log(error);
-    res.redirect(routes.home);
-  }
-};
 export const postAddComment = async (req, res) => {
   const {
     params: { id },
@@ -225,11 +205,10 @@ export const postEditPhoto = async (req, res) => {
   } = req;
   try {
     await Photo.findOneAndUpdate({ _id: id }, { description });
-    res.redirect(routes.photoDetail(id));
   } catch (error) {
     console.log(error);
-    res.redirect(routes.home);
   }
+  res.redirect(routes.home);
 };
 export const deletePhoto = async (req, res) => {
   const {

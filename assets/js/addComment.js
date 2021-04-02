@@ -3,7 +3,6 @@ import editHandler from "./editComment";
 import deleteHandler from "./deleteComment";
 
 const addCommentForms = document.querySelectorAll("#jsAddComment");
-let photoId;
 let targetPhotoBlock;
 let commentId;
 
@@ -50,15 +49,9 @@ const addComment = (comment) => {
 };
 
 const sendComment = async (comment) => {
-  const urlPath = window.location.pathname;
-  if (urlPath === "/") {
-    const a = targetPhotoBlock.querySelector(".carousel__img-list");
-    // eslint-disable-next-line prefer-destructuring
-    photoId = a.getAttribute("href").split("/photos/")[1];
-  } else {
-    // eslint-disable-next-line prefer-destructuring
-    photoId = window.location.pathname.split("/")[2];
-  }
+  const photoId = targetPhotoBlock
+    .querySelector(".carousel__img-list")
+    .getAttribute("data-url");
   await axios({
     url: `/api/${photoId}/comment`,
     method: "POST",

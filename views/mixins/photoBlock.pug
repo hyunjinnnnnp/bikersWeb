@@ -8,11 +8,19 @@ mixin photoBlock(photo = {})
                 span.author-name=photo.creator
             if(photo.location)
                 span.author-location=photo.location.name
+            if(loggedUser && loggedUser.id == photo.creatorId)
+                .drop-down#jsDropDown
+                    i.xi-ellipsis-h.dropBtns
+                    ul.drop-down-content#jsDropDownContent
+                        li#jsDropDownList
+                            a(href=`photos/${photo.id}/edit`) EDIT
+                        li#jsDropDownList
+                            a(href=`/photos/${photo.id}/delete`) DELETE
         .photoBlock__img
             .carousel__container
                 #jsLikesOverlay
                     i.jsHide.xi-heart#jsLikedFalse
-                a.carousel__img-list(href=routes.photoDetail(photo.id))
+                a.carousel__img-list(data-url=photo.id)
                     each item in photo.fileUrl
                         img.carousel__photo(src=`../${item}`, alt="Photo")
                 i.carousel__prev-i.xi-arrow-left.carousel__btn-hide
@@ -50,15 +58,14 @@ mixin photoBlock(photo = {})
                                 span edit
                             a(href="")#jsDeleteComment.show-element
                                 span delete
-            if photos.length > 1
-                each item in photo.comments.reverse()
-                    +commentBlock({
-                        creatorId: item.creatorId,
-                        creatorAvatar: item.creatorAvatar,
-                        creatorName: item.creatorName,
-                        text: item.text,
-                        _id: item._id
-                    })
+            each item in photo.comments.reverse()
+                +commentBlock({
+                    creatorId: item.creatorId,
+                    creatorAvatar: item.creatorAvatar,
+                    creatorName: item.creatorName,
+                    text: item.text,
+                    _id: item._id
+                })
         .info__comments-number
             if photo.comments.length === 1 || 0
                 span.comments__comment-number#jsCommentNumber=photo.comments.length

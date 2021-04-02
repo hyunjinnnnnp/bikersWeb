@@ -9,10 +9,13 @@ block content
             h5 No Photos Found
         each item in photos
             +photoBlock({
-                id: item.id,
-                fileUrl: item.fileUrl,
-                description: item.description,
-                avatarUrl: item.creator.avatarUrl,
-                creatorId: item.creator._id,
-                comments: item.comments
+                    id: item.id,
+                    fileUrl: item.fileUrl,
+                    description: item.description,
+                    avatarUrl: item.creator.avatarUrl,
+                    creatorId: item.creator._id,
+                    creator: item.creator.name,
+                    comments: item.comments,
+                    location: item.location,
+                    likes: item.likes
             })

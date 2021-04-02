@@ -1,7 +1,7 @@
 import "./addComment";
 import "./editComment";
 import "./deleteComment";
-import "./navigation";
+import "./dropdown";
 import "./upload";
 import "./photoCarousel";
 import "./uploadLocation";

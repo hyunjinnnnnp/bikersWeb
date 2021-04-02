@@ -27,24 +27,7 @@
     font-size: 2rem;
     margin-right: 2rem;
   }
-  .drop-down {
-    position: relative;
-    background-color: $black;
-  }
-  .drop-down-content {
-    top: $headerHeight;
-    display: none;
-    position: absolute;
-    background-color: $black;
-  }
-  .dropdown-show {
-    display: block;
-  }
-  .header__column {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
+
   .header__logged-in-user-nav {
     width: 100%;
     display: flex;
@@ -54,4 +37,23 @@
   .avatar {
     margin: 0;
   }
+}
+.drop-down {
+  position: relative;
+  background-color: $black;
+}
+.drop-down-content {
+  top: $headerHeight;
+  display: none;
+  position: absolute;
+  background-color: $black;
+}
+.dropdown-show {
+  display: block;
+  z-index: 10000;
+}
+.header__column {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

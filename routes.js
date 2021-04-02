@@ -15,7 +15,6 @@ const USER_DETAIL = "/:id";
 //Photos
 const PHOTOS = "/photos";
 const UPLOAD = "/upload";
-const PHOTO_DETAIL = "/:id";
 const EDIT_PHOTO = "/:id/edit";
 const DELETE_PHOTO = "/:id/delete";
 
@@ -55,13 +54,6 @@ const routes = {
   },
   photos: PHOTOS,
   upload: UPLOAD,
-  photoDetail: (id) => {
-    if (id) {
-      return `/photos/${id}`;
-    } else {
-      return PHOTO_DETAIL;
-    }
-  },
   editPhoto: (id) => {
     if (id) {
       return `/photos/${id}/edit`;

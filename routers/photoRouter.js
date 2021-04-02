@@ -1,7 +1,6 @@
 import express from "express";
 import routes from "../routes";
 import {
-  photoDetail,
   deletePhoto,
   getUpload,
   postUpload,
@@ -14,8 +13,6 @@ const photoRouter = express.Router();
 
 photoRouter.get(routes.upload, onlyPrivate, getUpload);
 photoRouter.post(routes.upload, onlyPrivate, uploadPhoto, postUpload);
-
-photoRouter.get(routes.photoDetail(), photoDetail);
 
 photoRouter.get(routes.editPhoto(), onlyPrivate, getEditPhoto);
 photoRouter.post(routes.editPhoto(), onlyPrivate, postEditPhoto);

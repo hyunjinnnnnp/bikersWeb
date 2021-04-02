@@ -19,7 +19,6 @@ const decreaseNumber = () => {
 };
 const showFalseBtn = () => {
   const trueIndicator = targetPhotoBlock.querySelector("#jsTrueIndicator");
-  console.log(trueIndicator);
   const falseIndicator = targetPhotoBlock.querySelector("#jsFalseIndicator");
   trueIndicator.className = `${TRUE_CLASS} ${HIDE_CLASS}`;
   falseIndicator.className = `${FALSE_CLASS} ${SHOW_CLASS}`;
@@ -32,7 +31,6 @@ const increaseNumber = () => {
 const showTrueIndicator = () => {
   const falseIndicator = targetPhotoBlock.querySelector("#jsFalseIndicator");
   const trueIndicator = targetPhotoBlock.querySelector("#jsTrueIndicator");
-  console.log(trueIndicator);
   trueIndicator.className = `${TRUE_CLASS} ${SHOW_CLASS}`;
   falseIndicator.className = `${FALSE_CLASS} ${HIDE_CLASS}`;
   increaseNumber();
@@ -48,10 +46,9 @@ const showOverlayBtn = () => {
   });
 };
 const postLikeData = async () => {
-  const photoLink = targetPhotoBlock
+  const photoId = targetPhotoBlock
     .querySelector(".carousel__img-list")
-    .getAttribute("href");
-  const photoId = photoLink.split("/photos/")[1];
+    .getAttribute("data-url");
   const response = await axios({
     url: `api/${photoId}/like`,
     method: "POST",
@@ -80,7 +77,6 @@ const handleLikeClick = (e) => {
 function postLikeInit() {
   const userInfo = document.querySelector("#jsUserInfo");
   photoBlocks.forEach((photoBlock) => {
-    photoBlock.addEventListener("click", (e) => e.preventDefault());
     if (userInfo) {
       photoBlock.addEventListener("dblclick", handleLikeClick);
     }

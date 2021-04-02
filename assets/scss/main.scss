@@ -52,10 +52,11 @@ label {
   font-family: inherit;
   border: 0.1rem solid $black;
 }
+
 a:active,
 a:visited,
 a:focus {
-  color: $black;
+  color: $white;
 }
 
 button,
@@ -115,4 +116,14 @@ label:hover {
 }
 .jsShow {
   display: block;
+}
+#jsEditPhoto {
+  color: $white;
+}
+
+/// SEARCH ///
+.search__header {
+  padding-top: $headerHeight;
+  font-size: 1rem;
+  color: $white;
 }
