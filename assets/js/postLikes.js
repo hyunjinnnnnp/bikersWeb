@@ -1,13 +1,13 @@
 import axios from "axios";
+// setTimeout 2000 => 타겟 외에 다른 요소에도 영향이 감
 
-//유저 정보가 있을 때만 클릭 이벤트
-
-//포토 디테일은 다루지 않을 것임.
 //포토디테일 라우터 막고 업로드했을 때 홈으로 가게 바꿀 거야
 //preventDefault떄문에 슬라이더도 막혔음
 
 const photoBlocks = document.querySelectorAll(".photoBlock");
 let targetPhotoBlock;
+let isClicked = true;
+
 const SHOW_CLASS = "jsShow";
 const HIDE_CLASS = "jsHide";
 const TRUE_CLASS = "xi-heart";
@@ -19,6 +19,7 @@ const decreaseNumber = () => {
 };
 const showFalseBtn = () => {
   const trueIndicator = targetPhotoBlock.querySelector("#jsTrueIndicator");
+  console.log(trueIndicator);
   const falseIndicator = targetPhotoBlock.querySelector("#jsFalseIndicator");
   trueIndicator.className = `${TRUE_CLASS} ${HIDE_CLASS}`;
   falseIndicator.className = `${FALSE_CLASS} ${SHOW_CLASS}`;
@@ -31,6 +32,7 @@ const increaseNumber = () => {
 const showTrueIndicator = () => {
   const falseIndicator = targetPhotoBlock.querySelector("#jsFalseIndicator");
   const trueIndicator = targetPhotoBlock.querySelector("#jsTrueIndicator");
+  console.log(trueIndicator);
   trueIndicator.className = `${TRUE_CLASS} ${SHOW_CLASS}`;
   falseIndicator.className = `${FALSE_CLASS} ${HIDE_CLASS}`;
   increaseNumber();
@@ -66,11 +68,16 @@ const postLikeData = async () => {
   }
 };
 const handleLikeClick = (e) => {
-  [, , , targetPhotoBlock] = e.path;
-  postLikeData();
-  console.log("clicked");
+  targetPhotoBlock = e.currentTarget;
+  if (isClicked) {
+    postLikeData();
+    isClicked = false;
+    setTimeout(() => {
+      isClicked = true;
+    }, 2000);
+  }
 };
-function addLikeInit() {
+function postLikeInit() {
   const userInfo = document.querySelector("#jsUserInfo");
   photoBlocks.forEach((photoBlock) => {
     photoBlock.addEventListener("click", (e) => e.preventDefault());
@@ -80,5 +87,5 @@ function addLikeInit() {
   });
 }
 if (photoBlocks) {
-  addLikeInit();
+  postLikeInit();
 }

@@ -10,9 +10,8 @@ mixin photoBlock(photo = {})
                 span.author-location=photo.location.name
         .photoBlock__img
             .carousel__container
-                if loggedUser && !photo.likes.includes(loggedUser.id)
-                    #jsLikesOverlay
-                        i.jsHide.xi-heart#jsLikedFalse
+                #jsLikesOverlay
+                    i.jsHide.xi-heart#jsLikedFalse
                 a.carousel__img-list(href=routes.photoDetail(photo.id))
                     each item in photo.fileUrl
                         img.carousel__photo(src=`../${item}`, alt="Photo")
