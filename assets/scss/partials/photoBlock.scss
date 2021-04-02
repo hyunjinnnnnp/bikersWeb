@@ -17,7 +17,7 @@
     align-items: center;
     margin: 2rem 0;
   }
-  .author-info {
+  .info__author {
     display: flex;
     justify-content: flex-start;
     align-items: center;
@@ -32,7 +32,6 @@
     font-size: 1.2rem;
     color: $gray;
     font-weight: 800;
-    text-align: right;
   }
 }
 .jsLikesBtns,
@@ -75,9 +74,6 @@
   animation: fade-likes 1s;
 }
 
-.drop-down {
-  color: $white;
-}
 // DROPDOWN 에 관한 거 지금 HEADER에 있음
 
 //TRUNCATE ellipsis text

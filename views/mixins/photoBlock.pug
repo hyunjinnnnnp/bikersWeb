@@ -3,15 +3,14 @@ include commentBlock.pug
 mixin photoBlock(photo = {})
     .photoBlock
         .photoBlock__info
-            a.author-info(href=routes.userDetail(photo.creatorId))
-                img.author-avatar(src=photo.avatarUrl)
-                span.author-name=photo.creator
-            if(photo.location)
-                span.author-location=photo.location.name
+            a.info__author(href=routes.userDetail(photo.creatorId))
+                img.author--avatar(src=photo.avatarUrl)
+                span.author--name=photo.creator
+                span.author--location=photo.location.name
             if(loggedUser && loggedUser.id == photo.creatorId)
-                .drop-down#jsDropDown
+                #jsDropDown.drop-down
                     i.xi-ellipsis-h.dropBtns
-                    ul.drop-down-content#jsDropDownContent
+                    ul#jsDropDownContent.drop-down-content
                         li#jsDropDownList
                             a(href=`photos/${photo.id}/edit`) EDIT
                         li#jsDropDownList
@@ -33,29 +32,35 @@ mixin photoBlock(photo = {})
                 i#jsTrueIndicator.xi-heart.jsHide
                 i#jsFalseIndicator.xi-heart-o.jsShow
             span#jsLikesCount=photo.likes.length
-            span.author-name=photo.creator
-            span.photo-timestamp#jsTimestamp=photo.createdAt
+            span.author--name=photo.creator
+            span.photo--timestamp#jsTimestamp=photo.createdAt
             h6.photo-description#jsTruncate=photo.description
         .photoBlock__input
             if loggedUser
                 form.add-comment-form#jsAddComment
-                    //- ERROR: SEARCH PAGE -//
-                    img.author-avatar(src=loggedUser.avatarUrl.includes("http") ? loggedUser.avatarUrl : `../${loggedUser.avatarUrl}`)#jsAvatarElement
+                    img.author--avatar(src=loggedUser.avatarUrl.includes("http") ? loggedUser.avatarUrl : `../${loggedUser.avatarUrl}`)#jsAvatarElement
                     input(type="text", placeholder="Add a Comment")
+        .photoBlock__dropdown
+            i.info__comments-number
+                if photo.comments.length === 1
+                    span.comments__comment-number#jsCommentNumber=`댓글 ${photo.comments.length}`
+                    |개 보기
+                if photo.comments.length > 1
+                    span.comments__comment-number#jsCommentNumber=`댓글 ${photo.comments.length}`
+                    |개 모두 보기
         ul.photoBlock__coments-list#jsCommentList
             #jsFakeBlock.hide-element
                 .commentBlock__column
                     a.commentBlock__link(href=routes.me)
-                        img.author-avatar
+                        img.author--avatar
                 .commentBlock__column
                     .commentBlock__contents
-                        span.author-name
+                        span.author--name
                         span.text#jsCurrentComment.show-element
                     form.commentBlock__edit-form#jsEditCommentForm.hide-element
                         input(type="text")
                     if loggedUser && photo.comments
                         .commentBlock__icons
-                            .comment-timestamp 방금 전
                             a(href="")#jsEditComment.show-element
                                 span edit
                             a(href="")#jsDeleteComment.show-element
@@ -69,10 +74,3 @@ mixin photoBlock(photo = {})
                     _id: item._id,
                     createdAt: item.createdAt
                 })
-        .info__comments-number
-            if photo.comments.length === 1 || 0
-                span.comments__comment-number#jsCommentNumber=photo.comments.length
-                | comment
-            else
-                span.comments__comment-number#jsCommentNumber=photo.comments.length 
-                | comments

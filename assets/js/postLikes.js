@@ -1,9 +1,6 @@
 import axios from "axios";
 // setTimeout 2000 => 타겟 외에 다른 요소에도 영향이 감
 
-//포토디테일 라우터 막고 업로드했을 때 홈으로 가게 바꿀 거야
-//preventDefault떄문에 슬라이더도 막혔음
-
 const photoBlocks = document.querySelectorAll(".photoBlock");
 let targetPhotoBlock;
 let isClicked = true;

@@ -7,8 +7,9 @@ let deletedList;
 let parent;
 
 const decreaseNumber = () => {
-  const commentNumber = targetPhotoBlock.querySelector("#jsCommentNumber");
-  commentNumber.innerText = parseInt(commentNumber.innerText, 10) - 1;
+  const commentNumberElem = targetPhotoBlock.querySelector("#jsCommentNumber");
+  const number = commentNumberElem.innerText.split(" ")[1];
+  commentNumberElem.innerText = `댓글 ${parseInt(number, 10) - 1}`;
 };
 const hideElement = () => {
   parent.removeChild(deletedList);

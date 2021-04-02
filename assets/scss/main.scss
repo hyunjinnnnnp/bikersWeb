@@ -1,6 +1,9 @@
 html {
   font-size: 62.5%;
 }
+* {
+  color: $white;
+}
 html,
 body {
   height: 100%;
@@ -65,14 +68,14 @@ input[type="submit"],
 label:hover {
   cursor: pointer;
 }
-.author-avatar,
+.author--avatar,
 .avatar {
   width: 2.5rem;
   height: 2.5rem;
   border-radius: 50%;
   margin-right: 1rem;
 }
-.author-name {
+.author--name {
   letter-spacing: -0.01rem;
   color: $white;
   font-size: 1.4rem;
@@ -87,7 +90,7 @@ label:hover {
 .home__main {
   padding-top: $headerHeight;
 }
-.author-location {
+.author--location {
   color: $white;
 }
 
@@ -103,39 +106,29 @@ label:hover {
 
   z-index: 10000;
 }
-#jsLikesCount,
-#jsLikedTrue,
-#jsLikedFalse {
-  color: $white;
-}
-.photoBlock__description i {
-  color: $white;
-}
+// #jsLikesCount,
+// #jsLikedTrue,
+// #jsLikedFalse {
+//   color: $white;
+// }
+// .photoBlock__description i {
+//   color: $white;
+// }
 .jsHide {
   display: none;
 }
 .jsShow {
   display: block;
 }
-#jsEditPhoto {
-  color: $white;
-}
 
 /// SEARCH ///
 .search__header {
   padding-top: $headerHeight;
   font-size: 1rem;
-  color: $white;
 }
 
 //라이크 리스트//
 
 .like-list-header {
   padding-top: $headerHeight;
-  color: $white;
-}
-
-.photo-timestamp,
-.comment-timestamp {
-  color: $white;
 }

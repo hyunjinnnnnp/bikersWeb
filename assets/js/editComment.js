@@ -8,9 +8,9 @@ let editIcon;
 let deleteIcon;
 
 const edit = (editedComment) => {
+  const parent = selectedList.querySelector(".commentBlock__contents");
   const span = document.createElement("span");
   span.innerHTML = editedComment;
-  const parent = selectedList.querySelector(".commentBlock__contents");
   parent.appendChild(span);
   editForm.classList.remove("show-element");
   editForm.classList.add("hide-element");

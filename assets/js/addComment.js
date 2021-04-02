@@ -7,8 +7,11 @@ let targetPhotoBlock;
 let commentId;
 
 const increaseNumber = () => {
-  const commentNumber = targetPhotoBlock.querySelector("#jsCommentNumber");
-  commentNumber.innerHTML = parseInt(commentNumber.innerHTML, 10) + 1;
+  console.log(targetPhotoBlock);
+  const commentNumberElem = targetPhotoBlock.querySelector("#jsCommentNumber");
+
+  const number = commentNumberElem.innerText.split(" ")[1];
+  commentNumberElem.innerHTML = `댓글 ${parseInt(number, 10) + 1}`;
 };
 //TO DO : Refactoring..... 쿼리셀렉터 다 올리기
 const addComment = (comment) => {
@@ -27,9 +30,9 @@ const addComment = (comment) => {
     .querySelector(".commentBlock__link")
     .setAttribute("href", "/me");
   fakeCommentBlock
-    .querySelector(".author-avatar")
+    .querySelector(".author--avatar")
     .setAttribute("src", userAvatar);
-  fakeCommentBlock.querySelector(".author-name").innerHTML = userName;
+  fakeCommentBlock.querySelector(".author--name").innerHTML = userName;
   fakeCommentBlock.querySelector("#jsCurrentComment").innerText = comment;
   fakeCommentBlock.querySelector("#jsEditCommentForm input").value = comment;
   fakeCommentBlock

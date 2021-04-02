@@ -5,7 +5,7 @@ block content
     .like-list-header
         p 좋아요
     .like-list-container
-        each item in photos
+        each item in photos.reverse()
             +photoBlock({
                 id: item.id,
                 fileUrl: item.fileUrl,
