@@ -1,5 +1,5 @@
 mixin commentBlock(comment = {})
-    li.commentBlock#jsDropDownList
+    li.commentBlock
         .commentBlock__column
             a.commentBlock__link(href=routes.userDetail(comment.creatorId))
                 img.author--avatar(src=comment.creatorAvatar.includes("http") ? comment.creatorAvatar : `../${comment.creatorAvatar }`)

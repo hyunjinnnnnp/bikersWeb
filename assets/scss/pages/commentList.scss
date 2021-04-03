@@ -1,0 +1,12 @@
+.comment-list__header {
+  width: 100%;
+  height: $headerHeight;
+  position: fixed;
+  top: 0;
+  z-index: 1000;
+  background-color: $black;
+}
+.comment-list__content {
+  padding-top: $headerHeight;
+  height: 100vh;
+}

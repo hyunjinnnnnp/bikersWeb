@@ -18,6 +18,7 @@ const PHOTOS = "/photos";
 const UPLOAD = "/upload";
 const EDIT_PHOTO = "/:id/edit";
 const DELETE_PHOTO = "/:id/delete";
+const COMMENT_LIST = "/:id/comments-list";
 
 //kakao
 const KAKAO = "/auth/kakao";
@@ -54,6 +55,13 @@ const routes = {
     }
   },
   likeList: LIKE_LIST,
+  commentList: (id) => {
+    if (id) {
+      return `/photos/${id}/comments-list`;
+    } else {
+      return COMMENT_LIST;
+    }
+  },
   photos: PHOTOS,
   upload: UPLOAD,
   editPhoto: (id) => {
