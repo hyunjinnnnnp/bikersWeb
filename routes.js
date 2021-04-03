@@ -18,7 +18,6 @@ const PHOTOS = "/photos";
 const UPLOAD = "/upload";
 const EDIT_PHOTO = "/:id/edit";
 const DELETE_PHOTO = "/:id/delete";
-const COMMENT_LIST = "/:id/comments-list";
 
 //kakao
 const KAKAO = "/auth/kakao";
@@ -37,6 +36,8 @@ const EDIT_COMMENT = "/:id/edit-comment";
 const DELETE_COMMENT = "/:id/delete-comment";
 const GET_USER_LOC = "/:id/get-user-locations";
 const TOOGLE_LIKE = "/:id/like";
+const COMMENTS = "/comments";
+const COMMENT_LIST = "/:id/comments-list";
 
 const routes = {
   home: HOME,
@@ -55,9 +56,10 @@ const routes = {
     }
   },
   likeList: LIKE_LIST,
+  comments: COMMENTS,
   commentList: (id) => {
     if (id) {
-      return `/photos/${id}/comments-list`;
+      return `/api/${id}/comments-list`;
     } else {
       return COMMENT_LIST;
     }

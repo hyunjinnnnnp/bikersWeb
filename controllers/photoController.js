@@ -127,18 +127,19 @@ export const postUpload = async (req, res) => {
 export const getCommentList = async (req, res) => {
   try {
     const {
-      params: { id },
-      user: loggedUser,
+      body: { photoId },
+      user,
     } = req;
-    const photo = await Photo.findById({ _id: id })
+    console.log(photoId);
+    const photo = await Photo.findById({ _id: photoId })
       .populate("comments")
       .populate("creator");
-
+    const loggedUser = await User.findById({ _id: user._id });
     //포토 아이디를 받아서 해당 포토의 커맨츠 리스트를 보내준다
     res.render("commentList", { pageTitle: "Comments", photo, loggedUser });
   } catch (error) {
     console.log(error);
-    // res.redirect(routes.home);
+    res.redirect(routes.home);
   }
 };
 export const postAddComment = async (req, res) => {

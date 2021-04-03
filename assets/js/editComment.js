@@ -21,7 +21,7 @@ const edit = (editedComment) => {
 };
 const sendComment = async (editedComment) => {
   const btn = selectedList.querySelector("#jsEditComment");
-  const editCommentUrl = btn.getAttribute("href");
+  const editCommentUrl = btn.getAttribute("data-url");
   const response = await axios({
     url: editCommentUrl,
     method: "POST",

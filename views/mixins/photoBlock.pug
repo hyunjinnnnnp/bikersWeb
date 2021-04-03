@@ -34,12 +34,22 @@ mixin photoBlock(photo = {})
             span#jsLikesCount=photo.likes.length
             span.author--name=photo.creator
             span.photo--timestamp#jsTimestamp=photo.createdAt
-            h6.photo--description#jsTruncate=photo.description
-            a.photo--comments--number(href=routes.commentList(photo.id))
-                i.info__comments-number
+            p(data-photoId=photo.id).photo--description#jsTruncate=photo.description
+            a.photo--comments--number
+                i.info__comments-number#jsCommentModal(data-photo-id=photo.id)
                     if photo.comments.length === 1
                         span.comments__comment-number#jsCommentNumber=`댓글 ${photo.comments.length}`
                         |개 보기
                     if photo.comments.length > 1
                         span.comments__comment-number#jsCommentNumber=`댓글 ${photo.comments.length}`
                         |개 모두 보기
+                if photo.comments.length <3
+                    each item in photo.comments.reverse()
+                        +commentBlock({
+                           creatorId: item.creatorId,
+                            creatorAvatar: item.creatorAvatar,
+                            creatorName: item.creatorName,
+                            text: item.text,
+                            _id: item._id,
+                            createdAt: item.createdAt
+                        })
