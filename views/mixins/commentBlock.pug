@@ -1,17 +1,17 @@
 mixin commentBlock(comment = {})
-    li.commentBlock
-        .commentBlock__column
-            a.commentBlock__link(href=routes.userDetail(comment.creatorId))
+    li.comment-block
+        .comment-block__column
+            a.column__link(href=routes.userDetail(comment.creatorId))
                 img.author--avatar(src=comment.creatorAvatar.includes("http") ? comment.creatorAvatar : `../${comment.creatorAvatar }`)
-        .commentBlock__column
-            .commentBlock__contents
+        .comment-block__column
+            .column__comment
                 span.author--name=comment.creatorName
                 span.text#jsCurrentComment.show-element=comment.text
-            .commentBlock__timestamp#jsTimestamp=comment.createdAt
-            form.commentBlock__edit-form#jsEditCommentForm.hide-element
+            #jsTimestamp=comment.createdAt
+            form#jsEditCommentForm.hide-element
                 input(type="text", value=comment.text)
-            if loggedUser && comment.creatorId == loggedUser.id
-                .commentBlock__icons
+            .column__icons
+                if loggedUser && comment.creatorId == loggedUser.id
                     a(data-url=`/api${routes.editComment(comment._id)}`)#jsEditComment.show-element
                         span edit
                     a(data-url=`/api${routes.deleteComment(comment._id)}`)#jsDeleteComment.show-element

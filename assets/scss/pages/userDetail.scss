@@ -1,4 +1,4 @@
-.user-profile__wrapper {
+.user-profile {
   padding: $headerHeight 4rem 4rem 4rem;
   width: 100%;
   display: flex;
@@ -15,12 +15,12 @@
   height: 20%;
   background-color: $red;
   border-radius: 1rem;
-  .user-info {
+  .header__user-info {
     display: flex;
     flex-direction: column;
     align-items: center;
     font-weight: 600;
-    .profile-avatar {
+    .avatar {
       width: 5rem;
       height: 5rem;
       border-radius: 50%;
@@ -40,7 +40,7 @@
     border-radius: 1rem;
   }
 }
-.user-profile__photos {
+.user-profile__photo-container {
   width: 100%;
   margin: 4rem 0;
   display: grid;
@@ -48,7 +48,7 @@
   grid-template-rows: repeat(auto-fit, minmax(2rem, 1fr));
   grid-gap: 1.5rem;
   justify-items: center;
-  .profile__img {
+  .photo-container__photo {
     position: relative;
     background-color: $black;
   }
@@ -56,7 +56,7 @@
     object-fit: cover;
     max-width: 100%;
   }
-  .photo-comments-number {
+  .photo__likes {
     position: absolute;
     top: 0;
     left: 0;
@@ -67,14 +67,5 @@
     justify-content: center;
     color: $white;
     font-weight: 600;
-    .number {
-      width: 100%;
-      height: 100%;
-      background-color: $black;
-      display: none;
-    }
-    &:hover .number {
-      display: flex;
-    }
   }
 }

@@ -9,7 +9,7 @@
   .photo-detail__info {
     padding: 1rem 1.5rem;
   }
-  .add-comment-form {
+  .comment-list__form form {
     margin: 2rem 0;
     display: flex;
     align-items: center;
@@ -46,7 +46,7 @@
     color: $white;
     font-weight: 700;
   }
-  .info__comments-number {
+  .comment-number {
     font-size: 1.2rem;
     font-weight: 800;
     text-align: right;

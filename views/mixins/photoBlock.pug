@@ -1,22 +1,22 @@
 include commentBlock.pug
 
 mixin photoBlock(photo = {})
-    .photoBlock
-        .photoBlock__info
+    .photo-block
+        .photo-block__info
             a.info__author(href=routes.userDetail(photo.creatorId))
                 img.author--avatar(src=photo.avatarUrl)
                 span.author--name=photo.creator
                 span.author--location=photo.location.name
             if(loggedUser && loggedUser.id == photo.creatorId)
-                #jsDropDown.drop-down
+                .info__drop-down.drop-down#jsDropDown
                     i.xi-ellipsis-h.dropBtns
-                    ul#jsDropDownContent.drop-down-content
+                    ul.drop-down-content#jsDropDownContent
                         li#jsDropDownList
                             a(href=`photos/${photo.id}/edit`) EDIT
                         li#jsDropDownList
                             a(href=`/photos/${photo.id}/delete`) DELETE
-        .photoBlock__img
-            .carousel__container
+        .photo-block__img
+            .img__carousel-container
                 #jsLikesOverlay
                     i.jsHide.xi-heart#jsLikedFalse
                 a.carousel__img-list(data-url=photo.id)
@@ -24,7 +24,7 @@ mixin photoBlock(photo = {})
                         img.carousel__photo(src=`../${item}`, alt="Photo")
                 i.carousel__prev-i.xi-arrow-left.carousel__btn-hide
                 i.carousel__next-i.xi-arrow-right.carousel__btn-show
-        .photoBlock__description
+        .photo-block__description
             if loggedUser && photo.likes.includes(loggedUser._id)
                 i#jsTrueIndicator.xi-heart.jsShow
                 i#jsFalseIndicator.xi-heart-o.jsHide
@@ -32,24 +32,26 @@ mixin photoBlock(photo = {})
                 i#jsTrueIndicator.xi-heart.jsHide
                 i#jsFalseIndicator.xi-heart-o.jsShow
             span#jsLikesCount=photo.likes.length
-            span.author--name=photo.creator
-            span.photo--timestamp#jsTimestamp=photo.createdAt
-            p(data-photoId=photo.id).photo--description#jsTruncate=photo.description
-            a.photo--comments--number
-                i.info__comments-number#jsCommentModal(data-photo-id=photo.id)
+            span=photo.creator
+            span#jsTimestamp=photo.createdAt
+            p.description__content(data-photo-id=photo.id)#jsTruncate=photo.description
+            a.description__comment-number
+                i.comment-number(data-photo-id=photo.id)#jsCommentModal
                     if photo.comments.length === 1
-                        span.comments__comment-number#jsCommentNumber=`댓글 ${photo.comments.length}`
+                        span#jsCommentNumber=`댓글 ${photo.comments.length}`
                         |개 보기
                     if photo.comments.length > 1
-                        span.comments__comment-number#jsCommentNumber=`댓글 ${photo.comments.length}`
+                        span#jsCommentNumber=`댓글 ${photo.comments.length}`
                         |개 모두 보기
+            ul.comment-list__fake-container
                 if photo.comments.length <3
-                    each item in photo.comments.reverse()
-                        +commentBlock({
-                           creatorId: item.creatorId,
-                            creatorAvatar: item.creatorAvatar,
-                            creatorName: item.creatorName,
-                            text: item.text,
-                            _id: item._id,
-                            createdAt: item.createdAt
-                        })
+                    ul.comment-list__fake-container
+                        each item in photo.comments
+                            +commentBlock({
+                            creatorId: item.creatorId,
+                                creatorAvatar: item.creatorAvatar,
+                                creatorName: item.creatorName,
+                                text: item.text,
+                                _id: item._id,
+                                createdAt: item.createdAt
+                            })

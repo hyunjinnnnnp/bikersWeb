@@ -1,25 +1,45 @@
 import axios from "axios";
 
-const editCommentElems = document.querySelectorAll("#jsEditComment");
 let selectedList;
 let editForm;
 let currentComment;
 let editIcon;
 let deleteIcon;
+let photoBlock;
+let currentCommentBlockContainer;
 
-const edit = (editedComment) => {
-  const parent = selectedList.querySelector(".commentBlock__contents");
-  const span = document.createElement("span");
-  span.innerHTML = editedComment;
-  parent.appendChild(span);
+const editFakeBlock = (editedComment) => {
+  let index;
+  currentComment.innerHTML = editedComment;
+  currentComment.classList.remove("hide-element");
+  currentComment.classList.add("show-element");
   editForm.classList.remove("show-element");
   editForm.classList.add("hide-element");
   editIcon.classList.remove("hide-element");
   editIcon.classList.add("show-element");
   deleteIcon.classList.remove("hide-element");
   deleteIcon.classList.add("show-element");
+  if (currentCommentBlockContainer.className === "comment-list__container") {
+    if (selectedList.nextSibling) {
+      index = 0;
+    } else {
+      index = 1;
+    }
+    const array = photoBlock.querySelectorAll(".comment-block");
+
+    if (array.length === 1) {
+      photoBlock.querySelector("#jsCurrentComment").innerHTML = editedComment;
+      const input = selectedList.querySelector("#jsEditCommentForm input");
+      input.value = editedComment;
+    } else {
+      const nthChild = array[index];
+      nthChild.querySelector("#jsCurrentComment").innerHTML = editedComment;
+      const input = selectedList.querySelector("#jsEditCommentForm input");
+      input.value = editedComment;
+    }
+  }
 };
-const sendComment = async (editedComment) => {
+const sendEditedComment = async (editedComment) => {
   const btn = selectedList.querySelector("#jsEditComment");
   const editCommentUrl = btn.getAttribute("data-url");
   const response = await axios({
@@ -30,14 +50,15 @@ const sendComment = async (editedComment) => {
     },
   });
   if (response.status === 200) {
-    edit(editedComment);
+    editFakeBlock(editedComment);
   }
 };
-const handleSubmit = (event) => {
+const handleEditCommentForm = (event) => {
   event.preventDefault();
+  [, , , currentCommentBlockContainer] = event.path;
   const commentInput = editForm.querySelector("input");
   const editedComment = commentInput.value;
-  sendComment(editedComment);
+  sendEditedComment(editedComment);
   commentInput.value = "";
 };
 const toggleShowing = (elem) => {
@@ -49,9 +70,10 @@ const toggleShowing = (elem) => {
     elem.classList.add("show-element");
   }
 };
-const handleClick = (event) => {
+const handleEditCommentBtn = (event) => {
   event.preventDefault();
-  selectedList = event.currentTarget.parentNode.parentNode;
+  [, , , , selectedList] = event.path;
+
   editForm = selectedList.querySelector("#jsEditCommentForm");
   currentComment = selectedList.querySelector("#jsCurrentComment");
   editIcon = event.currentTarget;
@@ -60,15 +82,14 @@ const handleClick = (event) => {
   toggleShowing(currentComment);
   toggleShowing(editIcon);
   toggleShowing(deleteIcon);
-  editForm.addEventListener("submit", handleSubmit);
+  editForm.addEventListener("submit", handleEditCommentForm);
 };
-function init() {
+function editCommentInit(elem) {
+  photoBlock = elem;
+  const editCommentElems = document.querySelectorAll("#jsEditComment");
   editCommentElems.forEach((item) =>
-    item.addEventListener("click", handleClick)
+    item.addEventListener("click", handleEditCommentBtn)
   );
 }
-if (editCommentElems) {
-  init();
-}
-// eslint-disable-next-line import/prefer-default-export
-export default handleClick;
+
+export default editCommentInit;

@@ -1,5 +1,5 @@
 const photoDetailCarousel = document.querySelector("#jsPhotoDetailCarousel");
-const photoBlocks = document.querySelectorAll(".photoBlock");
+const photoBlocks = document.querySelectorAll(".photo-block");
 
 let targetBlock;
 let nextBtn;

@@ -1,19 +1,20 @@
 extends layouts/main.pug
 
 block content
-    .form__container.upload-container
-        #map
-        #map__search-container
-            input#search-location(type="text", placeholder="Enter a location")
-        #infowindow-content
-            span#place-name.title
-            span#place-address
-        form#jsUploadFile(action=`/photos${routes.upload}`, method="post", enctype="multipart/form-data")
-            label(for="file") 
-                i#jsUploadIcon.xi-camera-o
-                span Click to choose photo
-            #jsFileList.upload__file-preview
-            input#location(type="text", name="location", value="")
-            input(type="file", multiple, id="file", name="file", required=true, accept="image/*")
-            textarea(placeholder="description", name="description", required=true, cols="37", rows="10")
-            input(type="submit", value="Upload Photo")
+    .upload
+        .form__container
+            #map
+            .search-location
+                input#search-location__input(type="text", placeholder="Enter a location")
+            #jsInfoWindow
+                span#jsPlaceName
+                span#jsPlaceAddress
+            form#jsUploadFile(action=`/photos${routes.upload}`, method="post", enctype="multipart/form-data")
+                label(for="file") 
+                    i.xi-camera-o
+                    span Click to choose photo
+                #jsFileList.upload__preview
+                input#jsCoordinates(type="text", name="location", value="")
+                input(type="file", multiple, id="file", name="file", required=true, accept="image/*")
+                textarea(placeholder="description", name="description", required=true, cols="37", rows="10")
+                input(type="submit", value="Upload Photo")

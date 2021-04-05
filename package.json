@@ -4,7 +4,7 @@
   "description": "Website for Bikers Photos with vanilla and NodeJS",
   "main": "init.js",
   "scripts": {
-    "dev:server": "nodemon --exec babel-node init.js --ignore '.scss' --ignore 'static'",
+    "dev:server": "nodemon --exec babel-node init.js --delay 2 --ignore '.scss' --ignore 'static'",
     "dev:assets": "gulp"
   },
   "author": "Hyunjin Park",

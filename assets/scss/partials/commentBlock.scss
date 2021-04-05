@@ -1,13 +1,13 @@
-.commentBlock {
+.comment-block {
   padding: 0.5rem 1rem;
   display: flex;
   align-items: center;
-  .commentBlock__contents {
+  .commen-block__contents {
     word-break: break-all;
     color: $white;
     font-weight: 600;
   }
-  .commentBlock__icons span {
+  .commen-block__icons span {
     display: inline-block;
     margin-top: 0.5rem;
     margin-right: 0.5rem;

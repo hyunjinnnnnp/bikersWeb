@@ -17,12 +17,12 @@
     z-index: 20000;
     background-color: $black;
   }
-  .comment-list__content {
+  .comment-list {
     padding-top: $headerHeight;
     width: 100%;
     height: 100%;
   }
-  .photoBlock__input form {
+  .photo-block__input form {
     z-index: 10000;
     display: flex;
     align-items: center;

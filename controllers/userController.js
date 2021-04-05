@@ -186,15 +186,11 @@ export const userDetail = async (req, res) => {
     user: loggedUser,
   } = req;
   try {
-    const user = await User.findById({ _id: id })
-      .populate("photos")
-      .populate("locations");
-    const userLocations = user.locations;
+    const user = await User.findById({ _id: id }).populate("photos");
     res.render("userDetail", {
       pageTitle: "User Detail",
       user,
       loggedUser,
-      userLocations,
     });
   } catch (error) {
     res.redirect(routes.home);

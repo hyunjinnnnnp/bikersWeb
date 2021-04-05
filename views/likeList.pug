@@ -2,9 +2,9 @@ extends layouts/main.pug
 include mixins/photoBlock
 
 block content
-    .like-list-header
+    .like-list__header
         p 좋아요
-    .like-list-container
+    .like-list__container
         each item in photos.reverse()
             +photoBlock({
                 id: item.id,

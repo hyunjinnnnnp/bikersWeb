@@ -1,3 +1,5 @@
+import handleModal from "./commentModal";
+
 const photoDescriptions = document.querySelectorAll("#jsTruncate");
 
 const truncateInit = () => {
@@ -16,7 +18,12 @@ const truncateInit = () => {
       textElem.addEventListener("click", (e) => {
         const { currentTarget } = e;
         currentTarget.innerText = `${truncated}${moreTxt}`;
+        textElem.id = "jsCommentModal";
+        textElem.addEventListener("click", handleModal);
       });
+    } else {
+      textElem.id = "jsCommentModal";
+      textElem.addEventListener("click", handleModal);
     }
   });
 };

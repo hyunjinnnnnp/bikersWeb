@@ -1,4 +1,4 @@
-const uploadContainer = document.querySelector(".upload-container");
+const uploadContainer = document.querySelector(".upload");
 
 const { google } = window;
 let map;
@@ -11,7 +11,7 @@ const sendPlaceName = (placeName) => {
 };
 
 const initSearchInput = () => {
-  const searchInput = document.querySelector("#search-location");
+  const searchInput = document.querySelector("#search-location__input");
   const options = {
     componentRestriction: { country: "kr" },
     fields: ["formatted_address", "geometry", "name"],
@@ -23,7 +23,7 @@ const initSearchInput = () => {
   );
   autocomplete.bindTo("bounds", map);
   const infowindow = new google.maps.InfoWindow();
-  const infowindowContent = document.querySelector("#infowindow-content");
+  const infowindowContent = document.querySelector("#jsInfoWindow");
   infowindow.setContent(infowindowContent);
 
   marker = new google.maps.Marker({
@@ -44,14 +44,14 @@ const initSearchInput = () => {
     }
     marker.setPosition(place.geometry.location);
     marker.setVisible(true);
-    infowindowContent.children["place-name"].textContent = placeName;
+    infowindowContent.children["#jsPlaceName"].textContent = placeName;
     infowindow.open(map, marker);
     sendPlaceName(placeName);
   });
 };
 
 const sendLocation = () => {
-  storeLocation = document.querySelector("#location");
+  storeLocation = document.querySelector("#jsCoordinates");
   storeLocation.value = `${userLocation.lat}, ${userLocation.lng}`;
   if (userLocation) {
     //????

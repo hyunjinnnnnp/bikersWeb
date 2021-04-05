@@ -4,25 +4,18 @@ block content
     .comment-list__header
         i.xi-angle-left#jsGoBackPage
         span 댓글
-    .comment-list__content
-        ul.photoBlock__coments-list
+    .comment-list
+        ul.comment-list__container
             #jsFakeBlock.hide-element
-                .commentBlock__column
-                    a.commentBlock__link(href=routes.me)
-                        img.author--avatar
-                .commentBlock__column
-                    .commentBlock__contents
-                        span.author--name
-                        span.text#jsCurrentComment.show-element
-                    form.commentBlock__edit-form#jsEditCommentForm.hide-element
-                        input(type="text")
-                    if loggedUser && photo.comments
-                        .commentBlock__icons
-                            a(href="")#jsEditComment.show-element
-                                span edit
-                            a(href="")#jsDeleteComment.show-element
-                                span delete
-            each item in photo.comments.reverse()
+                +commentBlock({
+                    creatorId: loggedUser._id,
+                    creatorAvatar: loggedUser.avatarUrl,
+                    creatorName: loggedUser.name,
+                    text: "",
+                    _id: "",
+                    createdAt: ""
+                })
+            each item in photo.comments
                 +commentBlock({
                     creatorId: item.creatorId,
                     creatorAvatar: item.creatorAvatar,
@@ -31,8 +24,8 @@ block content
                     _id: item._id,
                     createdAt: item.createdAt
                 })
-        .photoBlock__input
+        .comment-list__form
             if loggedUser
-                form.add-comment-form#jsAddComment
+                form#jsAddComment
                     img.author--avatar(src=loggedUser.avatarUrl.includes("http") ? loggedUser.avatarUrl : `../../${loggedUser.avatarUrl}`)#jsAvatarElement
                     input(type="text", placeholder="Add a Comment")

@@ -1,7 +1,8 @@
 import axios from "axios";
 
 import handleSubmit from "./addComment";
-import deleteHandler from "./deleteComment";
+import deleteCommentInit from "./deleteComment";
+import editCommentInit from "./editComment";
 
 const modalBtns = document.querySelectorAll("#jsCommentModal");
 const main = document.querySelector("main");
@@ -15,8 +16,9 @@ const addComment = (fakeElem, photoId, commentNumberElem) => {
   );
 };
 const handleModal = async (e) => {
-  const commentNumberElem = e.path[1].querySelector("span");
-  const photoId = e.target.getAttribute("data-photo-id");
+  const [, , , photoBlock] = e.path;
+  const commentNumberElem = e.path[1].querySelector(".comment-number");
+  const photoId = e.currentTarget.getAttribute("data-photo-id");
   const url = `/api/${photoId}/comments-list`;
   let fakeElem;
   try {
@@ -33,12 +35,12 @@ const handleModal = async (e) => {
       })
       .then(() => {
         const goBackBtn = fakeElem.querySelector("#jsGoBackPage");
-        const delBtn = fakeElem.querySelectorAll("#jsDeleteComment");
         goBackBtn.addEventListener("click", () => {
           main.removeChild(fakeElem);
         });
+        editCommentInit(photoBlock);
+        deleteCommentInit(photoId, commentNumberElem);
         addComment(fakeElem, photoId, commentNumberElem);
-        delBtn.forEach((item) => item.addEventListener("click", deleteHandler));
       });
   } catch (error) {
     console.log(error);
@@ -48,3 +50,5 @@ const handleModal = async (e) => {
 if (modalBtns) {
   modalBtns.forEach((btn) => btn.addEventListener("click", handleModal));
 }
+
+export default handleModal;

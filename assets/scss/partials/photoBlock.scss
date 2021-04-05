@@ -1,8 +1,8 @@
-.photoBlock {
-  .photoBlock__img img {
+.photo-block {
+  .photo-block__img img {
     width: 100%;
   }
-  .photoBlock__info {
+  .photo-block__info {
     display: flex;
     align-items: center;
   }
@@ -11,7 +11,7 @@
     justify-content: flex-start;
     align-items: center;
   }
-  .photo--description {
+  .description__content {
     width: 100%;
     font-size: 1.5rem;
     color: $white;

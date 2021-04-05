@@ -2,7 +2,7 @@
 import axios from "axios";
 import MarkerClusterer from "@googlemaps/markerclustererplus";
 
-const userDetailMap = document.querySelector("#userDetailMap");
+const userDetailMap = document.querySelector("#jsUserDetailMap");
 let map;
 let locations;
 const { google } = window;
@@ -28,7 +28,7 @@ const drawMarkers = () => {
 const initMap = (data) => {
   locations = data;
   const seoul = { lat: 37.5642135, lng: 127.0016985 };
-  map = new google.maps.Map(document.querySelector("#userDetailMap"), {
+  map = new google.maps.Map(document.querySelector("#jsUserDetailMap"), {
     zoom: 6,
     center: seoul,
   });

@@ -130,6 +130,7 @@ export const getCommentList = async (req, res) => {
       body: { photoId },
       user,
     } = req;
+    console.log(photoId);
     const photo = await Photo.findById({ _id: photoId })
       .populate("comments")
       .populate("creator");
@@ -146,6 +147,7 @@ export const postAddComment = async (req, res) => {
     body: { comment },
     user,
   } = req;
+
   let commentId;
   try {
     const photo = await Photo.findById(id);

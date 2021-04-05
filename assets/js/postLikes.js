@@ -1,7 +1,7 @@
 import axios from "axios";
 // setTimeout 2000 => 타겟 외에 다른 요소에도 영향이 감
 
-const photoBlocks = document.querySelectorAll(".photoBlock");
+const photoBlocks = document.querySelectorAll(".photo-block");
 let targetPhotoBlock;
 let isClicked = true;
 

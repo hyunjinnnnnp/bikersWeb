@@ -4,7 +4,7 @@ include mixins/photoBlock
 block content
     .search__header
         h3 Searching For: #{searchingBy}
-    .search__photos
+    .search__content
         if photos.length === 0
             h5 No Photos Found
         each item in photos

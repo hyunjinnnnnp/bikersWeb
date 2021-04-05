@@ -2,12 +2,12 @@ extends layouts/main.pug
 
 block content
     .edit-photo
-        .form__container
+        .form-container
             a.form-container__link.form-container__link--delete(href=routes.deletePhoto(photo.id))
                 i.xi-close-circle-o
                 span DELETE
                 i.xi-close-circle-o
             img(src=`../../${photo.fileUrl}`)
-            form(action=routes.editPhoto(photo.id), method="post").edit-photo-form
+            form(action=routes.editPhoto(photo.id), method="post")
                 textarea(placeholder="Description", name="description")=photo.description
                 input(type="submit", value="Update").edit-photo-input

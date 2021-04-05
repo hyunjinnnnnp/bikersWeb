@@ -5,16 +5,16 @@ header.header
     .header__column
         form(action=routes.search, method="get")
             input(type="text", placeholder="Search", name="term")
-    if !loggedUser    
+    if !loggedUser
         .header__column.drop-down#jsDropDown
             i.xi-bars.dropBtns
-            ul.header__unknown-user-nav.drop-down-content#jsDropDownContent
+            ul.drop-down-content#jsDropDownContent
                 li#jsDropDownList
                     a(href=routes.join) Join
                 li#jsDropDownList
                     a(href=routes.login) Login
     else
-        ul.header__logged-in-user-nav
+        ul.header__column.logged-user-nav
             li
                 a(href=`/photos${routes.upload}`) 
                     i.xi-plus-square-o
