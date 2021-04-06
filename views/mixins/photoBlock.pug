@@ -45,13 +45,12 @@ mixin photoBlock(photo = {})
                         |개 모두 보기
             ul.comment-list__fake-container
                 if photo.comments.length <3
-                    ul.comment-list__fake-container
-                        each item in photo.comments
-                            +commentBlock({
-                            creatorId: item.creatorId,
-                                creatorAvatar: item.creatorAvatar,
-                                creatorName: item.creatorName,
-                                text: item.text,
-                                _id: item._id,
-                                createdAt: item.createdAt
-                            })
+                    each item in photo.comments
+                        +commentBlock({
+                        creatorId: item.creatorId,
+                            creatorAvatar: item.creatorAvatar,
+                            creatorName: item.creatorName,
+                            text: item.text,
+                            _id: item._id,
+                            createdAt: item.createdAt
+                        })
