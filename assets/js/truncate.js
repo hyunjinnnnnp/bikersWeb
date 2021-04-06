@@ -6,7 +6,7 @@ const truncateInit = () => {
   photoDescriptions.forEach((text) => {
     const textElem = text;
     const description = textElem.innerText;
-    const limit = 20;
+    const limit = 25;
     if (description.length > limit) {
       const truncated = description.slice(0, limit);
       const moreTxt = description.slice(limit, description.length);

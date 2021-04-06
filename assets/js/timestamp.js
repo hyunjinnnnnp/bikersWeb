@@ -32,3 +32,4 @@ if (timestamps) {
     timestamp.innerText = date;
   });
 }
+export default drawTime;

@@ -3,10 +3,15 @@ import axios from "axios";
 import handleSubmit from "./addComment";
 import deleteCommentInit from "./deleteComment";
 import editCommentInit from "./editComment";
+import drawTime from "./timestamp";
 
+const loggedUser = document.querySelector("#jsUserInfo");
+const body = document.querySelector("body");
 const modalBtns = document.querySelectorAll("#jsCommentModal");
 const main = document.querySelector("main");
-const COMMENT_LIST_CLASS = "comment-list";
+const COMMENT_MODAL = "comment-modal";
+const OVERFLOW_HIDDEN = "overflow-hidden";
+let fakeElemTop;
 
 const addComment = (fakeElem, photoId, commentNumberElem) => {
   const elem = commentNumberElem;
@@ -14,6 +19,27 @@ const addComment = (fakeElem, photoId, commentNumberElem) => {
   addCommentForm.addEventListener("submit", (event) =>
     handleSubmit(event, fakeElem, photoId, elem)
   );
+};
+const fakeElemStyle = () => {
+  fakeElemTop = window.pageYOffset;
+};
+const disableModal = () => {
+  body.classList.remove(OVERFLOW_HIDDEN);
+};
+const enableModal = (elem) => {
+  // const commentListContainer = document.querySelector(
+  //   ".comment-list__container"
+  // );
+  const fakeElem = elem;
+  const timestamps = fakeElem.querySelectorAll("#jsTimestamp");
+  timestamps.forEach((item) => {
+    const timestamp = item;
+    const date = drawTime(item);
+    timestamp.innerText = date;
+  });
+  main.appendChild(fakeElem);
+  fakeElem.style.top = `${fakeElemTop}px`;
+  body.classList.add(OVERFLOW_HIDDEN);
 };
 const handleModal = async (e) => {
   const [, , , photoBlock] = e.path;
@@ -29,18 +55,21 @@ const handleModal = async (e) => {
     })
       .then((response) => {
         fakeElem = document.createElement("div");
-        fakeElem.className = COMMENT_LIST_CLASS;
+        fakeElem.className = COMMENT_MODAL;
         fakeElem.innerHTML = response.data;
-        main.appendChild(fakeElem);
+        enableModal(fakeElem);
       })
       .then(() => {
         const goBackBtn = fakeElem.querySelector("#jsGoBackPage");
         goBackBtn.addEventListener("click", () => {
           main.removeChild(fakeElem);
+          disableModal(fakeElem);
         });
-        editCommentInit(photoBlock);
-        deleteCommentInit(photoId, commentNumberElem);
-        addComment(fakeElem, photoId, commentNumberElem);
+        if (loggedUser) {
+          editCommentInit(photoBlock);
+          deleteCommentInit(photoId, commentNumberElem);
+          addComment(fakeElem, photoId, commentNumberElem);
+        }
       });
   } catch (error) {
     console.log(error);
@@ -49,6 +78,7 @@ const handleModal = async (e) => {
 
 if (modalBtns) {
   modalBtns.forEach((btn) => btn.addEventListener("click", handleModal));
+  window.addEventListener("scroll", fakeElemStyle);
 }
 
 export default handleModal;

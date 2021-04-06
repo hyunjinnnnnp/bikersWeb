@@ -12,7 +12,7 @@ mixin commentBlock(comment = {})
                 input(type="text", value=comment.text)
             .column__icons
                 if loggedUser && comment.creatorId == loggedUser.id
-                    a(data-url=`/api${routes.editComment(comment._id)}`)#jsEditComment.show-element
+                    a(href=`/api${routes.editComment(comment._id)}`)#jsEditComment.show-element
                         span edit
-                    a(data-url=`/api${routes.deleteComment(comment._id)}`)#jsDeleteComment.show-element
+                    a(href=`/api${routes.deleteComment(comment._id)}`)#jsDeleteComment.show-element
                         span delete

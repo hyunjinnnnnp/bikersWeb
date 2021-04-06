@@ -8,13 +8,15 @@ mixin photoBlock(photo = {})
                 span.author--name=photo.creator
                 span.author--location=photo.location.name
             if(loggedUser && loggedUser.id == photo.creatorId)
-                .info__drop-down.drop-down#jsDropDown
-                    i.xi-ellipsis-h.dropBtns
-                    ul.drop-down-content#jsDropDownContent
-                        li#jsDropDownList
+                .info__edit-photo
+                    i.xi-ellipsis-h
+                    ul.edit-photo__nav.jsHide
+                        li.nav__list
                             a(href=`photos/${photo.id}/edit`) EDIT
-                        li#jsDropDownList
+                        li.nav__list
                             a(href=`/photos/${photo.id}/delete`) DELETE
+                        li.nav__list.jsCancelBtn
+                            a CANCEL
         .photo-block__img
             .img__carousel-container
                 #jsLikesOverlay
@@ -25,16 +27,18 @@ mixin photoBlock(photo = {})
                 i.carousel__prev-i.xi-arrow-left.carousel__btn-hide
                 i.carousel__next-i.xi-arrow-right.carousel__btn-show
         .photo-block__description
-            if loggedUser && photo.likes.includes(loggedUser._id)
-                i#jsTrueIndicator.xi-heart.jsShow
-                i#jsFalseIndicator.xi-heart-o.jsHide
-            else
-                i#jsTrueIndicator.xi-heart.jsHide
-                i#jsFalseIndicator.xi-heart-o.jsShow
-            span#jsLikesCount=photo.likes.length
-            span=photo.creator
-            span#jsTimestamp=photo.createdAt
-            p.description__content(data-photo-id=photo.id)#jsTruncate=photo.description
+            .description__column
+                if loggedUser && photo.likes.includes(loggedUser._id)
+                    i#jsTrueIndicator.xi-heart.jsShow.red
+                    i#jsFalseIndicator.xi-heart-o.jsHide
+                else
+                    i#jsTrueIndicator.xi-heart.jsHide
+                    i#jsFalseIndicator.xi-heart-o.jsShow
+                .column__likes-number 좋아요 
+                    span#jsLikesCount=photo.likes.length
+                        | 개
+            span.author--name=photo.creator
+                span.description__content(data-photo-id=photo.id)#jsTruncate=photo.description
             a.description__comment-number
                 i.comment-number(data-photo-id=photo.id)#jsCommentModal
                     if photo.comments.length === 1
@@ -43,6 +47,7 @@ mixin photoBlock(photo = {})
                     if photo.comments.length > 1
                         span#jsCommentNumber=`댓글 ${photo.comments.length}`
                         |개 모두 보기
+            div#jsTimestamp=photo.createdAt
             ul.comment-list__fake-container
                 if photo.comments.length <3
                     each item in photo.comments

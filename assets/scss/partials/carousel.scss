@@ -5,7 +5,7 @@
 }
 .img__carousel-container {
   position: relative;
-  width: 100vw;
+  width: 100%;
   height: 100vw;
   background-color: $black;
   z-index: 150;
@@ -33,21 +33,22 @@
   transform: translateX(100%);
 }
 .carousel__prev-i {
-  left: 0.5rem;
+  left: 1rem;
 }
 .carousel__next-i {
-  right: 0.5rem;
+  right: 1rem;
 }
 .carousel__btn-hide {
   display: none;
 }
 .carousel__btn-show {
   position: absolute;
-  color: red;
-  font-size: 2rem;
+  color: $white;
+  font-size: 1.5rem;
   font-weight: 800;
   border-radius: 50%;
-  border: 0.5rem solid red;
+  border: 0.2rem solid $white;
+  opacity: 0.7;
   top: 50%;
   transform: translateY(-50%);
   z-index: 20000;

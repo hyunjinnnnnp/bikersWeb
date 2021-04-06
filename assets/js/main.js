@@ -10,4 +10,5 @@ import "./postLikes";
 import "./timestamp";
 import "./truncate";
 import "./commentModal";
+import "./editPhotoBtns";
 // import "./mediaquery";

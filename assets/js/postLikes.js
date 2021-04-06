@@ -9,10 +9,11 @@ const SHOW_CLASS = "jsShow";
 const HIDE_CLASS = "jsHide";
 const TRUE_CLASS = "xi-heart";
 const FALSE_CLASS = "xi-heart-o";
+const RED_CLASS = "red";
 
 const decreaseNumber = () => {
   const likesCount = targetPhotoBlock.querySelector("#jsLikesCount");
-  likesCount.innerText = parseInt(likesCount.innerText, 10) - 1;
+  likesCount.innerText = ` ${parseInt(likesCount.innerText, 10) - 1}개`;
 };
 const showFalseBtn = () => {
   const trueIndicator = targetPhotoBlock.querySelector("#jsTrueIndicator");
@@ -23,12 +24,12 @@ const showFalseBtn = () => {
 };
 const increaseNumber = () => {
   const likesCount = targetPhotoBlock.querySelector("#jsLikesCount");
-  likesCount.innerText = parseInt(likesCount.innerText, 10) + 1;
+  likesCount.innerText = ` ${parseInt(likesCount.innerText, 10) + 1}개`;
 };
 const showTrueIndicator = () => {
   const falseIndicator = targetPhotoBlock.querySelector("#jsFalseIndicator");
   const trueIndicator = targetPhotoBlock.querySelector("#jsTrueIndicator");
-  trueIndicator.className = `${TRUE_CLASS} ${SHOW_CLASS}`;
+  trueIndicator.className = `${TRUE_CLASS} ${SHOW_CLASS} ${RED_CLASS}`;
   falseIndicator.className = `${FALSE_CLASS} ${HIDE_CLASS}`;
   increaseNumber();
 };
@@ -45,7 +46,7 @@ const showOverlayBtn = () => {
 const postLikeData = async () => {
   const photoId = targetPhotoBlock
     .querySelector(".carousel__img-list")
-    .getAttribute("data-url");
+    .getAttribute("href");
   const response = await axios({
     url: `api/${photoId}/like`,
     method: "POST",

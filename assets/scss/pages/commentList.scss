@@ -1,28 +1,57 @@
-.comment-list {
+.comment-modal {
   background-color: $black;
-  // position: absolute;
-  // top: 0;
-  // left: 0;
-  width: 100vw;
-  height: 100vh;
+  position: absolute;
+  width: 100%;
+  height: 100%;
   z-index: 19999;
-  // overflow: hidden;
-  // position: fixed;
-  top: 0;
+  padding: 2rem 1rem;
 
   .comment-list__header {
     width: 100%;
     height: $headerHeight;
-
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     z-index: 20000;
     background-color: $black;
+    font-size: 1.5rem;
+    i {
+      display: inline-block;
+      cursor: pointer;
+    }
   }
-  .comment-list {
-    padding-top: $headerHeight;
+  .header__column {
+    &:first-child {
+      justify-content: center;
+    }
+    &:nth-child(2) {
+      justify-content: flex-start;
+    }
+    position: absolute;
     width: 100%;
-    height: 100%;
+    display: flex;
+    align-items: center;
   }
-  .photo-block__input form {
+
+  .comment-list__container {
+    height: 70vh;
+    overflow-y: scroll;
+    #jsCurrentComment {
+      display: inline;
+      font-weight: 500;
+      color: #f1f2f2;
+      font-size: 1.3rem;
+      margin-left: 0.5rem;
+    }
+  }
+  ::-webkit-scrollbar {
+    width: 0; /* Remove scrollbar space */
+    background: transparent; /* Optional: just make scrollbar invisible */
+  }
+  .comment-list__form form {
+    position: fixed;
+    width: 100%;
+    bottom: 0;
     z-index: 10000;
     display: flex;
     align-items: center;

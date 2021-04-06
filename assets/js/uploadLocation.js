@@ -30,7 +30,6 @@ const initSearchInput = () => {
     map,
     anchorPoint: new google.maps.Point(0, -29),
   });
-  //  const places = new google.maps.places.PlacesService(map);
   autocomplete.addListener("place_changed", () => {
     infowindow.close();
     marker.setVisible(false);
@@ -54,7 +53,6 @@ const sendLocation = () => {
   storeLocation = document.querySelector("#jsCoordinates");
   storeLocation.value = `${userLocation.lat}, ${userLocation.lng}`;
   if (userLocation) {
-    //????
     map.setCenter(userLocation);
   }
 };
@@ -120,6 +118,7 @@ const initMap = () => {
   map = new google.maps.Map(document.getElementById("map"), {
     zoom: 12,
     center: seoul,
+    mapId: process.env.mapId, //?doesnt work
   });
   getUserLocation();
 };

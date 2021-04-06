@@ -1,5 +1,6 @@
 import axios from "axios";
 
+const editCommentElems = document.querySelectorAll("#jsEditComment");
 let selectedList;
 let editForm;
 let currentComment;
@@ -41,7 +42,7 @@ const editFakeBlock = (editedComment) => {
 };
 const sendEditedComment = async (editedComment) => {
   const btn = selectedList.querySelector("#jsEditComment");
-  const editCommentUrl = btn.getAttribute("data-url");
+  const editCommentUrl = btn.getAttribute("href");
   const response = await axios({
     url: editCommentUrl,
     method: "POST",
@@ -86,10 +87,11 @@ const handleEditCommentBtn = (event) => {
 };
 function editCommentInit(elem) {
   photoBlock = elem;
-  const editCommentElems = document.querySelectorAll("#jsEditComment");
-  editCommentElems.forEach((item) =>
-    item.addEventListener("click", handleEditCommentBtn)
-  );
+  if (editCommentElems) {
+    editCommentElems.forEach((item) =>
+      item.addEventListener("click", handleEditCommentBtn)
+    );
+  }
 }
 
 export default editCommentInit;

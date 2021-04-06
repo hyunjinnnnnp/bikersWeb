@@ -1,4 +1,13 @@
-.form__container.upload-container {
+.form__container {
+  position: absolute;
+  padding-top: $headerHeight;
+  width: 100%;
+  height: 100%;
+  #map {
+    width: 100%;
+    height: 30vh;
+    z-index: 10000;
+  }
   form {
     justify-content: space-around;
     label {

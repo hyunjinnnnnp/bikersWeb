@@ -2,20 +2,23 @@ include mixins/commentBlock.pug
 
 block content
     .comment-list__header
-        i.xi-angle-left#jsGoBackPage
-        span 댓글
+        .header__column
+            span 댓글
+        .header__column
+            i.xi-angle-left#jsGoBackPage
     .comment-list
         ul.comment-list__container
             #jsFakeBlock.hide-element
-                +commentBlock({
-                    creatorId: loggedUser._id,
-                    creatorAvatar: loggedUser.avatarUrl,
-                    creatorName: loggedUser.name,
-                    text: "",
-                    _id: "",
-                    createdAt: ""
-                })
-            each item in photo.comments
+                if loggedUser
+                    +commentBlock({
+                        creatorId: loggedUser._id,
+                        creatorAvatar: loggedUser.avatarUrl,
+                        creatorName: loggedUser.name,
+                        text: "",
+                        _id: "",
+                        createdAt: ""
+                    })
+            each item in photo.comments.reverse()
                 +commentBlock({
                     creatorId: item.creatorId,
                     creatorAvatar: item.creatorAvatar,
