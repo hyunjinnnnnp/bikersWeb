@@ -1,4 +1,7 @@
 .photo-block {
+  * {
+    color: $white;
+  }
   .photo-block__img img {
     width: 100%;
   }

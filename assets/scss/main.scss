@@ -2,9 +2,9 @@ html {
   font-size: 62.5%;
   background-color: $black;
 }
-* {
-  color: $white;
-}
+// * {
+//   color: $white;
+// }
 html,
 body {
   height: 100%;
@@ -30,18 +30,15 @@ textarea:-webkit-autofill:focus {
   background-color: $red;
   transition: background-color 5000s ease-in-out 0s;
 }
-input:not(.edit-photo-input),
+input:not(.edit-photo-input):not(.upload),
 button,
 textarea {
   resize: none;
-  border-bottom: 0.05rem solid $darkGray;
+  // border-bottom: 0.05rem solid $darkGray;
   background-color: transparent;
-  // padding: 0.5rem;
-  color: $gray;
-  &::placeholder {
-    color: $gray;
-    // font-weight: 600;
-  }
+  // &::placeholder:not(.upload) {
+  //   color: $gray;
+  // }
 }
 input[type="submit"] {
   border: none;

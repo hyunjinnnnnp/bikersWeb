@@ -2,19 +2,20 @@ extends layouts/main.pug
 
 block content
     .upload
-        .form__container
-            #map
-            .search-location
-                input#search-location__input(type="text", placeholder="Enter a location")
+        #map
             #jsInfoWindow
                 span#jsPlaceName
                 span#jsPlaceAddress
+        .form__container
             form#jsUploadFile(action=`/photos${routes.upload}`, method="post", enctype="multipart/form-data")
+                .search-location
+                    input#search-location__input(type="text", placeholder="위치 검색하기")
                 label(for="file") 
                     i.xi-camera-o
                     span Click to choose photo
-                #jsFileList.upload__preview
                 input#jsCoordinates(type="text", name="location", value="")
                 input(type="file", multiple, id="file", name="file", required=true, accept="image/*")
-                textarea(placeholder="description", name="description", required=true, cols="37", rows="10")
+                .preview-container
+                    textarea(placeholder="description", name="description", required=true, cols="37", rows="10")
+                    #jsFileList.upload__preview
                 input(type="submit", value="Upload Photo")

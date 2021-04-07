@@ -27,7 +27,7 @@
   position: fixed;
   width: 100%;
   height: $headerHeight;
-  z-index: 9999;
+  z-index: 99999999;
   background-color: $black;
   display: grid;
   grid-template-columns: repeat(3, 1fr);

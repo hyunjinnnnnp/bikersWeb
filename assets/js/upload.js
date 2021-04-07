@@ -19,6 +19,11 @@ function handleFiles() {
       };
       li.appendChild(img);
     }
+    if (this.files.length > 1) {
+      const icon = document.createElement("i");
+      icon.className = "xi-documents";
+      ul.appendChild(icon);
+    }
   }
 }
 
