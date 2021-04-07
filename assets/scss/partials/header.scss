@@ -29,6 +29,7 @@
   height: $headerHeight;
   z-index: 99999999;
   background-color: $black;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
   display: grid;
   grid-template-columns: repeat(3, 1fr);
 

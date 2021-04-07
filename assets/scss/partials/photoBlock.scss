@@ -1,7 +1,6 @@
 .photo-block {
-  * {
-    color: $white;
-  }
+  color: $white;
+
   .photo-block__img img {
     width: 100%;
   }
@@ -60,6 +59,7 @@
     align-items: center;
   }
   .photo-block__description {
+    background-color: $black;
     padding: 1rem;
     min-height: $photoBlockDescriptionHeight;
     .description__column {
@@ -80,7 +80,8 @@
       }
     }
     #jsTimestamp {
-      margin-top: 1rem;
+      margin-left: 0.2rem;
+      margin-top: 0.5rem;
       color: $gray;
     }
     .red {
@@ -128,7 +129,7 @@
   height: 100%;
 }
 #jsLikesOverlay i {
-  box-shadow: 7px 7px 10px 1px rgba(0, 0, 0, 0.5);
+  text-shadow: 2px 4px 6px rgba(0, 0, 0, 0.479);
 }
 .jsShow {
   display: block;

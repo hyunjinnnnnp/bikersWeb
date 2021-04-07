@@ -5,10 +5,13 @@
   left: 0;
   width: 100%;
   height: 100%;
-  z-index: 19999;
-  padding: 2rem 1rem;
-
+  z-index: 999999999;
+  color: $white;
+  #jsTimestamp {
+    margin-left: 0.2rem;
+  }
   .comment-list__header {
+    padding: 1rem;
     width: 100%;
     height: $headerHeight;
     display: flex;
@@ -17,6 +20,7 @@
     z-index: 20000;
     background-color: $black;
     font-size: 1.5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
     i {
       display: inline-block;
       cursor: pointer;
@@ -34,9 +38,15 @@
     display: flex;
     align-items: center;
   }
-
+  .comment-list {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    padding: $headerHeight 1rem;
+  }
   .comment-list__container {
-    height: 70vh;
+    height: 100%;
     overflow-y: scroll;
     #jsCurrentComment {
       display: inline;
@@ -46,20 +56,38 @@
       margin-left: 0.5rem;
     }
   }
+  .comment-block {
+    min-height: 2rem;
+  }
+
   ::-webkit-scrollbar {
     width: 0; /* Remove scrollbar space */
     background: transparent; /* Optional: just make scrollbar invisible */
+  }
+  .column__icons {
+    display: flex;
+    margin-top: 0.5rem;
+    a {
+      margin-left: 1rem;
+    }
   }
   .comment-list__form form {
     position: fixed;
     width: 100%;
     bottom: 0;
-    z-index: 10000;
+    height: $headerHeight;
     display: flex;
     align-items: center;
-    margin: 2rem 0;
+    padding: 2rem 1rem;
+    background-color: $black;
   }
   .comment-list__form input {
     width: 80%;
+    color: $white;
+    background-color: $black;
+    z-index: 9999999999;
+    ::placeholder {
+      color: $white;
+    }
   }
 }

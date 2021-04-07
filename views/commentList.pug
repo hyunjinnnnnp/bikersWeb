@@ -12,7 +12,6 @@ block content
                 if loggedUser
                     +commentBlock({
                         creatorId: loggedUser._id,
-                        creatorAvatar: loggedUser.avatarUrl,
                         creatorName: loggedUser.name,
                         text: "",
                         _id: "",
@@ -27,8 +26,8 @@ block content
                     _id: item._id,
                     createdAt: item.createdAt
                 })
-        .comment-list__form
-            if loggedUser
-                form#jsAddComment
-                    img.author--avatar(src=loggedUser.avatarUrl.includes("http") ? loggedUser.avatarUrl : `../../${loggedUser.avatarUrl}`)#jsAvatarElement
-                    input(type="text", placeholder="Add a Comment")
+    .comment-list__form
+        if loggedUser
+            form#jsAddComment
+                img.author--avatar(src=loggedUser.avatarUrl.includes("http") ? loggedUser.avatarUrl : `../../${loggedUser.avatarUrl}`)#jsAvatarElement
+                input(type="text", placeholder="Add a Comment")
