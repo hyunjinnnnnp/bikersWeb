@@ -11,7 +11,6 @@ const modalBtns = document.querySelectorAll("#jsCommentModal");
 const main = document.querySelector("main");
 const COMMENT_MODAL = "comment-modal";
 const OVERFLOW_HIDDEN = "overflow-hidden";
-let fakeElemTop;
 
 const addComment = (fakeElem, photoId, commentNumberElem) => {
   const elem = commentNumberElem;
@@ -20,9 +19,7 @@ const addComment = (fakeElem, photoId, commentNumberElem) => {
     handleSubmit(event, fakeElem, photoId, elem)
   );
 };
-const fakeElemStyle = () => {
-  fakeElemTop = window.pageYOffset;
-};
+
 const disableModal = () => {
   body.classList.remove(OVERFLOW_HIDDEN);
 };
@@ -38,11 +35,9 @@ const enableModal = (elem) => {
     timestamp.innerText = date;
   });
   main.appendChild(fakeElem);
-  fakeElem.style.top = `${fakeElemTop}px`;
   body.classList.add(OVERFLOW_HIDDEN);
 };
 const handleModal = async (e) => {
-  const [, , , photoBlock] = e.path;
   const commentNumberElem = e.path[1].querySelector(".comment-number");
   const photoId = e.currentTarget.getAttribute("data-photo-id");
   const url = `/api/${photoId}/comments-list`;
@@ -66,9 +61,11 @@ const handleModal = async (e) => {
           disableModal(fakeElem);
         });
         if (loggedUser) {
-          editCommentInit(photoBlock);
-          deleteCommentInit(photoId, commentNumberElem);
+          const modalEditComments = document.querySelectorAll("#jsEditComment");
+          const deleteBtns = document.querySelectorAll("#jsDeleteComment");
+          deleteCommentInit(photoId, deleteBtns);
           addComment(fakeElem, photoId, commentNumberElem);
+          editCommentInit(modalEditComments);
         }
       });
   } catch (error) {
@@ -78,7 +75,6 @@ const handleModal = async (e) => {
 
 if (modalBtns) {
   modalBtns.forEach((btn) => btn.addEventListener("click", handleModal));
-  window.addEventListener("scroll", fakeElemStyle);
 }
 
 export default handleModal;

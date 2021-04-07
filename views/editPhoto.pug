@@ -2,12 +2,12 @@ extends layouts/main.pug
 
 block content
     .edit-photo
-        .form-container
-            a.form-container__link.form-container__link--delete(href=routes.deletePhoto(photo.id))
-                i.xi-close-circle-o
-                span DELETE
-                i.xi-close-circle-o
-            img(src=`../../${photo.fileUrl}`)
-            form(action=routes.editPhoto(photo.id), method="post")
-                textarea(placeholder="Description", name="description")=photo.description
-                input(type="submit", value="Update").edit-photo-input
+        .img__carousel-container
+            a.carousel__img-list(data-url=photo.id)
+                each item in photo.fileUrl
+                    img.carousel__photo(src=`../../${item}`, alt="Photo")
+            i.carousel__prev-i.xi-arrow-left.carousel__btn-hide
+            i.carousel__next-i.xi-arrow-right.carousel__btn-show
+        form(action=routes.editPhoto(photo.id), method="post")
+            textarea(placeholder="Description", name="description")=photo.description
+            input.edit-photo-input(type="submit", value="Update")

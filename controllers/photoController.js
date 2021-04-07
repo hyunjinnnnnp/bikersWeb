@@ -13,6 +13,7 @@ export const home = async (req, res) => {
       .populate("creator")
       .populate("comments")
       .populate("location");
+
     res.render("home", {
       pageTitle: "Home",
       photos,
@@ -130,11 +131,13 @@ export const getCommentList = async (req, res) => {
       body: { photoId },
       user,
     } = req;
-    console.log(photoId);
+    let loggedUser;
     const photo = await Photo.findById({ _id: photoId })
       .populate("comments")
       .populate("creator");
-    const loggedUser = await User.findById({ _id: user._id });
+    if (user) {
+      loggedUser = (await User.findById({ _id: user._id })) || null;
+    }
     res.render("commentList", { pageTitle: "Comments", photo, loggedUser });
   } catch (error) {
     console.log(error);

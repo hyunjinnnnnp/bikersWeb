@@ -1,43 +1,40 @@
 import axios from "axios";
 
+const deleteBtns = document.querySelectorAll("#jsDeleteComment");
 let selectedBtn;
 let targetListBlock;
 let targetUl;
 let photoId;
-let commentNumberElem;
-let targetPhotoBlock;
 
-const decreaseNumber = () => {
+const decreaseNumber = (photoBlockParent) => {
+  const commentNumberElem = photoBlockParent.parentNode.querySelector(
+    "#jsCommentNumber"
+  );
   const number = commentNumberElem.innerText.split(" ")[1];
   if (number) {
-    commentNumberElem.innerText = `댓글 ${
-      parseInt(number, 10) - 1
-    }개 모두 보기`;
+    commentNumberElem.innerText = `댓글 ${parseInt(number, 10) - 1}`;
     if (number === "1개") {
       commentNumberElem.innerHTML = "";
     }
   }
 };
-//comment-list 에서 찍히면 photoBlock에서 지운다
-// 인덱스 2or 3 (페이크 블럭 떄문에)
-// 지워지기 전에 인덱스를 체크하고 지워야함
 const hideElement = (id) => {
   const commentId = id;
-  const targetParent = targetPhotoBlock.querySelector(
-    ".comment-list__fake-container"
+  const target = document.querySelectorAll(
+    `[data-comment-id="/api/${commentId}/edit-comment"]`
   );
-  const target = targetParent.querySelector(
-    `[data-url="/api/${commentId}/edit-comment"]`
-  );
-  const remained = targetUl.querySelectorAll(".comment-block");
-  if (target && remained.length <= 4) {
-    const block = target.parentNode.parentNode.parentNode;
-    block.parentNode.removeChild(block);
+  const photoBlockTarget = target[0].parentNode.parentNode.parentNode;
+  const modalBlockTarget = target[1].parentNode.parentNode.parentNode;
+  const modalBlockParent = modalBlockTarget.parentNode;
+  const photoBlockParent = photoBlockTarget.parentNode;
+  const modalBlock = document.querySelectorAll(".comment-list__container li");
+  if (modalBlock.length <= 3) {
+    photoBlockParent.removeChild(photoBlockTarget);
+    modalBlockParent.removeChild(modalBlockTarget);
   }
-
-  targetUl.removeChild(targetListBlock);
-  decreaseNumber();
+  decreaseNumber(photoBlockParent);
 };
+
 const deleteComment = async (targetCommentUrl) => {
   const commentId = targetCommentUrl.split("/")[2];
   const url = targetCommentUrl;
@@ -60,17 +57,23 @@ const deleteComment = async (targetCommentUrl) => {
 const deleteCommentBtnHandler = (event) => {
   event.preventDefault();
   [, selectedBtn, , , targetListBlock, targetUl] = event.path;
-  const targetCommentUrl = selectedBtn.getAttribute("data-url");
+  const targetCommentUrl = selectedBtn.getAttribute("data-comment-id");
   deleteComment(targetCommentUrl);
 };
-function deleteCommentInit(id, elem) {
-  commentNumberElem = elem;
-  targetPhotoBlock = commentNumberElem.parentNode.parentNode;
-  photoId = id;
-  const deleteBtns = document.querySelectorAll("#jsDeleteComment");
-  deleteBtns.forEach((btn) =>
-    btn.addEventListener("click", deleteCommentBtnHandler)
-  );
+
+function deleteCommentInit(id, modalBtns) {
+  if (deleteBtns.legnth > 1) {
+    photoId = id;
+    deleteBtns.forEach((btn) =>
+      btn.addEventListener("click", deleteCommentBtnHandler)
+    );
+  }
+  if (modalBtns) {
+    photoId = id;
+    modalBtns.forEach((btn) =>
+      btn.addEventListener("click", deleteCommentBtnHandler)
+    );
+  }
 }
 
 export default deleteCommentInit;

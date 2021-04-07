@@ -46,7 +46,7 @@ const showOverlayBtn = () => {
 const postLikeData = async () => {
   const photoId = targetPhotoBlock
     .querySelector(".carousel__img-list")
-    .getAttribute("href");
+    .getAttribute("data-url");
   const response = await axios({
     url: `api/${photoId}/like`,
     method: "POST",

@@ -6,11 +6,9 @@ let editForm;
 let currentComment;
 let editIcon;
 let deleteIcon;
-let photoBlock;
-let currentCommentBlockContainer;
+let commentId;
 
 const editFakeBlock = (editedComment) => {
-  let index;
   currentComment.innerHTML = editedComment;
   currentComment.classList.remove("hide-element");
   currentComment.classList.add("show-element");
@@ -20,34 +18,27 @@ const editFakeBlock = (editedComment) => {
   editIcon.classList.add("show-element");
   deleteIcon.classList.remove("hide-element");
   deleteIcon.classList.add("show-element");
-  if (currentCommentBlockContainer.className === "comment-list__container") {
-    if (selectedList.nextSibling) {
-      index = 0;
-    } else {
-      index = 1;
-    }
-    const array = photoBlock.querySelectorAll(".comment-block");
-
-    if (array.length === 1) {
-      photoBlock.querySelector("#jsCurrentComment").innerHTML = editedComment;
-      const input = selectedList.querySelector("#jsEditCommentForm input");
-      input.value = editedComment;
-    } else {
-      const nthChild = array[index];
-      nthChild.querySelector("#jsCurrentComment").innerHTML = editedComment;
-      const input = selectedList.querySelector("#jsEditCommentForm input");
-      input.value = editedComment;
-    }
+  //photoBlock
+  const modalBlock = document.querySelectorAll(".comment-list__container li");
+  if (modalBlock.length <= 3) {
+    const target = document.querySelector(
+      `[data-comment-id="/api/${commentId}/edit-comment"]`
+    );
+    target.parentNode.parentNode.querySelector(
+      "#jsCurrentComment"
+    ).innerText = editedComment;
   }
 };
 const sendEditedComment = async (editedComment) => {
   const btn = selectedList.querySelector("#jsEditComment");
-  const editCommentUrl = btn.getAttribute("href");
+  const editCommentUrl = btn.getAttribute("data-comment-id");
+  [, , commentId] = editCommentUrl.split("/");
   const response = await axios({
     url: editCommentUrl,
     method: "POST",
     data: {
       editedComment,
+      id: commentId,
     },
   });
   if (response.status === 200) {
@@ -56,7 +47,6 @@ const sendEditedComment = async (editedComment) => {
 };
 const handleEditCommentForm = (event) => {
   event.preventDefault();
-  [, , , currentCommentBlockContainer] = event.path;
   const commentInput = editForm.querySelector("input");
   const editedComment = commentInput.value;
   sendEditedComment(editedComment);
@@ -74,21 +64,25 @@ const toggleShowing = (elem) => {
 const handleEditCommentBtn = (event) => {
   event.preventDefault();
   [, , , , selectedList] = event.path;
-
   editForm = selectedList.querySelector("#jsEditCommentForm");
   currentComment = selectedList.querySelector("#jsCurrentComment");
   editIcon = event.currentTarget;
   deleteIcon = editIcon.nextSibling;
+  currentComment.innerHTML = "";
   toggleShowing(editForm);
   toggleShowing(currentComment);
   toggleShowing(editIcon);
   toggleShowing(deleteIcon);
   editForm.addEventListener("submit", handleEditCommentForm);
 };
-function editCommentInit(elem) {
-  photoBlock = elem;
+function editCommentInit(modalEditComments) {
   if (editCommentElems) {
     editCommentElems.forEach((item) =>
+      item.addEventListener("click", handleEditCommentBtn)
+    );
+  }
+  if (modalEditComments) {
+    modalEditComments.forEach((item) =>
       item.addEventListener("click", handleEditCommentBtn)
     );
   }

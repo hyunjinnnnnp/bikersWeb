@@ -1,31 +1,28 @@
 .edit-photo {
+  overflow: hidden;
   padding-top: $headerHeight;
   width: 100%;
   height: 100%;
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: center;
+  .img__carousel-container {
+    overflow: hidden;
+  }
   img {
     width: 100%;
     object-fit: cover;
   }
-  .form-container {
-    position: relative;
-    margin: 50px;
-    height: 70vh;
-    background-color: $red;
-    border-radius: 10px;
-  }
-  .form-container__link--delete {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    font-weight: 600;
-  }
   textarea {
     width: 100%;
-    margin-top: 30px;
-    align-self: flex-end;
+    height: 100%;
+    border: none;
+  }
+  form {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: flex-start;
   }
   input[type="submit"] {
     background-color: $black;

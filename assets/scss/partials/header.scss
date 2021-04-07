@@ -30,7 +30,8 @@
   z-index: 9999;
   background-color: $black;
   display: grid;
-  grid-template-columns: auto auto 1fr;
+  grid-template-columns: repeat(3, 1fr);
+
   .header__column:nth-child(1) {
     font-size: 2rem;
     margin-right: 2rem;
@@ -56,14 +57,20 @@
   display: none;
   position: absolute;
   background-color: $black;
-  font-size: 1.5rem;
+  text-transform: uppercase;
 }
 .dropdown-show {
-  display: block;
+  display: flex;
   z-index: 10000;
 }
 .header__column {
   display: flex;
   align-items: center;
   justify-content: center;
+  form {
+    width: 100%;
+    input {
+      width: 80%;
+    }
+  }
 }

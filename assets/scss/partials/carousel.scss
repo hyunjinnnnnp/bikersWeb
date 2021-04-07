@@ -1,7 +1,11 @@
 .photo-detail__img,
-.photo-block__img {
+.photo-block__img,
+.form-container__photo {
   overflow: hidden;
   width: 100%;
+}
+.carousel__img-list {
+  cursor: default;
 }
 .img__carousel-container {
   position: relative;

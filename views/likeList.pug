@@ -3,7 +3,9 @@ include mixins/photoBlock
 
 block content
     .like-list__header
-        p 좋아요
+        .xi-heart
+    .like-list__header
+        .xi-arrow-left.jsLikesBackBtn
     .like-list__container
         each item in photos.reverse()
             +photoBlock({

@@ -1,5 +1,5 @@
-const photoDetailCarousel = document.querySelector("#jsPhotoDetailCarousel");
 const photoBlocks = document.querySelectorAll(".photo-block");
+const photoEdit = document.querySelector(".edit-photo");
 
 let targetBlock;
 let nextBtn;
@@ -9,7 +9,6 @@ const HIDE = "carousel__btn-hide";
 const SHOW = "carousel__btn-show";
 
 let targetBtn;
-let imgs;
 let oldActived;
 let activedElem;
 
@@ -78,7 +77,7 @@ const movePrev = () => {
   toggleBtn();
 };
 
-const handleClick = (event) => {
+const carouselClickHandler = (event) => {
   [targetBtn, targetBlock] = event.path;
   if (targetBtn.classList.contains("carousel__prev-i")) {
     prevBtn = targetBtn;
@@ -91,32 +90,40 @@ const handleClick = (event) => {
 };
 const photoBlockCaseInit = () => {
   photoBlocks.forEach((block) => {
-    imgs = block.querySelectorAll(".carousel__photo");
+    const imgs = block.querySelectorAll(".carousel__photo");
     const icons = block.querySelectorAll("i");
     if (imgs.length >= 2) {
       imgs[0].classList.add("active");
       imgs[1].classList.add("next");
-      icons.forEach((item) => item.addEventListener("click", handleClick));
+      icons.forEach((item) =>
+        item.addEventListener("click", carouselClickHandler)
+      );
     } else if (imgs.length === 1) {
       icons.forEach((item) => item.classList.remove(SHOW));
     }
   });
 };
-const photoDetailCaseInit = () => {
-  imgs = photoDetailCarousel.querySelectorAll(".carousel__photo");
-  const icons = photoDetailCarousel.querySelectorAll("i");
+const photoEditCaseInit = () => {
+  const carouselContainer = document.querySelector(".img__carousel-container");
+  const imgs = document.querySelectorAll(".carousel__photo");
+  const icons = carouselContainer.querySelectorAll("i");
   if (imgs.length >= 2) {
     imgs[0].classList.add("active");
     imgs[1].classList.add("next");
-    icons.forEach((item) => item.addEventListener("click", handleClick));
+    icons.forEach((item) =>
+      item.addEventListener("click", carouselClickHandler)
+    );
   } else if (imgs.length === 1) {
     icons.forEach((item) => item.classList.remove(SHOW));
   }
 };
-
 if (photoBlocks) {
   photoBlockCaseInit();
 }
-if (photoDetailCarousel) {
-  photoDetailCaseInit();
+if (photoEdit) {
+  const textarea = document.querySelector("textarea");
+  photoEditCaseInit();
+  window.onload = () => {
+    textarea.select();
+  };
 }
