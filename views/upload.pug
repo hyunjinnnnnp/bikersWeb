@@ -4,8 +4,8 @@ block content
     .upload
         #map
             #jsInfoWindow
-                span#jsPlaceName
-                span#jsPlaceAddress
+                #jsPlaceName
+                #jsPlaceAddress
         .form__container
             form#jsUploadFile(action=`/photos${routes.upload}`, method="post", enctype="multipart/form-data")
                 .search-location

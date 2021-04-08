@@ -6,8 +6,11 @@ let userLocation;
 let marker;
 let storeLocation;
 
-const sendPlaceName = (placeName) => {
-  storeLocation.value = `${storeLocation.value}, ${placeName}`;
+const sendPlaceName = (placeName, location) => {
+  console.log(location, location.lat, location.lng);
+  storeLocation.value = `${location
+    .lat()
+    .toString()}, ${location.lng().toString()}, ${placeName}`;
 };
 
 const initSearchInput = () => {
@@ -31,21 +34,29 @@ const initSearchInput = () => {
     anchorPoint: new google.maps.Point(0, -29),
   });
   autocomplete.addListener("place_changed", () => {
+    const placeNameElem = document.querySelector("#jsPlaceName");
     infowindow.close();
     marker.setVisible(false);
     const place = autocomplete.getPlace();
-    const { name: placeName } = place;
+    const {
+      name: placeName,
+      geometry: { location },
+    } = place;
+
     if (place.geometry.viewport) {
       map.fitBounds(place.geometry.viewport);
+      // console.log(location.lat().toString());
+      sendPlaceName(placeName, location);
     } else {
-      map.setCenter(place.geometry.location);
+      map.setCenter(location);
       map.setZoom(17);
     }
-    marker.setPosition(place.geometry.location);
+    marker.setPosition(location);
     marker.setVisible(true);
-    infowindowContent.children["#jsPlaceName"].textContent = placeName;
-    infowindow.open(map, marker);
-    sendPlaceName(placeName);
+    if (placeNameElem) {
+      placeNameElem.textContent = placeName;
+      infowindow.open(map, marker);
+    }
   });
 };
 
@@ -118,7 +129,7 @@ const initMap = () => {
   map = new google.maps.Map(document.getElementById("map"), {
     zoom: 12,
     center: seoul,
-    mapId: process.env.mapId, //?doesnt work
+    mapId: process.env.mapId,
   });
   if (uploadContainer) {
     getUserLocation();
