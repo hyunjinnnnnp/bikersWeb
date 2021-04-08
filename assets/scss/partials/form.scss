@@ -1,3 +1,29 @@
+.join-container form,
+.login-container form,
+.edit-profile-contianer form {
+  height: 70%;
+  input[type="text"],
+  input[type="email"],
+  input[type="password"] {
+    border-bottom: 1px solid $black;
+    color: $black;
+    margin-top: 1rem;
+    min-width: 16rem;
+    ::placeholder {
+      color: $black;
+    }
+  }
+  input[type="text"] {
+    margin-top: 3rem;
+  }
+  input[type="submit"] {
+    min-width: 16rem;
+  }
+  input[type="file"] {
+    display: none;
+  }
+}
+
 .form__container {
   height: 100vh;
   display: flex;
@@ -10,16 +36,48 @@
     align-items: center;
     justify-content: center;
     width: 90%;
-    // height: 60%;
     background-color: $red;
     border-radius: 10px;
     input[type="submit"] {
-      margin-top: 15px;
-      margin-bottom: 15px;
+      margin: 2rem 0;
       background-color: $black;
       color: $red;
       font-weight: 600;
       text-transform: uppercase;
     }
+  }
+}
+
+.edit-profile-contianer img {
+  width: 4rem;
+  height: 4rem;
+  border-radius: 50%;
+  margin-bottom: 3rem;
+}
+.fileUpload {
+  height: 4rem;
+}
+
+.change-password-container {
+  height: 100%;
+}
+.change-password-container form {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: $red;
+  input {
+    border-bottom: 1px solid $black;
+    color: $black;
+    min-width: 16rem;
+  }
+  input[type="submit"] {
+    margin: 2rem 0;
+    background-color: $black;
+    color: $red;
+    font-weight: 600;
+    text-transform: uppercase;
   }
 }

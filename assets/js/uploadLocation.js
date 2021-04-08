@@ -120,11 +120,12 @@ const initMap = () => {
     center: seoul,
     mapId: process.env.mapId, //?doesnt work
   });
-  getUserLocation();
+  if (uploadContainer) {
+    getUserLocation();
+  }
 };
 
 if (uploadContainer) {
   google.maps.event.addDomListener(window, "load", initMap);
   google.maps.event.addDomListener(window, "load", initSearchInput);
-  // window.addEventListener("resize", () => map.getViewPort().resize());
 }

@@ -25,7 +25,7 @@ const drawMarkers = () => {
     imagePath: "/clusterImg/m",
   });
 };
-const initMap = (data) => {
+const userDetailInitMap = (data) => {
   locations = data;
   const seoul = { lat: 37.5642135, lng: 127.0016985 };
   map = new google.maps.Map(document.querySelector("#jsUserDetailMap"), {
@@ -35,7 +35,7 @@ const initMap = (data) => {
   drawMarkers();
 };
 
-const init = async () => {
+const userDetailInit = async () => {
   const urlPath = window.location.pathname;
   let userId;
   if (urlPath.split("/")[1] === "me") {
@@ -53,8 +53,7 @@ const init = async () => {
     })
     .then((response) => {
       const userLocations = response.data;
-      //google.maps.event.addDomListener(window, "load", () => )
-      initMap(userLocations);
+      userDetailInitMap(userLocations);
     })
     .catch((error) => {
       console.log(error);
@@ -63,6 +62,5 @@ const init = async () => {
 
 if (userDetailMap) {
   window.addEventListener("touchstart", { passive: true });
-
-  init();
+  userDetailInit();
 }
