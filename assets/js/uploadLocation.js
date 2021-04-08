@@ -6,8 +6,15 @@ let userLocation;
 let marker;
 let storeLocation;
 
+const handleMarker = (infowindow, name, location) => {
+  const placeName = name;
+  const lat = location.lat();
+  const lng = location.lng();
+  infowindow.setContent(placeName);
+  infowindow.open(map);
+  infowindow.setPosition({ lat, lng });
+};
 const sendPlaceName = (placeName, location) => {
-  console.log(location, location.lat, location.lng);
   storeLocation.value = `${location
     .lat()
     .toString()}, ${location.lng().toString()}, ${placeName}`;
@@ -45,8 +52,8 @@ const initSearchInput = () => {
 
     if (place.geometry.viewport) {
       map.fitBounds(place.geometry.viewport);
-      // console.log(location.lat().toString());
       sendPlaceName(placeName, location);
+      handleMarker(infowindow, placeName, location);
     } else {
       map.setCenter(location);
       map.setZoom(17);
