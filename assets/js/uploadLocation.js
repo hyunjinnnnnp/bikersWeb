@@ -1,10 +1,11 @@
 const uploadContainer = document.querySelector(".upload");
-
+const searchInput = document.querySelector("#search-location__input");
 const { google } = window;
 let map;
 let userLocation;
 let marker;
 let storeLocation;
+let infoWindow;
 
 const handleMarker = (infowindow, name, location) => {
   const placeName = name;
@@ -21,7 +22,6 @@ const sendPlaceName = (placeName, location) => {
 };
 
 const initSearchInput = () => {
-  const searchInput = document.querySelector("#search-location__input");
   const options = {
     componentRestriction: { country: "kr" },
     fields: ["formatted_address", "geometry", "name"],
@@ -32,9 +32,9 @@ const initSearchInput = () => {
     options
   );
   autocomplete.bindTo("bounds", map);
-  const infowindow = new google.maps.InfoWindow();
+  infoWindow = new google.maps.InfoWindow();
   const infowindowContent = document.querySelector("#jsInfoWindow");
-  infowindow.setContent(infowindowContent);
+  infoWindow.setContent(infowindowContent);
 
   marker = new google.maps.Marker({
     map,
@@ -42,7 +42,7 @@ const initSearchInput = () => {
   });
   autocomplete.addListener("place_changed", () => {
     const placeNameElem = document.querySelector("#jsPlaceName");
-    infowindow.close();
+    infoWindow.close();
     marker.setVisible(false);
     const place = autocomplete.getPlace();
     const {
@@ -53,7 +53,7 @@ const initSearchInput = () => {
     if (place.geometry.viewport) {
       map.fitBounds(place.geometry.viewport);
       sendPlaceName(placeName, location);
-      handleMarker(infowindow, placeName, location);
+      handleMarker(infoWindow, placeName, location);
     } else {
       map.setCenter(location);
       map.setZoom(17);
@@ -62,7 +62,7 @@ const initSearchInput = () => {
     marker.setVisible(true);
     if (placeNameElem) {
       placeNameElem.textContent = placeName;
-      infowindow.open(map, marker);
+      infoWindow.open(map, marker);
     }
   });
 };
@@ -74,16 +74,21 @@ const sendLocation = () => {
     map.setCenter(userLocation);
   }
 };
-const moveMark = (event) => {
-  const draggedPos = event.latLng;
+const draggedLocation = (latLng) => {
+  const lat = latLng.lat();
+  const lng = latLng.lng();
   marker.setMap(null);
   marker = new google.maps.Marker({
-    position: draggedPos,
+    position: { lat, lng },
     map,
-    title: "Click to zoom",
+    draggable: true,
   });
-  userLocation.lat = marker.getPosition().lat();
-  userLocation.lng = marker.getPosition().lng();
+  userLocation = { lat, lng };
+  searchInput.value = "";
+  infoWindow = new google.maps.InfoWindow();
+  infoWindow.setPosition({ lat, lng });
+  infoWindow.setContent("장소를 검색해주세요");
+  infoWindow.open(map);
   sendLocation();
 };
 const panToMarker = () => {
@@ -92,7 +97,7 @@ const panToMarker = () => {
   }, 3000);
 };
 
-const handleLocationError = (browserHasGeolocation, infoWindow, pos) => {
+const handleLocationError = (browserHasGeolocation, pos) => {
   infoWindow.setPosition(pos);
   infoWindow.setContent(
     browserHasGeolocation
@@ -103,7 +108,7 @@ const handleLocationError = (browserHasGeolocation, infoWindow, pos) => {
 };
 const getUserLocation = () => {
   // eslint-disable-next-line no-new
-  const infoWindow = new google.maps.InfoWindow();
+  infoWindow = new google.maps.InfoWindow();
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(
       (position) => {
@@ -115,11 +120,13 @@ const getUserLocation = () => {
         marker = new google.maps.Marker({
           position: userLocation,
           map,
-          title: "Click to zoom",
+          draggable: true,
         });
         map.setZoom(14);
         map.addListener("center_changed", panToMarker);
-        map.addListener("click", moveMark);
+        map.addListener("click", (e) => {
+          draggedLocation(e.latLng);
+        });
         sendLocation();
       },
       () => {

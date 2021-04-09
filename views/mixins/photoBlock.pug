@@ -5,8 +5,9 @@ mixin photoBlock(photo = {})
         .photo-block__info
             a.info__author(href=routes.userDetail(photo.creatorId))
                 img.author--avatar(src=photo.avatarUrl)
-                span.author--name=photo.creator
-                span.author--location=photo.location.name
+                .author__column
+                    span.author--name=photo.creator
+                    span.author--location=photo.location.name
             if(loggedUser && loggedUser.id == photo.creatorId)
                 .info__edit-photo
                     i.xi-ellipsis-h

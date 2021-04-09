@@ -20,8 +20,9 @@ const addComment = (fakeElem, photoId, commentNumberElem) => {
   );
 };
 
-const disableModal = () => {
+const disableModal = (fakeElem) => {
   body.classList.remove(OVERFLOW_HIDDEN);
+  main.removeChild(fakeElem);
 };
 const enableModal = (elem) => {
   // const commentListContainer = document.querySelector(
@@ -36,6 +37,10 @@ const enableModal = (elem) => {
   });
   main.appendChild(fakeElem);
   body.classList.add(OVERFLOW_HIDDEN);
+  const goBackBtn = fakeElem.querySelector("#jsGoBackPage");
+  goBackBtn.addEventListener("click", () => {
+    disableModal(fakeElem);
+  });
 };
 const handleModal = async (e) => {
   const commentNumberElem = e.path[1].querySelector(".comment-number");
@@ -55,11 +60,6 @@ const handleModal = async (e) => {
         enableModal(fakeElem);
       })
       .then(() => {
-        const goBackBtn = fakeElem.querySelector("#jsGoBackPage");
-        goBackBtn.addEventListener("click", () => {
-          main.removeChild(fakeElem);
-          disableModal(fakeElem);
-        });
         if (loggedUser) {
           const modalEditComments = document.querySelectorAll("#jsEditComment");
           const deleteBtns = document.querySelectorAll("#jsDeleteComment");

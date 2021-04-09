@@ -9,15 +9,15 @@ let photoId;
 let commentNumberElem;
 let number;
 
-const increaseNumber = () => {
-  if (number) {
-    commentNumberElem.innerHTML = `댓글 ${
-      parseInt(number, 10) + 1
-    }개 모두 보기`;
-  } else if (!number) {
-    commentNumberElem.innerHTML = `댓글 1개`;
-  }
-};
+// const increaseNumber = () => {
+//   if (number) {
+//     commentNumberElem.innerHTML = `댓글 ${
+//       parseInt(number, 10) + 1
+//     }개 모두 보기`;
+//   } else if (!number) {
+//     commentNumberElem.innerHTML = `댓글 1개`;
+//   }
+// };
 
 const drawFakeElem = (comment) => {
   const photoBlockTarget = commentNumberElem.parentNode.parentNode.querySelector(
@@ -27,7 +27,7 @@ const drawFakeElem = (comment) => {
   const fakeCommentBlock = modalBlockTarget
     .querySelector("#jsFakeBlock .comment-block")
     .cloneNode(true);
-  const link = fakeCommentBlock.querySelector(".column__link");
+
   const editBtn = fakeCommentBlock.querySelector("#jsEditComment");
   const deleteBtn = fakeCommentBlock.querySelector("#jsDeleteComment");
   const currentComment = fakeCommentBlock.querySelector("#jsCurrentComment");
@@ -44,7 +44,6 @@ const drawFakeElem = (comment) => {
   fakeCommentBlock.classList.add("comment-block");
   currentComment.innerText = comment;
   editCommentInput.value = comment;
-  link.setAttribute("href", "/me");
   editBtn.setAttribute("data-comment-id", postEditUrl);
   deleteBtn.setAttribute("data-comment-id", postDelUrl);
   if (modalBlockTarget.querySelectorAll("li").length <= 3) {
@@ -80,7 +79,7 @@ const sendComment = async (comment, id) => {
     if (res.status === 200) {
       commentId = res.data;
       addComment(comment);
-      increaseNumber(photoId);
+      // increaseNumber(photoId);
     }
   });
 };

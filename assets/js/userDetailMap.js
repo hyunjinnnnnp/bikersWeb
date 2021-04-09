@@ -6,27 +6,27 @@ const userDetailMap = document.querySelector("#jsUserDetailMap");
 let map;
 let locations;
 const { google } = window;
+let markers;
 
 const drawMarkers = () => {
-  let infowindow;
-  const markers = locations.map((location) => {
-    const { name } = location;
-    const [lat, lng] = location.mark.coordinates;
-    infowindow = new google.maps.InfoWindow();
-    infowindow.setContent(name);
+  let lat;
+  let lng;
+
+  markers = locations.map((location) => {
+    [lat, lng] = location.mark.coordinates;
     return new google.maps.Marker({
       position: { lat, lng },
       map,
       visible: true,
-      title: name,
+      draggable: false,
+      title: location.name,
     });
   });
   new MarkerClusterer(map, markers, {
     imagePath: "/clusterImg/m",
   });
 };
-const userDetailInitMap = (data) => {
-  locations = data;
+const userDetailInitMap = () => {
   const seoul = { lat: 37.5642135, lng: 127.0016985 };
   map = new google.maps.Map(document.querySelector("#jsUserDetailMap"), {
     zoom: 6,
@@ -34,7 +34,6 @@ const userDetailInitMap = (data) => {
   });
   drawMarkers();
 };
-
 const userDetailInit = async () => {
   const urlPath = window.location.pathname;
   let userId;
@@ -52,8 +51,8 @@ const userDetailInit = async () => {
       },
     })
     .then((response) => {
-      const userLocations = response.data;
-      userDetailInitMap(userLocations);
+      locations = response.data;
+      userDetailInitMap();
     })
     .catch((error) => {
       console.log(error);

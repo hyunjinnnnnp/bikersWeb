@@ -3,9 +3,9 @@ include mixins/commentBlock.pug
 block content
     .comment-list__header
         .header__column
-            span 댓글
-        .header__column
             i.xi-angle-left#jsGoBackPage
+        .header__column
+            span 댓글
     .comment-list
         ul.comment-list__container
             #jsFakeBlock.hide-element
@@ -15,7 +15,8 @@ block content
                         creatorName: loggedUser.name,
                         text: "",
                         _id: "",
-                        createdAt: ""
+                        createdAt: "",
+                        creatorAvatar: loggedUser.avatarUrl
                     })
             each item in photo.comments.reverse()
                 +commentBlock({
