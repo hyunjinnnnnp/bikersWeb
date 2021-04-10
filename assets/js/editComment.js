@@ -8,6 +8,21 @@ let editIcon;
 let deleteIcon;
 let commentId;
 
+const editPhotoBlock = (editedComment) => {
+  //photoBlock
+  const modalBlock = document.querySelectorAll(".comment-list__container li");
+  if (modalBlock.length <= 3) {
+    const target = document.querySelector(
+      `[data-comment-id="/api/${commentId}/edit-comment"]`
+    );
+    target.parentNode.parentNode.querySelector(
+      "#jsCurrentComment"
+    ).innerText = editedComment;
+    target.parentNode.parentNode.querySelector(
+      "#jsEditCommentForm input"
+    ).value = editedComment;
+  }
+};
 const editFakeBlock = (editedComment) => {
   currentComment.innerHTML = editedComment;
   currentComment.classList.remove("hide-element");
@@ -18,16 +33,6 @@ const editFakeBlock = (editedComment) => {
   editIcon.classList.add("show-element");
   deleteIcon.classList.remove("hide-element");
   deleteIcon.classList.add("show-element");
-  //photoBlock
-  const modalBlock = document.querySelectorAll(".comment-list__container li");
-  if (modalBlock.length <= 3) {
-    const target = document.querySelector(
-      `[data-comment-id="/api/${commentId}/edit-comment"]`
-    );
-    target.parentNode.parentNode.querySelector(
-      "#jsCurrentComment"
-    ).innerText = editedComment;
-  }
 };
 const sendEditedComment = async (editedComment) => {
   const btn = selectedList.querySelector("#jsEditComment");
@@ -43,6 +48,7 @@ const sendEditedComment = async (editedComment) => {
   });
   if (response.status === 200) {
     editFakeBlock(editedComment);
+    editPhotoBlock(editedComment);
   }
 };
 const handleEditCommentForm = (event) => {
@@ -75,14 +81,14 @@ const handleEditCommentBtn = (event) => {
   toggleShowing(deleteIcon);
   editForm.addEventListener("submit", handleEditCommentForm);
 };
-function editCommentInit(modalEditComments) {
+function editCommentInit(editCommentBtns) {
   if (editCommentElems) {
     editCommentElems.forEach((item) =>
       item.addEventListener("click", handleEditCommentBtn)
     );
   }
-  if (modalEditComments) {
-    modalEditComments.forEach((item) =>
+  if (editCommentBtns) {
+    editCommentBtns.forEach((item) =>
       item.addEventListener("click", handleEditCommentBtn)
     );
   }

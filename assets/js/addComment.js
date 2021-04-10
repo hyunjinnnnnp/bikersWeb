@@ -7,31 +7,34 @@ const PHOTO_BLOCK_CLASS = ".comment-list__fake-container";
 let commentId;
 let photoId;
 let commentNumberElem;
-let number;
 
-// const increaseNumber = () => {
-//   if (number) {
-//     commentNumberElem.innerHTML = `댓글 ${
-//       parseInt(number, 10) + 1
-//     }개 모두 보기`;
-//   } else if (!number) {
-//     commentNumberElem.innerHTML = `댓글 1개`;
-//   }
-// };
+const increaseNumber = (elem) => {
+  commentNumberElem = elem.querySelector("#jsCommentNumber");
+  if (commentNumberElem.innerText === "") {
+    commentNumberElem.innerText = `댓글 1개`;
+  } else {
+    const number = commentNumberElem.innerText.split(" ")[1];
+    commentNumberElem.innerText = `댓글 ${
+      parseInt(number, 10) + 1
+    }개 모두 보기`;
+  }
+};
 
-const drawFakeElem = (comment) => {
-  const photoBlockTarget = commentNumberElem.parentNode.parentNode.querySelector(
-    PHOTO_BLOCK_CLASS
-  );
-  const modalBlockTarget = document.querySelector(COMMENT_LIST_CLASS);
-  const fakeCommentBlock = modalBlockTarget
+const cloneFakeElem = (comment, targetBlock) => {
+  const fakeCommentBlock = document
     .querySelector("#jsFakeBlock .comment-block")
     .cloneNode(true);
-
   const editBtn = fakeCommentBlock.querySelector("#jsEditComment");
   const deleteBtn = fakeCommentBlock.querySelector("#jsDeleteComment");
   const currentComment = fakeCommentBlock.querySelector("#jsCurrentComment");
   const timestamp = fakeCommentBlock.querySelector("#jsTimestamp");
+  if (targetBlock.className === "comment-list__fake-container") {
+    const imgContainer = fakeCommentBlock.querySelector(
+      ".comment-block__column"
+    );
+    const imgLink = imgContainer.querySelector(".column__link");
+    imgContainer.removeChild(imgLink);
+  }
   timestamp.innerText = "방금 전";
   const editCommentInput = fakeCommentBlock.querySelector(
     "#jsEditCommentForm input"
@@ -39,32 +42,37 @@ const drawFakeElem = (comment) => {
   const postEditUrl = `/api/${commentId}/edit-comment`;
   const postDelUrl = `/api/${commentId}/delete-comment`;
 
-  fakeCommentBlock.addEventListener("click", (event) => event.preventDefault());
+  // fakeCommentBlock.addEventListener("click", (event) =>
+  //   event.preventDefault()
+  // );
   fakeCommentBlock.classList.remove("hide-element");
   fakeCommentBlock.classList.add("comment-block");
   currentComment.innerText = comment;
   editCommentInput.value = comment;
   editBtn.setAttribute("data-comment-id", postEditUrl);
   deleteBtn.setAttribute("data-comment-id", postDelUrl);
-  if (modalBlockTarget.querySelectorAll("li").length <= 3) {
-    photoBlockTarget.appendChild(fakeCommentBlock);
-  }
-  modalBlockTarget.appendChild(fakeCommentBlock);
-  editCommentInit();
-  deleteCommentInit(photoId);
+  targetBlock.appendChild(fakeCommentBlock);
+  const fakeCommentEditBtns = document.querySelectorAll("#jsEditComment");
+  editCommentInit(fakeCommentEditBtns);
+  const fakeCommentDelBtns = document.querySelectorAll("#jsDeleteComment");
+  deleteCommentInit(photoId, fakeCommentDelBtns);
 };
 
 const addComment = (comment) => {
-  [, commentNumberElem] = document.querySelectorAll(
-    `[data-photo-id='${photoId}']`
+  const [, elem] = document.querySelectorAll(`[data-photo-id='${photoId}']`);
+
+  const photoBlockTarget = elem.parentNode.parentNode.querySelector(
+    PHOTO_BLOCK_CLASS
   );
-  if (commentNumberElem.innerText) {
-    const [, string] = commentNumberElem.innerText.split(" ");
-    [number] = string.split("");
+  const modalBlockTarget = document.querySelector(COMMENT_LIST_CLASS);
+
+  if (modalBlockTarget.querySelectorAll("li").length < 3) {
+    cloneFakeElem(comment, modalBlockTarget);
+    cloneFakeElem(comment, photoBlockTarget);
   } else {
-    number = "0";
+    cloneFakeElem(comment, modalBlockTarget);
   }
-  drawFakeElem(comment);
+  increaseNumber(elem);
 };
 
 const sendComment = async (comment, id) => {
@@ -79,15 +87,15 @@ const sendComment = async (comment, id) => {
     if (res.status === 200) {
       commentId = res.data;
       addComment(comment);
-      // increaseNumber(photoId);
     }
   });
 };
 
 const handleSubmit = (event, fakeElem, id) => {
   event.preventDefault();
+  const modalContainer = fakeElem;
   photoId = id;
-  const input = fakeElem.querySelector("#jsAddComment input");
+  const input = modalContainer.querySelector("#jsAddComment input");
   const comment = input.value;
   sendComment(comment, photoId);
   input.value = "";

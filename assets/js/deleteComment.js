@@ -2,37 +2,39 @@ import axios from "axios";
 
 const deleteBtns = document.querySelectorAll("#jsDeleteComment");
 let selectedBtn;
-let targetListBlock;
-let targetUl;
+let currentModalList;
 let photoId;
 
-const decreaseNumber = (photoBlockParent) => {
-  const commentNumberElem = photoBlockParent.parentNode.querySelector(
-    "#jsCommentNumber"
-  );
-  const number = commentNumberElem.innerText.split(" ")[1];
-  if (number) {
-    commentNumberElem.innerText = `댓글 ${parseInt(number, 10) - 1}`;
-    if (number === "1개") {
-      commentNumberElem.innerHTML = "";
-    }
+const decreaseNumber = () => {
+  const numberElemParent = document.querySelectorAll(
+    `[data-photo-id='${photoId}']`
+  )[1];
+  const numberElem = numberElemParent.querySelector("#jsCommentNumber");
+  const number = numberElem.innerText.split(" ")[1].split("")[0];
+
+  if (number > "2") {
+    numberElem.innerText = `댓글 ${parseInt(number, 10) - 1}개 모두 보기`;
+  } else if (number === "2") {
+    numberElem.innerHTML = "댓글 1개 보기";
+  } else if (number === "1") {
+    numberElem.innerHTML = "";
   }
 };
-const hideElement = (id) => {
+
+const hidePhotoBlockElement = (id) => {
   const commentId = id;
-  const target = document.querySelectorAll(
-    `[data-comment-id="/api/${commentId}/edit-comment"]`
+  const photoBlockEdit = document.querySelector(
+    `[data-comment-id="/api/${commentId}/delete-comment"]`
   );
-  const photoBlockTarget = target[0].parentNode.parentNode.parentNode;
-  const modalBlockTarget = target[1].parentNode.parentNode.parentNode;
-  const modalBlockParent = modalBlockTarget.parentNode;
-  const photoBlockParent = photoBlockTarget.parentNode;
-  const modalBlock = document.querySelectorAll(".comment-list__container li");
-  if (modalBlock.length <= 3) {
-    photoBlockParent.removeChild(photoBlockTarget);
-    modalBlockParent.removeChild(modalBlockTarget);
+  const photoBlockTargetList = photoBlockEdit.parentNode.parentNode.parentNode;
+  const photoBlockUl = photoBlockTargetList.parentNode;
+  const photoBlockDescription = photoBlockUl.parentNode;
+  const photoBlockListLength = photoBlockUl.querySelectorAll(".comment-block")
+    .length;
+  if (photoBlockListLength > 0 && photoBlockListLength < 3) {
+    photoBlockTargetList.classList.add("jsHide");
   }
-  decreaseNumber(photoBlockParent);
+  decreaseNumber(photoBlockDescription);
 };
 
 const deleteComment = async (targetCommentUrl) => {
@@ -48,7 +50,8 @@ const deleteComment = async (targetCommentUrl) => {
       },
     });
     if (response.status === 200) {
-      hideElement(commentId);
+      hidePhotoBlockElement(commentId);
+      currentModalList.classList.add("jsHide");
     }
   } catch (error) {
     console.log(error);
@@ -56,7 +59,8 @@ const deleteComment = async (targetCommentUrl) => {
 };
 const deleteCommentBtnHandler = (event) => {
   event.preventDefault();
-  [, selectedBtn, , , targetListBlock, targetUl] = event.path;
+
+  [, selectedBtn, , , currentModalList] = event.path;
   const targetCommentUrl = selectedBtn.getAttribute("data-comment-id");
   deleteComment(targetCommentUrl);
 };

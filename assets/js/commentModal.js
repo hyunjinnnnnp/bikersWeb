@@ -12,11 +12,11 @@ const main = document.querySelector("main");
 const COMMENT_MODAL = "comment-modal";
 const OVERFLOW_HIDDEN = "overflow-hidden";
 
-const addComment = (fakeElem, photoId, commentNumberElem) => {
-  const elem = commentNumberElem;
-  const addCommentForm = fakeElem.querySelector("#jsAddComment");
+const addComment = (fakeElem, photoId) => {
+  const modalContainer = fakeElem;
+  const addCommentForm = modalContainer.querySelector("#jsAddComment");
   addCommentForm.addEventListener("submit", (event) =>
-    handleSubmit(event, fakeElem, photoId, elem)
+    handleSubmit(event, modalContainer, photoId)
   );
 };
 
@@ -43,10 +43,8 @@ const enableModal = (elem) => {
   });
 };
 const handleModal = async (e) => {
-  const commentNumberElem = e.path[1].querySelector(".comment-number");
   const photoId = e.currentTarget.getAttribute("data-photo-id");
   const url = `/api/${photoId}/comments-list`;
-  let fakeElem;
   try {
     await axios({
       url,
@@ -54,18 +52,19 @@ const handleModal = async (e) => {
       data: { photoId },
     })
       .then((response) => {
-        fakeElem = document.createElement("div");
+        const fakeElem = document.createElement("div");
         fakeElem.className = COMMENT_MODAL;
         fakeElem.innerHTML = response.data;
         enableModal(fakeElem);
+        return fakeElem;
       })
-      .then(() => {
+      .then((fakeElem) => {
         if (loggedUser) {
           const modalEditComments = document.querySelectorAll("#jsEditComment");
           const deleteBtns = document.querySelectorAll("#jsDeleteComment");
-          deleteCommentInit(photoId, deleteBtns);
-          addComment(fakeElem, photoId, commentNumberElem);
+          addComment(fakeElem, photoId);
           editCommentInit(modalEditComments);
+          deleteCommentInit(photoId, deleteBtns);
         }
       });
   } catch (error) {
