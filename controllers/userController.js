@@ -1,8 +1,8 @@
+import fs from "fs";
 import passport from "passport";
 import routes from "../routes";
 import User from "../models/User";
 import Photo from "../models/Photo";
-import Location from "../models/Location";
 
 export const getJoin = (req, res) =>
   res.render("join", {
@@ -228,11 +228,20 @@ export const postEditProfile = async (req, res) => {
     file,
   } = req;
   try {
+    const user = await User.findById(req.user.id);
+    if (user.avatarUrl) {
+      fs.unlink(user.avatarUrl, (error) => {
+        if (error) {
+          console.log(error);
+        }
+      });
+    }
     await User.findByIdAndUpdate(req.user.id, {
       name,
       email,
       avatarUrl: file ? file.path : req.user.avatarUrl,
     });
+
     res.redirect(routes.me);
   } catch (error) {
     console.log(error);

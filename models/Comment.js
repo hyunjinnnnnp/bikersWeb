@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 import { getCurrentDate } from "./Photo";
+
 const CommentSchema = new mongoose.Schema({
   text: {
     type: String,

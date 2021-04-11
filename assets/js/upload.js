@@ -1,6 +1,5 @@
 const editUserDetail = document.querySelector(".edit-profile-contianer");
 const uploadPage = document.querySelector(".upload");
-const uploadForm = document.querySelector("#jsUploadFile");
 const uploadInput = document.querySelector("#file");
 const fileList = document.querySelector("#jsFileList");
 
@@ -29,8 +28,7 @@ function handleFiles() {
   }
 }
 
-function handleAvatar(event) {
-  console.log(event);
+function handleAvatar() {
   const img = document.querySelector(".profile--avatar");
   img.src = URL.createObjectURL(this.files[0]);
   img.onload = () => {

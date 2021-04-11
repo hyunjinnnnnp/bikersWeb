@@ -1,3 +1,4 @@
+import fs from "fs";
 /* eslint-disable no-underscore-dangle */
 import routes from "../routes";
 import Photo from "../models/Photo";
@@ -251,23 +252,39 @@ export const postEditPhoto = async (req, res) => {
 };
 export const deletePhoto = async (req, res) => {
   const {
-    params: { id },
+    params: { id: photoId },
   } = req;
   try {
-    //TO DO : uploads/photos 디렉토리 안에 남는 파일 삭제하기
-    const photo = await Photo.findById(id)
+    const photo = await Photo.findById(photoId)
       .populate("user")
-      .populate("location");
+      .populate("location")
+      .populate("likes");
+    photo.fileUrl.forEach((url) => {
+      fs.unlink(url, (error) => {
+        if (error) console.log(error);
+      });
+    });
     const user = await User.findById({ _id: req.user._id });
     const locationId = photo.location._id;
-
+    const likedUsersId = photo.likes.map((like) => {
+      return like.id;
+    });
     if (photo.creator.toString() !== req.user.id) {
       throw Error();
     } else {
-      await Photo.findOneAndRemove({ _id: id });
-      user.photos.pull(id);
+      await Photo.findOneAndDelete({ _id: photoId });
+      user.photos.pull(photoId);
       user.locations.pull(locationId);
-      await Location.findOneAndRemove({ _id: locationId });
+      user.save();
+      await Location.findOneAndDelete({ _id: locationId });
+      photo.comments.forEach(async (comment) => {
+        await Comment.findOneAndDelete({ _id: comment._id });
+      });
+      likedUsersId.forEach(async (id) => {
+        const likedUser = await User.findById(id);
+        likedUser.likes.pull(photoId);
+        likedUser.save();
+      });
     }
   } catch (error) {
     console.log(error);
