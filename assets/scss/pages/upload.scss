@@ -12,7 +12,6 @@
     z-index: 10000;
   }
   .form__container {
-    width: 100%;
     background-color: $black;
     .search-location input {
       margin: 1rem;
@@ -22,6 +21,7 @@
         color: $black;
       }
     }
+
     input {
       background-color: $red;
       color: $black;

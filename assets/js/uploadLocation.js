@@ -15,8 +15,8 @@ const handleMarker = (infowindow, name, location) => {
   infowindow.open(map);
   infowindow.setPosition({ lat, lng });
 };
-const sendPlaceName = async (placeName, location) => {
-  storeLocation.value = await `${location
+const sendPlaceName = (placeName, location) => {
+  storeLocation.value = `${location
     .lat()
     .toString()}, ${location.lng().toString()}, ${placeName}`;
 };

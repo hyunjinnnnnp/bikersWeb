@@ -1,0 +1,60 @@
+html {
+  font-size: 62.5%;
+}
+//HOME
+.home__main,
+.like-list__container,
+.photo-detail-container {
+  padding: 5.5rem;
+  .photo-block {
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    margin: 2rem 0;
+
+    .photo-block__info,
+    .photo-block__description {
+      padding: 1.5rem;
+    }
+    .carousel__btn-show {
+      font-size: 3rem;
+    }
+  }
+}
+
+// USER PHOTOS
+.user-photos {
+  .user-photos__photo-container {
+    padding: 5.5rem;
+    gap: 2rem;
+  }
+  .photo-container__photo {
+    height: 20rem;
+  }
+}
+
+//UPLOAD
+.upload {
+  .form__container {
+    padding: 5.5rem;
+    width: 100%;
+    #jsUploadFile {
+      width: 50%;
+    }
+  }
+}
+//LIKE LIST
+.like-list__container {
+  padding: 5.5rem;
+}
+//COMMENT MODAL
+.comment-modal {
+  top: 50%;
+  left: 50%;
+  width: 60%;
+  height: 60%;
+  transform: translate(-50%, -50%);
+  height: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  .comment-modal__photo {
+    display: none;
+  }
+}

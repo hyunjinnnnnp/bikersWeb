@@ -1,0 +1,56 @@
+html {
+  font-size: 62.5%;
+}
+//COMMENT MODAL
+.comment-modal {
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  .comment-modal__photo {
+    display: none;
+  }
+}
+
+//PHOTOBLOCK
+.photo-block {
+  .edit-photo__nav {
+    justify-content: flex-end;
+  }
+  .nav__list {
+    width: 50%;
+  }
+  .photo-block__form {
+    display: none;
+  }
+}
+
+//COG- HEADER
+.jsAccountEditContainer {
+  justify-content: flex-end;
+  a {
+    width: 70%;
+  }
+  a:last-child {
+    margin-bottom: 5rem;
+  }
+}
+
+//UPLOAD
+.form__container {
+  padding: 4rem;
+  #jsUploadFile {
+    width: 100%;
+  }
+}
+
+//user photos
+
+.user-photos {
+  .user-photos__photo-container {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .photo-container__photo {
+    height: 10rem;
+  }
+}

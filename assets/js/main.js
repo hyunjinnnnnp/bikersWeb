@@ -13,4 +13,4 @@ import "./commentModal";
 import "./editPhotoBtns";
 import "./likesListBackBtn";
 import "./header";
-// import "./mediaquery";
+import "./mediaquery";

@@ -1,0 +1,82 @@
+html {
+  font-size: 70%;
+}
+//HOME
+.home__main,
+.like-list__container,
+.photo-detail-container {
+  padding: 5.5rem;
+
+  .img__carousel-container {
+    height: 50vw;
+  }
+  .photo-block {
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    margin: 2rem 10rem;
+    .photo-block__info,
+    .photo-block__description {
+      padding: 1.5rem;
+    }
+    .carousel__btn-show {
+      font-size: 3rem;
+    }
+  }
+}
+
+//UPLOAD
+.upload {
+  .form__container {
+    padding: 5.5rem;
+    width: 100%;
+    #jsUploadFile {
+      width: 50%;
+    }
+  }
+}
+
+// USER PHOTOS
+.user-photos {
+  .user-photos__photo-container {
+    display: grid;
+    padding: 2rem;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    grid-template-rows: repeat(auto-fill, minmax(20rem, 1fr));
+  }
+  .photo-container__photo {
+    //a tag
+    height: 20rem;
+  }
+}
+
+//comment modal
+.comment-modal {
+  position: fixed;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  left: 50%;
+  width: 80%;
+  height: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  .comment-modal__photo {
+    position: absolute;
+    width: 50%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    .carousel__img-list {
+      height: 100%;
+    }
+  }
+  .comment-modal__comment {
+    position: absolute;
+    left: 50%;
+    width: 50%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    #jsAddComment {
+      width: 50%;
+    }
+  }
+}
