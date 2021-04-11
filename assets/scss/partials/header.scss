@@ -72,6 +72,13 @@
     width: 100%;
     input {
       width: 80%;
+      color: $white;
+      &:-webkit-autofill,
+      &:-webkit-autofill:hover,
+      &:-webkit-autofill:focus {
+        -webkit-text-fill-color: $white;
+        color: $white;
+      }
     }
   }
 }

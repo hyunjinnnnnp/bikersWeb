@@ -3,10 +3,10 @@ include mixins/photoBlock
 //-TO DO : 커맨트 리스트, fake 커맨트 추가
 block content
     .search__header
-        h3 Searching For: #{searchingBy}
+        h3.header--indicator Searching For: #{searchingBy}
     .search__content
         if photos.length === 0
-            h5 No Photos Found
+            h5.header--indicator  일치하는 항목이 없습니다.
         each item in photos
             +photoBlock({
                     id: item.id,

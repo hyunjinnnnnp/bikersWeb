@@ -255,11 +255,19 @@ export const deletePhoto = async (req, res) => {
   } = req;
   try {
     //TO DO : uploads/photos 디렉토리 안에 남는 파일 삭제하기
-    const photo = await Photo.findById(id);
+    const photo = await Photo.findById(id)
+      .populate("user")
+      .populate("location");
+    const user = await User.findById({ _id: req.user._id });
+    const locationId = photo.location._id;
+
     if (photo.creator.toString() !== req.user.id) {
       throw Error();
     } else {
       await Photo.findOneAndRemove({ _id: id });
+      user.photos.pull(id);
+      user.locations.pull(locationId);
+      await Location.findOneAndRemove({ _id: locationId });
     }
   } catch (error) {
     console.log(error);

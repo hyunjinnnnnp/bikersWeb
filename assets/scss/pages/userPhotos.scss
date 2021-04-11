@@ -6,12 +6,49 @@
   grid-template-rows: repeat(auto-fill, minmax(10rem, 1fr));
 
   .photo-container__photo {
+    position: relative;
     height: 10rem;
-    // min-height: 10rem;
-
     img {
       height: 100%;
       object-fit: cover;
+    }
+    .photo__description {
+      opacity: 0;
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.4);
+      top: 0;
+      left: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 1rem;
+      &:hover {
+        opacity: 1;
+      }
+      span:first-child {
+        width: 100%;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-align: center;
+      }
+      span,
+      i {
+        margin-bottom: 0.5rem;
+        color: $white;
+        font-weight: 600;
+        font-size: 0.8rem;
+      }
+      .description__likes {
+        display: flex;
+        i {
+          margin-right: 0.5rem;
+        }
+      }
     }
   }
 }

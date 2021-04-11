@@ -4,7 +4,7 @@ mixin photoBlock(photo = {})
     .photo-block
         .photo-block__info
             a.info__author(href=routes.userDetail(photo.creatorId))
-                img.author--avatar(src=photo.avatarUrl)
+                img.author--avatar(src=photo.avatarUrl.includes("http") ? photo.avatarUrl : `../../${photo.avatarUrl}`)
                 .author__column
                     span.author--name=photo.creator
                     span.author--location=photo.location.name
@@ -13,7 +13,7 @@ mixin photoBlock(photo = {})
                     i.xi-ellipsis-h
                     ul.edit-photo__nav.jsHide
                         li.nav__list
-                            a(href=`photos/${photo.id}/edit`) EDIT
+                            a(href=`/photos/${photo.id}/edit`) EDIT
                         li.nav__list
                             a(href=`/photos/${photo.id}/delete`) DELETE
                         li.nav__list.jsCancelBtn

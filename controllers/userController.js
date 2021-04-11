@@ -2,6 +2,7 @@ import passport from "passport";
 import routes from "../routes";
 import User from "../models/User";
 import Photo from "../models/Photo";
+import Location from "../models/Location";
 
 export const getJoin = (req, res) =>
   res.render("join", {
@@ -202,8 +203,8 @@ export const userPhotos = async (req, res) => {
     params: { id },
   } = req;
   try {
-    const user = await User.findById(id).populate("photos");
-    const photos = user.photos;
+    const user = await User.findById(id);
+    const photos = await Photo.find({ creator: id }).populate("location");
     res.render("userPhotos", {
       pageTitle: `${user.name} : Photos`,
       user,

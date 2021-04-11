@@ -13,6 +13,13 @@ block content
                 a.nav__column(href=`/users/${user.id}`)
                     i.xi-maker=user.locations.length
         .user-photos__photo-container
-            each item in user.photos
+            each item in photos
                 a.photo-container__photo(href=`/photos/${item.id}`)
                     img(src=`../../${item.fileUrl[0]}`)
+                    .photo__description
+                        if item.location.name
+                            i.xi-maker=item.location.name
+                        span=item.description
+                        .description__likes
+                            i.xi-heart
+                            span=item.likes.length
