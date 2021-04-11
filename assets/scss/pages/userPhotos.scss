@@ -1,0 +1,17 @@
+.user-photos__photo-container {
+  display: grid;
+  padding: 0.5rem;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.5rem;
+  grid-template-rows: repeat(auto-fill, minmax(10rem, 1fr));
+
+  .photo-container__photo {
+    height: 10rem;
+    // min-height: 10rem;
+
+    img {
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+}

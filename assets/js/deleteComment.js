@@ -1,5 +1,8 @@
 import axios from "axios";
 
+const fakeCommentHome = document.querySelectorAll(
+  ".comment-list__fake-container"
+);
 const deleteBtns = document.querySelectorAll("#jsDeleteComment");
 let selectedBtn;
 let currentModalList;
@@ -59,7 +62,6 @@ const deleteComment = async (targetCommentUrl) => {
 };
 const deleteCommentBtnHandler = (event) => {
   event.preventDefault();
-
   [, selectedBtn, , , currentModalList] = event.path;
   const targetCommentUrl = selectedBtn.getAttribute("data-comment-id");
   deleteComment(targetCommentUrl);
@@ -79,5 +81,9 @@ function deleteCommentInit(id, modalBtns) {
     );
   }
 }
-
+if (fakeCommentHome) {
+  deleteBtns.forEach((btn) =>
+    btn.addEventListener("click", deleteCommentBtnHandler)
+  );
+}
 export default deleteCommentInit;

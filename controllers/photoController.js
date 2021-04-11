@@ -24,6 +24,25 @@ export const home = async (req, res) => {
     res.render("home", { pageTitle: "Home", photos: [], loggedUser });
   }
 };
+export const getPhotoDetail = async (req, res) => {
+  const {
+    params: { id },
+  } = req;
+  const photo = await Photo.findById(id)
+    .populate("creator")
+    .populate("comments")
+    .populate("location");
+  console.log(photo.creator.avatarUrl);
+  try {
+    res.render("photoDetail", {
+      pageTitle: `${photo.creator.name} : ${photo.description}`,
+      photo,
+    });
+  } catch (error) {
+    console.log(error);
+    res.redirect(routes.home);
+  }
+};
 export const postToggleLike = async (req, res) => {
   const {
     body: { photoId },

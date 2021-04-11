@@ -8,18 +8,9 @@ block content
                 img.profile--avatar(src=user.avatarUrl.includes("http")? user.avatarUrl : `../${user.avatarUrl}`)
                 h4.profile--name=user.name
             .header__nav
-                if loggedUser && user.id === loggedUser.id
-                    a(href=`/users${routes.editProfile}`)
-                        button Edit Profile
-                    if !loggedUser.googleId||loggedUser.kakaoId||loggedUser.naverId
-                        a(href=`/users${routes.changePassword}`)
-                            button Change Password
-                    a(href=routes.logout)
-                        button Logout
-        .user-profile__photo-container
-            each item in user.photos
-                .photo-container__photo
-                    img(src=`../../${item.fileUrl[0]}`)
-                    .photo__likes=item.likes.length
+                a.nav__column(href=`/users/${user.id}/photos`)
+                    i.xi-camera
+                .nav__column
+                    i.xi-maker=user.locations.length
         .user-profile__map
             #jsUserDetailMap

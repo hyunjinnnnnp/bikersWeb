@@ -7,6 +7,7 @@ import {
   postEditProfile,
   getChangePassword,
   postChangePassword,
+  userPhotos,
 } from "../controllers/userController";
 
 const userRouter = express.Router();
@@ -16,5 +17,6 @@ userRouter.post(routes.editProfile, onlyPrivate, uploadAvatar, postEditProfile);
 userRouter.get(routes.changePassword, onlyPrivate, getChangePassword);
 userRouter.post(routes.changePassword, onlyPrivate, postChangePassword);
 userRouter.get(routes.userDetail(), userDetail);
+userRouter.get(routes.userPhotos(), userPhotos);
 
 export default userRouter;

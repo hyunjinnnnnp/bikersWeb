@@ -187,12 +187,30 @@ export const userDetail = async (req, res) => {
   } = req;
   try {
     const user = await User.findById({ _id: id }).populate("photos");
+
     res.render("userDetail", {
       pageTitle: "User Detail",
       user,
       loggedUser,
     });
   } catch (error) {
+    res.redirect(routes.home);
+  }
+};
+export const userPhotos = async (req, res) => {
+  const {
+    params: { id },
+  } = req;
+  try {
+    const user = await User.findById(id).populate("photos");
+    const photos = user.photos;
+    res.render("userPhotos", {
+      pageTitle: `${user.name} : Photos`,
+      user,
+      photos,
+    });
+  } catch (error) {
+    console.log(error);
     res.redirect(routes.home);
   }
 };

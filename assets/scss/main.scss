@@ -34,11 +34,7 @@ input:not(.edit-photo-input):not(.upload),
 button,
 textarea {
   resize: none;
-  // border-bottom: 0.05rem solid $darkGray;
   background-color: transparent;
-  // &::placeholder:not(.upload) {
-  //   color: $gray;
-  // }
 }
 input[type="submit"] {
   border: none;
@@ -91,12 +87,6 @@ label:hover {
   color: $white;
 }
 
-#jsUserDetailMap {
-  width: 100%;
-  height: 50vh;
-
-  z-index: 10000;
-}
 .jsHide {
   display: none;
 }
@@ -135,4 +125,14 @@ label:hover {
 }
 .like-list__container {
   padding-top: $headerHeight;
+}
+
+.user-profile__map {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  #jsUserDetailMap {
+    width: 100%;
+    height: 100vh;
+  }
 }

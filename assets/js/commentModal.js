@@ -25,9 +25,6 @@ const disableModal = (fakeElem) => {
   main.removeChild(fakeElem);
 };
 const enableModal = (elem) => {
-  // const commentListContainer = document.querySelector(
-  //   ".comment-list__container"
-  // );
   const fakeElem = elem;
   const timestamps = fakeElem.querySelectorAll("#jsTimestamp");
   timestamps.forEach((item) => {

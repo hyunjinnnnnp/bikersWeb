@@ -1,44 +1,48 @@
-.user-profile {
+.user-profile,
+.user-photos {
   padding-top: $headerHeight;
   width: 100%;
   height: 100%;
   background-color: $black;
 }
-.user-profile__header {
+.user-profile__header,
+.user-photos__header {
   width: 100%;
-  padding: 2rem;
+  padding: 1rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 20%;
   background-color: $red;
   .header__user-info {
     display: flex;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
     font-weight: 600;
     text-transform: uppercase;
     .profile--avatar {
+      margin-right: 1rem;
       width: 3rem;
       height: 3rem;
       border-radius: 50%;
       background-color: $white;
-      margin: 0 0 1rem 0;
     }
     .profile--name {
       font-size: 1.2rem;
       font-weight: 800;
     }
   }
-
   .header__nav {
     display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    justify-content: flex-end;
-    a:not(:nth-child(3)) {
-      margin-bottom: 0.5rem;
+    font-weight: 800;
+    i {
+      font-size: 1.5rem;
+    }
+    .nav__column {
+      padding: 0.3rem 1rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: $black;
     }
   }
   .user-profile__btns {
@@ -55,32 +59,19 @@
     width: 100%;
   }
 }
-.user-profile__photo-container {
-  width: 100%;
-  margin: 4rem 0;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(2rem, 1fr));
-  grid-template-rows: repeat(auto-fit, minmax(2rem, 1fr));
-  grid-gap: 1.5rem;
-  justify-items: center;
-  .photo-container__photo {
-    position: relative;
-    background-color: $black;
+
+.user-profile__header {
+  .nav__column {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
   }
+}
+.user-photos__photo-container {
+  width: 100%;
   img {
     object-fit: cover;
     max-width: 100%;
-  }
-  .photo__likes {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: $white;
-    font-weight: 600;
   }
 }

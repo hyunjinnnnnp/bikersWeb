@@ -1,0 +1,17 @@
+extends layouts/main.pug
+include mixins/photoBlock.pug
+
+block content
+    .photo-detail-container
+        +photoBlock({
+            id: photo.id,
+            fileUrl: photo.fileUrl,
+            description: photo.description,
+            avatarUrl: photo.creator.avatarUrl,
+            creatorId: photo.creator._id,
+            creator: photo.creator.name,
+            comments: photo.comments,
+            location: photo.location,
+            likes: photo.likes,
+            createdAt: photo.createdAt
+        })

@@ -12,10 +12,12 @@ const USERS = "/users";
 const EDIT_PROFILE = "/edit-profile";
 const CHANGE_PASSWORD = "/change-password";
 const USER_DETAIL = "/:id";
+const USER_PHOTOS = "/:id/photos";
 
 //Photos
 const PHOTOS = "/photos";
 const UPLOAD = "/upload";
+const PHOTO_DETAIL = "/:id";
 const EDIT_PHOTO = "/:id/edit";
 const DELETE_PHOTO = "/:id/delete";
 
@@ -55,6 +57,13 @@ const routes = {
       return USER_DETAIL;
     }
   },
+  userPhotos: (id) => {
+    if (id) {
+      return `/users/${id}/photos`;
+    } else {
+      return USER_PHOTOS;
+    }
+  },
   likeList: LIKE_LIST,
   comments: COMMENTS,
   commentList: (id) => {
@@ -71,6 +80,13 @@ const routes = {
       return `/photos/${id}/edit`;
     } else {
       return EDIT_PHOTO;
+    }
+  },
+  photoDetail: (id) => {
+    if (id) {
+      return `/photos/${id}`;
+    } else {
+      return PHOTO_DETAIL;
     }
   },
   deletePhoto: (id) => {

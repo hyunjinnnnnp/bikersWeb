@@ -27,3 +27,15 @@ header.header
                     #jsUserInfo
                         span#userName=loggedUser.name
                         span#userId=loggedUser.id
+                i.jsAccountEditBtn.xi-cog.jsHide
+                    .jsAccountEditContainer.jsHide
+                        a(href=`/users${routes.editProfile}`)
+                            button Edit Profile
+                        if !loggedUser.googleId||loggedUser.kakaoId||loggedUser.naverId
+                            a(href=`/users${routes.changePassword}`)
+                                button Change Password
+                        a(href=routes.logout)
+                            button Logout
+                        a.jsAccountEditCancelBtn
+                            button Cancel
+                            //수정하기

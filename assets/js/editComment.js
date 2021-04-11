@@ -1,6 +1,9 @@
 import axios from "axios";
 
 const editCommentElems = document.querySelectorAll("#jsEditComment");
+const fakeCommentHome = document.querySelectorAll(
+  ".comment-list__fake-container"
+);
 let selectedList;
 let editForm;
 let currentComment;
@@ -93,5 +96,7 @@ function editCommentInit(editCommentBtns) {
     );
   }
 }
-
+if (fakeCommentHome) {
+  editCommentInit();
+}
 export default editCommentInit;

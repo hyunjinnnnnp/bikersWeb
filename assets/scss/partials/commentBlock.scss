@@ -2,6 +2,9 @@
   padding: 0.5rem 0rem;
   display: flex;
   align-items: center;
+  .comment-block__column:nth-child(2) {
+    width: 100%;
+  }
   .commen-block__contents {
     word-break: break-all;
     color: $white;

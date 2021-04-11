@@ -1,6 +1,6 @@
 import axios from "axios";
 // setTimeout 2000 => 타겟 외에 다른 요소에도 영향이 감
-
+const userInfo = document.querySelector("#jsUserInfo");
 const photoBlocks = document.querySelectorAll(".photo-block");
 let targetPhotoBlock;
 let isClicked = true;
@@ -47,8 +47,9 @@ const postLikeData = async () => {
   const photoId = targetPhotoBlock
     .querySelector(".carousel__img-list")
     .getAttribute("data-url");
+
   const response = await axios({
-    url: `api/${photoId}/like`,
+    url: `/api/${photoId}/like`,
     method: "POST",
     data: { photoId },
   });
@@ -72,14 +73,11 @@ const handleLikeClick = (e) => {
     }, 2000);
   }
 };
-function postLikeInit() {
-  const userInfo = document.querySelector("#jsUserInfo");
+
+if (photoBlocks && userInfo) {
   photoBlocks.forEach((photoBlock) => {
-    if (userInfo) {
-      photoBlock.addEventListener("dblclick", handleLikeClick);
-    }
+    photoBlock.addEventListener("dblclick", handleLikeClick);
   });
-}
-if (photoBlocks) {
-  postLikeInit();
+} else if (photoBlocks.length === 1) {
+  photoBlocks.addEventListener("dblclick", handleLikeClick);
 }

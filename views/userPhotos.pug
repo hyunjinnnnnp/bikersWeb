@@ -1,0 +1,18 @@
+extends layouts/main.pug
+include mixins/photoBlock.pug
+
+block content
+    .user-photos
+        .user-photos__header
+            .header__user-info
+                img.profile--avatar(src=user.avatarUrl.includes("http")? user.avatarUrl : `../../${user.avatarUrl}`)
+                h4.profile--name=user.name
+            .header__nav
+                .nav__column
+                    i.xi-camera
+                a.nav__column(href=`/users/${user.id}`)
+                    i.xi-maker=user.locations.length
+        .user-photos__photo-container
+            each item in user.photos
+                a.photo-container__photo(href=`/photos/${item.id}`)
+                    img(src=`../../${item.fileUrl[0]}`)
