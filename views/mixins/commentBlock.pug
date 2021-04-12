@@ -8,7 +8,7 @@ mixin commentBlock(comment = {})
             .column__comment
                 span.author--name=comment.creatorName
                 span.text#jsCurrentComment.show-element=comment.text
-            form#jsEditCommentForm.hide-element
+            form.jsEditCommentForm.hide-element
                 input(type="text", value=comment.text)
             .column__icons
                 #jsTimestamp=comment.createdAt

@@ -22,7 +22,7 @@ const editPhotoBlock = (editedComment) => {
       "#jsCurrentComment"
     ).innerText = editedComment;
     target.parentNode.parentNode.querySelector(
-      "#jsEditCommentForm input"
+      ".jsEditCommentForm input"
     ).value = editedComment;
   }
 };
@@ -73,7 +73,7 @@ const toggleShowing = (elem) => {
 const handleEditCommentBtn = (event) => {
   event.preventDefault();
   [, , , , selectedList] = event.path;
-  editForm = selectedList.querySelector("#jsEditCommentForm");
+  editForm = selectedList.querySelector(".jsEditCommentForm");
   currentComment = selectedList.querySelector("#jsCurrentComment");
   editIcon = event.currentTarget;
   deleteIcon = editIcon.nextSibling;

@@ -37,7 +37,7 @@ const cloneFakeElem = (comment, targetBlock) => {
   }
   timestamp.innerText = "방금 전";
   const editCommentInput = fakeCommentBlock.querySelector(
-    "#jsEditCommentForm input"
+    ".jsEditCommentForm input"
   );
   const postEditUrl = `/api/${commentId}/edit-comment`;
   const postDelUrl = `/api/${commentId}/delete-comment`;
@@ -48,7 +48,7 @@ const cloneFakeElem = (comment, targetBlock) => {
   editCommentInput.value = comment;
   editBtn.setAttribute("data-comment-id", postEditUrl);
   deleteBtn.setAttribute("data-comment-id", postDelUrl);
-  targetBlock.prepend(fakeCommentBlock);
+  targetBlock.appendChild(fakeCommentBlock);
   const fakeCommentEditBtns = document.querySelectorAll("#jsEditComment");
   editCommentInit(fakeCommentEditBtns);
   const fakeCommentDelBtns = document.querySelectorAll("#jsDeleteComment");

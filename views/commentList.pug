@@ -25,7 +25,7 @@ block content
                             createdAt: "",
                             creatorAvatar: loggedUser.avatarUrl
                         })
-                each item in photo.comments.reverse()
+                each item in photo.comments
                     +commentBlock({
                         creatorId: item.creatorId,
                         creatorAvatar: item.creatorAvatar,
