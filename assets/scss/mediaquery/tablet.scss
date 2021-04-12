@@ -29,6 +29,9 @@ html {
   .header__column li {
     margin-left: 1.5rem;
   }
+  form {
+    width: 60%;
+  }
   input {
     width: 50%;
     border: 1px solid rgba(255, 255, 255, 0.1);
@@ -103,5 +106,16 @@ html {
     #jsAddComment {
       width: 50%;
     }
+  }
+}
+//JOIN
+.join-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  form {
+    height: 50vw;
+    width: 50vw;
   }
 }

@@ -42,6 +42,9 @@
   .header__column li {
     margin-left: 1.5rem;
   }
+  form {
+    width: 60%;
+  }
   input {
     width: 50%;
     border: 1px solid rgba(255, 255, 255, 0.1);
@@ -90,5 +93,27 @@
     #jsAddComment {
       width: 50%;
     }
+  }
+}
+//JOIN
+
+.join-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  form {
+    height: 50%;
+    width: 50%;
+  }
+  .social-login {
+    height: 25%;
+  }
+  button {
+    padding: 0.2rem 0.5rem;
+    border-radius: 0.4rem;
+  }
+  input[type="submit"] {
+    border-radius: 0.4rem;
   }
 }

@@ -81,3 +81,20 @@
     text-transform: uppercase;
   }
 }
+
+//JOIN
+.join-container {
+  form {
+    position: relative;
+    min-width: 21rem;
+    min-height: 40rem;
+    // &::after {
+    //   position: absolute;
+    //   top: 1.5rem;
+    //   left: 1rem;
+    //   font-size: 2rem;
+    //   font-family: xeicon;
+    //   content: "\e93b";
+    // }
+  }
+}

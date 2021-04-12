@@ -33,3 +33,12 @@ if (window.location.pathname.includes("/users/")) {
 if (window.location.pathname === "/me") {
   avatarToEllipsis();
 }
+
+const removeHeader = () => {
+  const header = document.querySelector("header");
+  header.classList.add("jsHide");
+};
+
+if (window.location.pathname === "/join") {
+  removeHeader();
+}

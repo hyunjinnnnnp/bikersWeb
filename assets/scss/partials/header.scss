@@ -4,18 +4,6 @@
   & > * {
     color: $white;
   }
-  ul {
-    i {
-      color: $white;
-      font-size: 2rem;
-      height: 100%;
-      display: flex;
-      align-items: center;
-    }
-  }
-  #jsUserInfo {
-    display: none;
-  }
   padding: 1rem 1.5rem;
   font-weight: 600;
   font-size: 1.4rem;
@@ -30,6 +18,19 @@
   .header__column:nth-child(1) {
     font-size: 2rem;
     margin-right: 2rem;
+  }
+
+  ul {
+    i {
+      color: $white;
+      font-size: 2rem;
+      height: 100%;
+      display: flex;
+      align-items: center;
+    }
+  }
+  #jsUserInfo {
+    display: none;
   }
 
   .logged-user-nav {
@@ -61,7 +62,13 @@
 .header__column {
   display: flex;
   align-items: center;
-  justify-content: center;
+  // justify-content: center;
+  &:first-child {
+    justify-content: flex-start;
+  }
+  &:last-child {
+    justify-content: flex-end;
+  }
   form {
     width: 100%;
     input {

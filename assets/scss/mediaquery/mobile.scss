@@ -8,8 +8,10 @@ html {
   padding: 5.5rem;
   .photo-block {
     border: 1px solid rgba(255, 255, 255, 0.1);
-    margin: 2rem 0;
-
+    margin: 5rem 10rem;
+    .img__carousel-container {
+      height: 50vw;
+    }
     .photo-block__info,
     .photo-block__description {
       padding: 1.5rem;
@@ -28,13 +30,16 @@ html {
 }
 
 //HEADER
+
 .header {
-  grid-template-columns: auto 1fr auto;
+  grid-template-columns: auto 1fr minmax(10rem, auto);
   .header__column li {
     margin-left: 1.5rem;
   }
+  form {
+    width: 60%;
+  }
   input {
-    width: 70%;
     border: 1px solid rgba(255, 255, 255, 0.1);
     padding: 0.3rem;
   }
@@ -76,5 +81,12 @@ html {
   border: 1px solid rgba(255, 255, 255, 0.1);
   .comment-modal__photo {
     display: none;
+  }
+}
+//JOIN
+.join-container {
+  form {
+    width: 50%;
+    margin: 20rem;
   }
 }
