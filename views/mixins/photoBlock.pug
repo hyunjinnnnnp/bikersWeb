@@ -59,6 +59,7 @@ mixin photoBlock(photo = {})
                             _id: item._id,
                             createdAt: item.createdAt
                         })
-        .photo-block__form.jsFakeForm
-            input(type="text")
-            button 게시
+        .photo-block__form
+            if loggedUser
+                form.jsAddComment
+                    input(type="text", placeholder="Add a Comment")

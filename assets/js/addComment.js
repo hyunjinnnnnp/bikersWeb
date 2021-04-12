@@ -2,6 +2,7 @@ import axios from "axios";
 import editCommentInit from "./editComment";
 import deleteCommentInit from "./deleteComment";
 
+const photoBlockForms = document.querySelectorAll(".photo-block__form");
 const COMMENT_LIST_CLASS = ".comment-list__container";
 const PHOTO_BLOCK_CLASS = ".comment-list__fake-container";
 let commentId;
@@ -24,6 +25,7 @@ const cloneFakeElem = (comment, targetBlock) => {
   const fakeCommentBlock = document
     .querySelector("#jsFakeBlock .comment-block")
     .cloneNode(true);
+
   const editBtn = fakeCommentBlock.querySelector("#jsEditComment");
   const deleteBtn = fakeCommentBlock.querySelector("#jsDeleteComment");
   const currentComment = fakeCommentBlock.querySelector("#jsCurrentComment");
@@ -72,8 +74,8 @@ const addComment = (comment) => {
   increaseNumber(elem);
 };
 
-const sendComment = async (comment, id) => {
-  photoId = id;
+const sendComment = async (comment) => {
+  console.log(comment, photoId);
   await axios({
     url: `/api/${photoId}/comment`,
     method: "POST",
@@ -81,6 +83,7 @@ const sendComment = async (comment, id) => {
       comment,
     },
   }).then((res) => {
+    console.log(res);
     if (res.status === 200) {
       commentId = res.data;
       addComment(comment);
@@ -94,8 +97,51 @@ const handleSubmit = (event, fakeElem, id) => {
   photoId = id;
   const input = modalContainer.querySelector("#jsAddComment input");
   const comment = input.value;
-  sendComment(comment, photoId);
+  sendComment(comment);
   input.value = "";
 };
+
+//PHOTOBLOCK SUBMIT
+const waitForElement = (id, callback) => {
+  const intervalId = setInterval(() => {
+    if (document.getElementById(id)) {
+      clearInterval(intervalId);
+      callback();
+    }
+  }, 100);
+};
+const photoBlockSubmit = (comment) => {
+  waitForElement("jsAddComment", () => {
+    const modalForm = document.querySelector("#jsAddComment");
+    const modalInput = modalForm.querySelector("input");
+    modalInput.value = comment;
+    modalForm.requestSubmit();
+    modalForm.addEventListener("submit", (event) => {
+      event.preventDefault();
+      console.log(event, comment);
+      sendComment(comment);
+      modalInput.value = "";
+    });
+  });
+};
+if (photoBlockForms) {
+  photoBlockForms.forEach((form) => {
+    form.addEventListener("submit", (event) => {
+      const [, , targetPhotoBlock] = event.path;
+      const photoBlockInput = targetPhotoBlock.querySelector(
+        ".jsAddComment input"
+      );
+      photoId = targetPhotoBlock
+        .querySelector(".carousel__img-list")
+        .getAttribute("data-url");
+      const modalClickBtn = targetPhotoBlock.querySelector("#jsCommentNumber");
+      const comment = photoBlockInput.value;
+      photoBlockInput.value = "";
+      event.preventDefault();
+      modalClickBtn.click();
+      photoBlockSubmit(comment);
+    });
+  });
+}
 
 export default handleSubmit;
