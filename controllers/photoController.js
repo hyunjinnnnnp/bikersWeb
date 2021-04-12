@@ -33,7 +33,6 @@ export const getPhotoDetail = async (req, res) => {
     .populate("creator")
     .populate("comments")
     .populate("location");
-  console.log(photo.creator.avatarUrl);
   try {
     res.render("photoDetail", {
       pageTitle: `${photo.creator.name} : ${photo.description}`,
@@ -248,7 +247,7 @@ export const postEditPhoto = async (req, res) => {
   } catch (error) {
     console.log(error);
   }
-  res.redirect(routes.home);
+  res.redirect(routes.photoDetail(id));
 };
 export const deletePhoto = async (req, res) => {
   const {

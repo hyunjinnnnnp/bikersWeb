@@ -1,5 +1,6 @@
 const uploadContainer = document.querySelector(".upload");
 const searchInput = document.querySelector("#search-location__input");
+
 const { google } = window;
 let map;
 let userLocation;
@@ -21,7 +22,7 @@ const sendPlaceName = (placeName, location) => {
     .toString()}, ${location.lng().toString()}, ${placeName}`;
 };
 
-const initSearchInput = () => {
+const searchInputInit = () => {
   const options = {
     componentRestriction: { country: "kr" },
     fields: ["formatted_address", "geometry", "name"],
@@ -152,5 +153,26 @@ const initMap = () => {
 
 if (uploadContainer) {
   google.maps.event.addDomListener(window, "load", initMap);
-  google.maps.event.addDomListener(window, "load", initSearchInput);
+  google.maps.event.addDomListener(window, "load", searchInputInit);
 }
+
+// if (uploadContainer) {
+//   const url = `https://maps.googleapis.com/maps/api/js?key=${process.env.GOOGLE_MAP_KEY}&map_ids=${process.env.MAP_ID}&region=kr&libraries=places`;
+//   const injectScript = () => {
+//     const script = document.createElement("script");
+//     script.src = url;
+//     script.type = "text/javascript";
+//     google = window.google;
+//     document.head.appendChild(script);
+//     script.addEventListener("load", () => {
+//       google.maps.event.addDomListener(window, "load", initMap);
+//       google.maps.event.addDomListener(window, "load", searchInputInit);
+//     });
+//   };
+//   window.addEventListener("load", injectScript);
+// }
+
+// window.addEventListener("load",  injectScript(url, () => {
+//   initMap();
+//   searchInputInit();
+// }))

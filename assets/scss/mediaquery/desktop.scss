@@ -35,3 +35,60 @@
     padding: 2rem 10rem;
   }
 }
+
+//HEADER
+.header {
+  grid-template-columns: auto 1fr auto;
+  .header__column li {
+    margin-left: 1.5rem;
+  }
+  input {
+    width: 50%;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 0.3rem;
+  }
+}
+
+//comment modal
+.comment-modal {
+  position: fixed;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  left: 50%;
+  width: 80%;
+  height: 80%;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  .comment-modal__photo {
+    position: absolute;
+    width: 50%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    .carousel__img-list {
+      height: 100%;
+    }
+  }
+  .comment-modal__comment {
+    position: absolute;
+    left: 50%;
+    width: 50%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    .comment-list__header {
+      .header__column:first-child {
+        right: 1rem;
+      }
+      i::before {
+        display: none;
+      }
+      i::after {
+        font-family: xeicon;
+        content: "\e925";
+      }
+    }
+    #jsAddComment {
+      width: 50%;
+    }
+  }
+}

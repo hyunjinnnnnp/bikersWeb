@@ -1,7 +1,7 @@
 html {
   font-size: 62.5%;
 }
-//HOME
+//HOME, LIKE-LIST
 .home__main,
 .like-list__container,
 .photo-detail-container {
@@ -24,6 +24,19 @@ html {
     .photo-block__form input {
       width: 100%;
     }
+  }
+}
+
+//HEADER
+.header {
+  grid-template-columns: auto 1fr auto;
+  .header__column li {
+    margin-left: 1.5rem;
+  }
+  input {
+    width: 70%;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 0.3rem;
   }
 }
 

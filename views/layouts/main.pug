@@ -6,7 +6,6 @@ html(lang="en")
         link(rel="stylesheet", href="/styles/styles.css", type='text/css')
         link(rel="stylesheet", href="//cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css")
         title #{pageTitle} | #{siteName}
-        script(src=`https://maps.googleapis.com/maps/api/js?key=${env.GOOGLE_MAP_KEY}&map_ids=${env.MAP_ID}&region=kr&libraries=places`)
     body
         include ../partials/header
         main

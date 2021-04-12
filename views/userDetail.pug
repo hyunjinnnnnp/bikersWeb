@@ -14,3 +14,4 @@ block content
                     i.xi-maker=user.locations.length
         .user-profile__map
             #jsUserDetailMap
+    script(src=`https://maps.googleapis.com/maps/api/js?key=${env.GOOGLE_MAP_KEY}&map_ids=${env.MAP_ID}&region=kr&libraries=places`)

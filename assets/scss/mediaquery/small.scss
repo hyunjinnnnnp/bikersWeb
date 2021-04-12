@@ -1,6 +1,14 @@
 html {
   font-size: 62.5%;
 }
+
+//HEADER
+.header {
+  grid-template-columns: 0.5fr 1fr 0.5fr;
+  li:not(:last-child) {
+    margin-right: 1rem;
+  }
+}
 //COMMENT MODAL
 .comment-modal {
   top: 0;

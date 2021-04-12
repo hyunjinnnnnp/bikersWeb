@@ -106,7 +106,6 @@ const photoBlockCaseInit = () => {
 const singleBlockCaseInit = (carouselContainer) => {
   const imgs = carouselContainer.querySelectorAll(".carousel__photo");
   const icons = carouselContainer.querySelectorAll("i");
-  console.log(imgs, icons);
   if (imgs.length >= 2) {
     imgs[0].classList.add("active");
     imgs[1].classList.add("next");

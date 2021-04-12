@@ -19,3 +19,4 @@ block content
                     textarea(placeholder="description", name="description", required=true, cols="37", rows="10")
                     #jsFileList.upload__preview
                 input(type="submit", value="Upload Photo")
+    script(src=`https://maps.googleapis.com/maps/api/js?key=${env.GOOGLE_MAP_KEY}&map_ids=${env.MAP_ID}&region=kr&libraries=places`)
