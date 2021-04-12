@@ -42,16 +42,13 @@ const cloneFakeElem = (comment, targetBlock) => {
   const postEditUrl = `/api/${commentId}/edit-comment`;
   const postDelUrl = `/api/${commentId}/delete-comment`;
 
-  // fakeCommentBlock.addEventListener("click", (event) =>
-  //   event.preventDefault()
-  // );
   fakeCommentBlock.classList.remove("hide-element");
   fakeCommentBlock.classList.add("comment-block");
   currentComment.innerText = comment;
   editCommentInput.value = comment;
   editBtn.setAttribute("data-comment-id", postEditUrl);
   deleteBtn.setAttribute("data-comment-id", postDelUrl);
-  targetBlock.appendChild(fakeCommentBlock);
+  targetBlock.prepend(fakeCommentBlock);
   const fakeCommentEditBtns = document.querySelectorAll("#jsEditComment");
   editCommentInit(fakeCommentEditBtns);
   const fakeCommentDelBtns = document.querySelectorAll("#jsDeleteComment");

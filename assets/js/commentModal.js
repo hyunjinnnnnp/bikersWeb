@@ -24,6 +24,12 @@ const disableModal = (fakeElem) => {
   body.classList.remove(OVERFLOW_HIDDEN);
   main.removeChild(fakeElem);
 };
+let timeOutId;
+const modalScrollTo = () => {
+  const container = document.querySelector(".comment-list__container");
+  container.scrollTop = container.scrollHeight;
+  clearTimeout(timeOutId);
+};
 const enableModal = (elem) => {
   const fakeElem = elem;
   const timestamps = fakeElem.querySelectorAll("#jsTimestamp");
@@ -34,6 +40,7 @@ const enableModal = (elem) => {
   });
   main.appendChild(fakeElem);
   body.classList.add(OVERFLOW_HIDDEN);
+  timeOutId = setTimeout(modalScrollTo, 500);
   const goBackBtn = fakeElem.querySelector("#jsGoBackPage");
   goBackBtn.addEventListener("click", () => {
     disableModal(fakeElem);
