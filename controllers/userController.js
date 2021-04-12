@@ -47,11 +47,15 @@ export const postKakaoLogin = (req, res) => {
 
 export const kakaoLoginCallback = async (_, __, profile, done) => {
   const {
-    _json: { id, properties, kakao_account: kakaoAccount },
+    id,
+    username,
+    _json: { properties, kakao_account: kakaoAccount },
   } = profile;
+  const { profile_image: avatarUrl } = properties;
   const { email } = kakaoAccount;
-  const { profile_image_url: profileImg, nickname } = properties;
   try {
+    console.log(username, avatarUrl, email);
+    //   //email 없다고 나오니까 일단 카카오 아이디로 조회
     const user = await User.findOne({ email });
     if (user) {
       user.kakaoId = id;
@@ -59,13 +63,14 @@ export const kakaoLoginCallback = async (_, __, profile, done) => {
       return done(null, user);
     }
     const newUser = await User.create({
-      email,
-      name: nickname,
       kakaoId: id,
-      avatarUrl: profileImg,
+      name: username,
+      avatarUrl,
+      email,
     });
     return done(null, newUser);
   } catch (error) {
+    console.log(error);
     return done(error);
   }
 };

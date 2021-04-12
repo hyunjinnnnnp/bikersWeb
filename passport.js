@@ -19,7 +19,6 @@ passport.use(
   new KakaoStrategy(
     {
       clientID: process.env.KAKAO_ID,
-      clientSecret: "",
       callbackURL: process.env.KAKAO_CALLBACK_URL,
     },
     kakaoLoginCallback

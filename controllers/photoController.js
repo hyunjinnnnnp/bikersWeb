@@ -8,13 +8,13 @@ import User from "../models/User";
 
 export const home = async (req, res) => {
   const { user: loggedUser } = req;
+
   try {
     const photos = await Photo.find({})
       .sort({ _id: -1 })
       .populate("creator")
       .populate("comments")
       .populate("location");
-
     res.render("home", {
       pageTitle: "Home",
       photos,
@@ -22,7 +22,7 @@ export const home = async (req, res) => {
     });
   } catch (error) {
     console.log(error);
-    res.render("home", { pageTitle: "Home", photos: [], loggedUser });
+    res.render("home", { pageTitle: "Home", photos: [] });
   }
 };
 export const getPhotoDetail = async (req, res) => {
