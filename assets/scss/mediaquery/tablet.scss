@@ -75,6 +75,18 @@ html {
     height: 100%;
     display: flex;
     flex-direction: column;
+    .comment-list__header {
+      .header__column:first-child {
+        right: 1rem;
+      }
+      i::before {
+        display: none;
+      }
+      i::after {
+        font-family: xeicon;
+        content: "\e925";
+      }
+    }
     #jsAddComment {
       width: 50%;
     }

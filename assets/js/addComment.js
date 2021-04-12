@@ -75,7 +75,6 @@ const addComment = (comment) => {
 };
 
 const sendComment = async (comment) => {
-  console.log(comment, photoId);
   await axios({
     url: `/api/${photoId}/comment`,
     method: "POST",
@@ -83,7 +82,6 @@ const sendComment = async (comment) => {
       comment,
     },
   }).then((res) => {
-    console.log(res);
     if (res.status === 200) {
       commentId = res.data;
       addComment(comment);
@@ -118,7 +116,6 @@ const photoBlockSubmit = (comment) => {
     modalForm.requestSubmit();
     modalForm.addEventListener("submit", (event) => {
       event.preventDefault();
-      console.log(event, comment);
       sendComment(comment);
       modalInput.value = "";
     });

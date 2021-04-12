@@ -4,6 +4,7 @@ import handleSubmit from "./addComment";
 import deleteCommentInit from "./deleteComment";
 import editCommentInit from "./editComment";
 import drawTime from "./timestamp";
+import carouselInit from "./photoCarousel";
 
 const loggedUser = document.querySelector("#jsUserInfo");
 const body = document.querySelector("body");
@@ -30,6 +31,7 @@ const modalScrollTo = () => {
   container.scrollTop = container.scrollHeight;
   clearTimeout(timeOutId);
 };
+
 const enableModal = (elem) => {
   const fakeElem = elem;
   const timestamps = fakeElem.querySelectorAll("#jsTimestamp");
@@ -45,6 +47,8 @@ const enableModal = (elem) => {
   goBackBtn.addEventListener("click", () => {
     disableModal(fakeElem);
   });
+  const carouselContainer = document.querySelector(".comment-modal__photo");
+  carouselInit(carouselContainer);
 };
 const handleModal = async (e) => {
   const photoId = e.currentTarget.getAttribute("data-photo-id");

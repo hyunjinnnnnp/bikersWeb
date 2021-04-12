@@ -103,10 +103,10 @@ const photoBlockCaseInit = () => {
     }
   });
 };
-const photoEditCaseInit = () => {
-  const carouselContainer = document.querySelector(".img__carousel-container");
-  const imgs = document.querySelectorAll(".carousel__photo");
+const singleBlockCaseInit = (carouselContainer) => {
+  const imgs = carouselContainer.querySelectorAll(".carousel__photo");
   const icons = carouselContainer.querySelectorAll("i");
+  console.log(imgs, icons);
   if (imgs.length >= 2) {
     imgs[0].classList.add("active");
     imgs[1].classList.add("next");
@@ -117,13 +117,16 @@ const photoEditCaseInit = () => {
     icons.forEach((item) => item.classList.remove(SHOW));
   }
 };
+
 if (photoBlocks) {
   photoBlockCaseInit();
 }
 if (photoEdit) {
+  const carouselContainer = document.querySelector(".img__carousel-container");
   const textarea = document.querySelector("textarea");
-  photoEditCaseInit();
+  singleBlockCaseInit(carouselContainer);
   window.onload = () => {
     textarea.select();
   };
 }
+export default singleBlockCaseInit;
