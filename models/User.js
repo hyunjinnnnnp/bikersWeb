@@ -9,7 +9,7 @@ const UserSchema = new mongoose.Schema({
   email: String,
   avatarUrl: {
     type: String,
-    default: "uploads/nonAvatar.png",
+    default: process.env.DEFAULT_AVATAR_URL,
   },
   naverId: Number,
   kakaoId: Number,

@@ -109,7 +109,8 @@ export const postUpload = async (req, res) => {
     files,
     user: loggedUser,
   } = req;
-  const fileUrl = files.map((file) => file.path);
+
+  const fileUrl = files.map((file) => file.location);
   let location;
   try {
     if (currentLocation !== "") {
@@ -138,7 +139,7 @@ export const postUpload = async (req, res) => {
     user.locations.push(location.id);
     user.photos.push(newPhoto.id);
     user.save();
-    res.redirect(routes.home);
+    res.redirect(routes.photoDetail(newPhoto._id));
   } catch (error) {
     console.log(error);
   }
@@ -258,11 +259,11 @@ export const deletePhoto = async (req, res) => {
       .populate("user")
       .populate("location")
       .populate("likes");
-    photo.fileUrl.forEach((url) => {
-      fs.unlink(url, (error) => {
-        if (error) console.log(error);
-      });
-    });
+    // photo.fileUrl.forEach((url) => {
+    //   fs.unlink(url, (error) => {
+    //     if (error) console.log(error);
+    //   });
+    // });
     const user = await User.findById({ _id: req.user._id });
     const locationId = photo.location._id;
     const likedUsersId = photo.likes.map((like) => {

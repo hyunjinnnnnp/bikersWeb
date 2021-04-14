@@ -24,7 +24,7 @@ mixin photoBlock(photo = {})
                     i.jsHide.xi-heart#jsLikedFalse
                 a.carousel__img-list(data-url=photo.id)
                     each item in photo.fileUrl
-                        img.carousel__photo(src=`../${item}`, alt="Photo")
+                        img.carousel__photo(src=item, alt="Photo")
                 i.carousel__prev-i.xi-arrow-left.carousel__btn-hide
                 i.carousel__next-i.xi-arrow-right.carousel__btn-show
         .photo-block__description

@@ -55,7 +55,6 @@ export const kakaoLoginCallback = async (_, __, profile, done) => {
   const { email } = kakaoAccount;
   try {
     console.log(username, avatarUrl, email);
-    //   //email 없다고 나오니까 일단 카카오 아이디로 조회
     const user = await User.findOne({ email });
     if (user) {
       user.kakaoId = id;
@@ -233,18 +232,18 @@ export const postEditProfile = async (req, res) => {
     file,
   } = req;
   try {
-    const user = await User.findById(req.user.id);
-    if (user.avatarUrl) {
-      fs.unlink(user.avatarUrl, (error) => {
-        if (error) {
-          console.log(error);
-        }
-      });
-    }
+    //const user = await User.findById(req.user.id);
+    // if (user.avatarUrl) {
+    //   fs.unlink(user.avatarUrl, (error) => {
+    //     if (error) {
+    //       console.log(error);
+    //     }
+    //   });
+    // }
     await User.findByIdAndUpdate(req.user.id, {
       name,
       email,
-      avatarUrl: file ? file.path : req.user.avatarUrl,
+      avatarUrl: file ? file.location : req.user.avatarUrl,
     });
 
     res.redirect(routes.me);

@@ -1,12 +1,28 @@
 import multer from "multer";
+import multerS3 from "multer-s3";
+import aws from "aws-sdk";
 import routes from "./routes";
 import User from "./models/User";
 
-const multerPhoto = multer({
-  dest: "uploads/photos",
-  limits: { fileSize: 5 * 1024 * 1024 },
+const s3 = new aws.S3({
+  accessKeyId: process.env.AWS_KEY,
+  secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
 });
-const multerAvatar = multer({ dest: "uploads/avatars" });
+const multerPhoto = multer({
+  storage: multerS3({
+    s3,
+    acl: "public-read",
+    bucket: "bikerss3/photo",
+  }),
+  // limits: { fileSize: 5 * 1024 * 1024 },
+});
+const multerAvatar = multer({
+  storage: multerS3({
+    s3,
+    acl: "public-read",
+    bucket: "bikerss3/avatar",
+  }),
+});
 
 export const uploadPhoto = multerPhoto.array("file", 5);
 export const uploadAvatar = multerAvatar.single("avatar");
