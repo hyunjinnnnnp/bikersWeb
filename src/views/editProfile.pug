@@ -3,7 +3,7 @@ extends layouts/main.pug
 block content
     .form__container.edit-profile-contianer
         form#jsUploadFile(action=`/users${routes.editProfile}`, method="post", enctype="multipart/form-data")
-            img.profile--avatar(src=user.avatarUrl.includes("http") ? user.avatarUrl : `../../${user.avatarUrl }`, alt="avatar")
+            img.profile--avatar(src=user.avatarUrl, alt="avatar")
             .fileUpload
                 label(for="file") 프로필 사진 바꾸기
                 input(type="file",id="file", name="avatar", accept="image/*")

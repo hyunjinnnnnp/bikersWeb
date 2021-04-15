@@ -5,7 +5,7 @@ block content
     .user-profile
         .user-profile__header
             .header__user-info
-                img.profile--avatar(src=user.avatarUrl.includes("http")? user.avatarUrl : `../${user.avatarUrl}`)
+                img.profile--avatar(src=user.avatarUrl)
                 h4.profile--name=user.name
             .header__nav
                 a.nav__column(href=`/users/${user.id}/photos`)

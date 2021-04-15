@@ -4,7 +4,7 @@ mixin photoBlock(photo = {})
     .photo-block
         .photo-block__info
             a.info__author(href=routes.userDetail(photo.creatorId))
-                img.author--avatar(src=photo.avatarUrl.includes("http") ? photo.avatarUrl : `../../${photo.avatarUrl}`)
+                img.author--avatar(src=photo.avatarUrl)
                 .author__column
                     span.author--name=photo.creator
                     span.author--location=photo.location.name

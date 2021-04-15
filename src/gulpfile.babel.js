@@ -1,3 +1,4 @@
+import "@babel/register";
 import gulp from "gulp";
 import sass from "gulp-sass";
 import autoprefixer from "gulp-autoprefixer";
@@ -10,18 +11,18 @@ sass.compiler = require("node-sass");
 const paths = {
   styles: {
     src: "assets/scss/styles.scss",
-    dest: "src/static/styles",
+    dest: "static/styles",
     watch: "assets/scss/**/*.scss",
   },
   js: {
     src: "assets/js/main.js",
-    dest: "src/static/js",
+    dest: "static/js",
     watch: "assets/js/**/*.js",
   },
 };
 
 // eslint-disable-next-line import/prefer-default-export
-const clean = () => del(["src/static"]);
+const clean = () => del(["static"]);
 
 const styles = () =>
   gulp
@@ -46,6 +47,8 @@ const watchFiles = () => {
   gulp.watch(paths.js.watch, js);
 };
 
-const dev = gulp.series(clean, styles, js, watchFiles);
+exports.production = gulp.series(clean, styles, js);
+exports.development = gulp.series(clean, styles, js, watchFiles);
+//const dev = gulp.series(clean, styles, js);
 
-export default dev;
+// export default dev;

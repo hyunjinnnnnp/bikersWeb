@@ -4,7 +4,7 @@ block content
     .comment-modal__photo
         a.carousel__img-list(data-url=photo.id)
             each item in photo.fileUrl
-                img.carousel__photo(src=`../${item}`, alt="Photo")
+                img.carousel__photo(src=item, alt="Photo")
         i.carousel__prev-i.xi-arrow-left.carousel__btn-hide
         i.carousel__next-i.xi-arrow-right.carousel__btn-show
     .comment-modal__comment
@@ -37,5 +37,5 @@ block content
         .comment-list__form
             if loggedUser
                 form#jsAddComment
-                    img.author--avatar(src=loggedUser.avatarUrl.includes("http") ? loggedUser.avatarUrl : `../../${loggedUser.avatarUrl}`)#jsAvatarElement
+                    img.author--avatar(src=loggedUser.avatarUrl)#jsAvatarElement
                     input(type="text", placeholder="Add a Comment")

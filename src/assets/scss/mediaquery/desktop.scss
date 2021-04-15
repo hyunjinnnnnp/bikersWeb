@@ -90,6 +90,9 @@
         content: "\e925";
       }
     }
+    .comment-list__form {
+      z-index: 999999999999999;
+    }
     #jsAddComment {
       width: 50%;
     }
