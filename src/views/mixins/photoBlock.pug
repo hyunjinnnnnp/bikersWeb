@@ -7,7 +7,8 @@ mixin photoBlock(photo = {})
                 img.author--avatar(src=photo.avatarUrl)
                 .author__column
                     span.author--name=photo.creator
-                    span.author--location=photo.location.name
+                    //- if photo.locationName
+                    //-     span.author--location=photo.locationName
             if(loggedUser && loggedUser.id == photo.creatorId)
                 .info__edit-photo
                     i.xi-ellipsis-h

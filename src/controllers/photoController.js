@@ -8,7 +8,6 @@ import User from "../models/User";
 
 export const home = async (req, res) => {
   const { user: loggedUser } = req;
-
   try {
     const photos = await Photo.find({})
       .sort({ _id: -1 })

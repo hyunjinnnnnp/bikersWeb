@@ -4,7 +4,7 @@
   "description": "Website for Bikers Photos with vanilla and NodeJS",
   "scripts": {
     "dev:server": "nodemon --exec babel-node src/init.js --delay 2 --ignore '.scss' --ignore 'static'",
-    "dev:assets": "cd src && gulp development",
+    "dev:assets": "cd src && gulp development --watch",
     "build:server": "babel src --out-dir build --ignore 'src/assets','src/static','src/gulpfile.babel.js'",
     "build:assets": "cd src && gulp production",
     "prebuild": "rm -rf build",
