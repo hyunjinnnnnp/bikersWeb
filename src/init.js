@@ -1,3 +1,5 @@
+import fs from "fs";
+import https from "https";
 import dotenv from "dotenv";
 import app from "./app";
 import "./db";
@@ -12,4 +14,9 @@ const PORT = process.env.PORT || 4000;
 const handleListening = () =>
   console.log(`✅listening on: https://localhost:${PORT}`);
 
-app.listen(PORT, handleListening);
+const httpsOptions = {
+  key: fs.readFileSync("./localhost-key.pem"),
+  cert: fs.readFileSync("./localhost.pem"),
+};
+
+https.createServer(httpsOptions, app).listen(PORT, handleListening);

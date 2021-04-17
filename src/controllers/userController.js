@@ -1,4 +1,3 @@
-import fs from "fs";
 import passport from "passport";
 import routes from "../routes";
 import User from "../models/User";
@@ -54,7 +53,6 @@ export const kakaoLoginCallback = async (_, __, profile, done) => {
   const { profile_image: avatarUrl } = properties;
   const { email } = kakaoAccount;
   try {
-    console.log(username, avatarUrl, email);
     const user = await User.findOne({ email });
     if (user) {
       user.kakaoId = id;
@@ -209,6 +207,7 @@ export const userPhotos = async (req, res) => {
   try {
     const user = await User.findById(id);
     const photos = await Photo.find({ creator: id }).populate("location");
+    photos.forEach((photo) => console.log(photo.location));
     res.render("userPhotos", {
       pageTitle: `${user.name} : Photos`,
       user,

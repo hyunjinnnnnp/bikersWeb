@@ -263,8 +263,8 @@ export const deletePhoto = async (req, res) => {
     //     if (error) console.log(error);
     //   });
     // });
+    console.log(photo);
     const user = await User.findById({ _id: req.user._id });
-    const locationId = photo.location._id;
     const likedUsersId = photo.likes.map((like) => {
       return like.id;
     });
@@ -273,9 +273,12 @@ export const deletePhoto = async (req, res) => {
     } else {
       await Photo.findOneAndDelete({ _id: photoId });
       user.photos.pull(photoId);
-      user.locations.pull(locationId);
+      if (photo.location) {
+        const locationId = photo.location._id;
+        user.locations.pull(locationId);
+        await Location.findOneAndDelete({ _id: locationId });
+      }
       user.save();
-      await Location.findOneAndDelete({ _id: locationId });
       photo.comments.forEach(async (comment) => {
         await Comment.findOneAndDelete({ _id: comment._id });
       });
