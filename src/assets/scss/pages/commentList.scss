@@ -3,6 +3,8 @@
   position: fixed;
   z-index: 999999999;
   color: $white;
+  width: 100vw;
+  height: 100vh;
   .comment-list__header {
     padding: 1rem;
     height: $headerHeight;

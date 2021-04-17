@@ -17,7 +17,7 @@ block content
                 a.photo-container__photo(href=`/photos/${item.id}`)
                     img(src=item.fileUrl[0])
                     .photo__description
-                        if item.location.name
+                        if item.location
                             i.xi-maker=item.location.name
                         span=item.description
                         .description__likes

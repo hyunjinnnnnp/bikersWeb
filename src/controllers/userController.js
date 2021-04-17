@@ -207,7 +207,6 @@ export const userPhotos = async (req, res) => {
   try {
     const user = await User.findById(id);
     const photos = await Photo.find({ creator: id }).populate("location");
-    photos.forEach((photo) => console.log(photo.location));
     res.render("userPhotos", {
       pageTitle: `${user.name} : Photos`,
       user,

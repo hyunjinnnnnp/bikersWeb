@@ -7,6 +7,7 @@ block content
                 #jsPlaceName
                 #jsPlaceAddress
         .form__container
+            .jsIndicator
             form#jsUploadFile(action=`/photos${routes.upload}`, method="post", enctype="multipart/form-data")
                 .search-location
                     input#search-location__input(type="text", placeholder="위치 검색하기")

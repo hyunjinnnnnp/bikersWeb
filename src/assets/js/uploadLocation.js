@@ -131,11 +131,11 @@ const getUserLocation = () => {
         sendLocation();
       },
       () => {
-        handleLocationError(true, infoWindow, map.getCenter());
+        handleLocationError(true, map.getCenter());
       }
     );
   } else {
-    handleLocationError(false, infoWindow, map.getCenter());
+    handleLocationError(false, map.getCenter());
   }
 };
 
@@ -152,27 +152,7 @@ const initMap = () => {
 };
 
 if (uploadContainer) {
+  console.log("hi");
   google.maps.event.addDomListener(window, "load", initMap);
   google.maps.event.addDomListener(window, "load", searchInputInit);
 }
-
-// if (uploadContainer) {
-//   const url = `https://maps.googleapis.com/maps/api/js?key=${process.env.GOOGLE_MAP_KEY}&map_ids=${process.env.MAP_ID}&region=kr&libraries=places`;
-//   const injectScript = () => {
-//     const script = document.createElement("script");
-//     script.src = url;
-//     script.type = "text/javascript";
-//     google = window.google;
-//     document.head.appendChild(script);
-//     script.addEventListener("load", () => {
-//       google.maps.event.addDomListener(window, "load", initMap);
-//       google.maps.event.addDomListener(window, "load", searchInputInit);
-//     });
-//   };
-//   window.addEventListener("load", injectScript);
-// }
-
-// window.addEventListener("load",  injectScript(url, () => {
-//   initMap();
-//   searchInputInit();
-// }))

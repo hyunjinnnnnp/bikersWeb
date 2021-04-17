@@ -1,4 +1,3 @@
-import fs from "fs";
 /* eslint-disable no-underscore-dangle */
 import routes from "../routes";
 import Photo from "../models/Photo";
@@ -125,17 +124,16 @@ export const postUpload = async (req, res) => {
         },
       });
     }
-    // eslint-disable-next-line no-underscore-dangle
     const newPhoto = await Photo.create({
       fileUrl,
       description,
       creator: loggedUser.id,
       location,
     });
-    const user = await User.findById({ _id: loggedUser.id }).populate(
-      "locations"
-    );
-    user.locations.push(location.id);
+    const user = await User.findById({ _id: loggedUser.id });
+    if (location) {
+      user.locations.push(location.id);
+    }
     user.photos.push(newPhoto.id);
     user.save();
     res.redirect(routes.photoDetail(newPhoto._id));
@@ -179,7 +177,6 @@ export const postAddComment = async (req, res) => {
       creatorName: user.name,
       creatorAvatar: user.avatarUrl,
     });
-    // eslint-disable-next-line no-underscore-dangle
     commentId = await newComment._id;
     photo.comments.push(commentId);
     res.json(commentId);
@@ -258,12 +255,7 @@ export const deletePhoto = async (req, res) => {
       .populate("user")
       .populate("location")
       .populate("likes");
-    // photo.fileUrl.forEach((url) => {
-    //   fs.unlink(url, (error) => {
-    //     if (error) console.log(error);
-    //   });
-    // });
-    console.log(photo);
+    //TO DO : 삭제할 때 DB 확인
     const user = await User.findById({ _id: req.user._id });
     const likedUsersId = photo.likes.map((like) => {
       return like.id;
