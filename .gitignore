@@ -119,3 +119,6 @@ uploads
 build
 static
 npm-shrinkwrap.json
+src/init.js
+localhost-key.pem
+localhost.pem
