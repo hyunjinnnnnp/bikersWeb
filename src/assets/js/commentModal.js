@@ -5,6 +5,7 @@ import deleteCommentInit from "./deleteComment";
 import editCommentInit from "./editComment";
 import drawTime from "./timestamp";
 import carouselInit from "./photoCarousel";
+import clickEvent from "./mobileClickToTouchEvent"
 
 const loggedUser = document.querySelector("#jsUserInfo");
 const body = document.querySelector("body");
@@ -47,7 +48,7 @@ const enableModal = (elem) => {
   html.classList.add(OVERFLOW_HIDDEN);
   timeOutId = setTimeout(modalScrollTo, 500);
   const goBackBtn = fakeElem.querySelector("#jsGoBackPage");
-  goBackBtn.addEventListener("click", () => {
+  goBackBtn.addEventListener(, () => {
     disableModal(fakeElem);
   });
   const carouselContainer = document.querySelector(".comment-modal__photo");
@@ -85,7 +86,7 @@ const handleModal = async (e) => {
 
 if (modalBtns) {
   modalBtns.forEach((btn) =>
-    btn.addEventListener("click", {
+    btn.addEventListener(clickEvent, {
       handleModal,
     })
   );
