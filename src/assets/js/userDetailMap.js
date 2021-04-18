@@ -60,6 +60,6 @@ const userDetailInit = async () => {
 };
 
 if (userDetailMap) {
-  // window.addEventListener("touchstart", { passive: true });
+  window.addEventListener("touchstart", { passive: true });
   userDetailInit();
 }

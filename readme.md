@@ -21,6 +21,12 @@ https://taeminimini.tistory.com/438
 
   [] ELLIPSIS -> CANCEL BUTTON
 
+  [x] DELETE fake comment 에러
+
+  [] DELETE COMMENT swipe
+
+  [] CAROUSEL swipe
+
 - COMMENT MODAL
 
   [x] BODY 스크롤 없애기 -> HTML overflow hidden
@@ -42,6 +48,9 @@ https://taeminimini.tistory.com/438
   [] 인풋 클릭시 화면 확대 방지
 
 - USER DETAIL(MAP)
+
+  [] userDetailMap.js:65 Uncaught TypeError: Cannot set property 'className' of null
+  at HTMLDivElement.enableEditPhotoNav (userDetailMap.js:65)
 
   [] USER INFO HEADER fix
 
