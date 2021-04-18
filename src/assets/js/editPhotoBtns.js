@@ -16,21 +16,19 @@ const disableEditPhotoNav = () => {
 };
 
 const enableEditPhotoNav = (event) => {
+  console.log(event);
   const [, photoBlockHeader] = event.path;
   editPhotoNav = photoBlockHeader.querySelector(".edit-photo__nav");
   const disableBtn = photoBlockHeader.querySelector(".jsCancelBtn");
   editPhotoNav.className = `${NAV_CLASS} ${SHOW_CLASS}`;
   body.classList.add(OVERFLOW_HIDDEN);
-  disableBtn.addEventListener(clickEvent, () => {
-    disableEditPhotoNav();
-    disableBtn.style.color = "red";
-  });
+  disableBtn.addEventListener("touchstart", disableEditPhotoNav);
 };
 
 function editPhotoNavInit() {
   const ellipsisBtns = document.querySelectorAll(".info__edit-photo");
   ellipsisBtns.forEach((item) =>
-    item.addEventListener(clickEvent, enableEditPhotoNav)
+    item.addEventListener("touchstart", enableEditPhotoNav)
   );
 }
 if (navContainer) {
