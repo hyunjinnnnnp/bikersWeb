@@ -48,7 +48,7 @@ const enableModal = (elem) => {
   html.classList.add(OVERFLOW_HIDDEN);
   timeOutId = setTimeout(modalScrollTo, 500);
   const goBackBtn = fakeElem.querySelector("#jsGoBackPage");
-  goBackBtn.addEventListener(clickEvent, () => {
+  goBackBtn.addEventListener("touchstart", () => {
     disableModal(fakeElem);
   });
   const carouselContainer = document.querySelector(".comment-modal__photo");
@@ -86,7 +86,7 @@ const handleModal = async (e) => {
 
 if (modalBtns) {
   modalBtns.forEach((btn) =>
-    btn.addEventListener(clickEvent, {
+    btn.addEventListener("touchstart", {
       handleModal,
     })
   );
