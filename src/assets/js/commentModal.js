@@ -13,6 +13,8 @@ const main = document.querySelector("main");
 const COMMENT_MODAL = "comment-modal";
 const OVERFLOW_HIDDEN = "overflow-hidden";
 
+let timeOutId;
+
 const addComment = (fakeElem, photoId) => {
   const modalContainer = fakeElem;
   const addCommentForm = modalContainer.querySelector("#jsAddComment");
@@ -20,16 +22,19 @@ const addComment = (fakeElem, photoId) => {
     handleSubmit(event, modalContainer, photoId)
   );
 };
-
 const disableModal = (fakeElem) => {
   body.classList.remove(OVERFLOW_HIDDEN);
   main.removeChild(fakeElem);
 };
-let timeOutId;
 const modalScrollTo = () => {
   const container = document.querySelector(".comment-list__container");
   container.scrollTop = container.scrollHeight;
   clearTimeout(timeOutId);
+};
+
+const detectMobileKeyboard = () => {
+  const container = document.querySelector(".comment-modal");
+  container.style.height = "50vh";
 };
 
 const enableModal = (elem) => {
@@ -48,6 +53,7 @@ const enableModal = (elem) => {
     disableModal(fakeElem);
   });
   const carouselContainer = document.querySelector(".comment-modal__photo");
+  window.addEventListener("resize", detectMobileKeyboard);
   carouselInit(carouselContainer);
 };
 const handleModal = async (e) => {
@@ -81,7 +87,11 @@ const handleModal = async (e) => {
 };
 
 if (modalBtns) {
-  modalBtns.forEach((btn) => btn.addEventListener("click", handleModal));
+  modalBtns.forEach((btn) =>
+    btn.addEventListener("click", {
+      handleModal,
+    })
+  );
 }
 
 export default handleModal;

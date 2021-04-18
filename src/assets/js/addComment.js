@@ -20,12 +20,10 @@ const increaseNumber = (elem) => {
     }개 모두 보기`;
   }
 };
-
 const cloneFakeElem = (comment, targetBlock) => {
   const fakeCommentBlock = document
     .querySelector("#jsFakeBlock .comment-block")
     .cloneNode(true);
-
   const editBtn = fakeCommentBlock.querySelector("#jsEditComment");
   const deleteBtn = fakeCommentBlock.querySelector("#jsDeleteComment");
   const currentComment = fakeCommentBlock.querySelector("#jsCurrentComment");

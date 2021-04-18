@@ -12,6 +12,8 @@
     font-size: 1.5rem;
     border-bottom: 1px solid rgba(255, 255, 255, 0.2);
     position: relative;
+    top: 0;
+    left: 0;
     display: flex;
     align-items: center;
   }
@@ -73,7 +75,7 @@
     background-color: $black;
     border-top: 1px solid rgba(255, 255, 255, 0.173);
   }
-  .comment-list__form input {
+  .comment-list__form input[type="text"] {
     width: 80%;
     color: $white;
     background-color: $black;
@@ -81,6 +83,11 @@
     ::placeholder {
       color: $white;
     }
+  }
+  .comment-list__form input[type="submit"] {
+    color: $white;
+    background-color: $black;
+    z-index: 9999999999;
   }
   .jsEditCommentForm input {
     color: $white;
