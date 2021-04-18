@@ -41,6 +41,7 @@ gulp.task("js", () => {
     .pipe(bro({ transform: ["babelify"] }))
     .pipe(gulp.dest(paths.js.dest));
 });
+
 gulp.task("watchFiles", () => {
   gulp.watch(paths.styles.watch, ["js"]);
   gulp.watch(paths.styles.watch, ["styles"]);

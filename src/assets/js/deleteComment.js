@@ -1,4 +1,5 @@
 import axios from "axios";
+import clickEvent from "./mobileClickToTouchEvent";
 
 const fakeCommentHome = document.querySelectorAll(
   ".comment-list__fake-container"
@@ -62,28 +63,40 @@ const deleteComment = async (targetCommentUrl) => {
 };
 const deleteCommentBtnHandler = (event) => {
   event.preventDefault();
-  [, selectedBtn, , , currentModalList] = event.path;
+  let currentPhotoBlock;
+  [, selectedBtn, , , currentModalList, , , currentPhotoBlock] = event.path;
+
+  if (!photoId) {
+    photoId = currentPhotoBlock
+      .querySelector(".carousel__img-list")
+      .getAttribute("data-url");
+    return photoId;
+  }
   const targetCommentUrl = selectedBtn.getAttribute("data-comment-id");
-  deleteComment(targetCommentUrl);
+  return deleteComment(targetCommentUrl);
 };
 
-function deleteCommentInit(id, modalBtns) {
+function deleteFakeCommentInit(id, modalBtns) {
   if (deleteBtns.legnth > 1) {
     photoId = id;
     deleteBtns.forEach((btn) =>
-      btn.addEventListener("touchstart", deleteCommentBtnHandler)
+      btn.addEventListener(clickEvent, deleteCommentBtnHandler)
     );
   }
   if (modalBtns) {
     photoId = id;
-    modalBtns.forEach((btn) =>
-      btn.addEventListener("touchstart", deleteCommentBtnHandler)
-    );
+    modalBtns.forEach((btn) => {
+      btn.addEventListener(clickEvent, deleteCommentBtnHandler);
+    });
   }
 }
 if (fakeCommentHome) {
-  deleteBtns.forEach((btn) =>
-    btn.addEventListener("touchstart", deleteCommentBtnHandler)
-  );
+  deleteBtns.forEach((btn) => {
+    btn.addEventListener(clickEvent, deleteCommentBtnHandler);
+  });
 }
-export default deleteCommentInit;
+if (deleteBtns) {
+  deleteFakeCommentInit();
+}
+
+export default deleteFakeCommentInit;
