@@ -7,16 +7,8 @@ Website for Bikers photo with Vanilla and NodeJS
 [x] 메타태그 바꾸기: 인풋 포커스 확대 방지
 https://taeminimini.tistory.com/438
 
-- 가상키보드 감지하는 방법
-
-1.  resize event
-2.  CSS "orientation : landscape"
-
 - fixed DOM과 가상키보드 이슈
   https://nuhends.tistory.com/2
-
-터치 이벤트
-https://falsy.me/%EB%AA%A8%EB%B0%94%EC%9D%BC-%EC%95%A0%ED%94%8C%EB%A6%AC%EC%BC%80%EC%9D%B4%EC%85%98-%EC%9B%B9%EB%B7%B0%EC%97%90-%EC%82%AC%EC%9A%A9%EB%90%98%EB%8A%94-%EC%9B%B9-%EC%BD%98%ED%85%90%EC%B8%A0%EC%9D%98/
 
 - MAIN
 

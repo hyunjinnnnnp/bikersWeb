@@ -8,7 +8,7 @@
     height: $photoBlockHeaderHeight;
     display: flex;
     justify-content: space-between;
-    padding: 1rem;
+    padding: 1rem 1.5rem;
     align-items: center;
   }
   .edit-photo__nav {
@@ -67,7 +67,7 @@
   }
   .photo-block__description {
     background-color: $black;
-    padding: 1rem;
+    padding: 1rem 1.5rem;
     min-height: $photoBlockDescriptionHeight;
     .description__column {
       display: flex;
