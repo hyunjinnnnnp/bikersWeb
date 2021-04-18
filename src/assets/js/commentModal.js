@@ -8,6 +8,7 @@ import carouselInit from "./photoCarousel";
 
 const loggedUser = document.querySelector("#jsUserInfo");
 const body = document.querySelector("body");
+const html = document.querySelector("html");
 const modalBtns = document.querySelectorAll("#jsCommentModal");
 const main = document.querySelector("main");
 const COMMENT_MODAL = "comment-modal";
@@ -24,6 +25,7 @@ const addComment = (fakeElem, photoId) => {
 };
 const disableModal = (fakeElem) => {
   body.classList.remove(OVERFLOW_HIDDEN);
+  html.classList.remove(OVERFLOW_HIDDEN);
   main.removeChild(fakeElem);
 };
 const modalScrollTo = () => {
@@ -42,6 +44,7 @@ const enableModal = (elem) => {
   });
   main.appendChild(fakeElem);
   body.classList.add(OVERFLOW_HIDDEN);
+  html.classList.add(OVERFLOW_HIDDEN);
   timeOutId = setTimeout(modalScrollTo, 500);
   const goBackBtn = fakeElem.querySelector("#jsGoBackPage");
   goBackBtn.addEventListener("click", () => {
