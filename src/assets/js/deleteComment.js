@@ -1,5 +1,4 @@
 import axios from "axios";
-import clickEvent from "./mobileClickToTouchEvent";
 
 const fakeCommentHome = document.querySelectorAll(
   ".comment-list__fake-container"
@@ -80,19 +79,19 @@ function deleteFakeCommentInit(id, modalBtns) {
   if (deleteBtns.legnth > 1) {
     photoId = id;
     deleteBtns.forEach((btn) =>
-      btn.addEventListener(clickEvent, deleteCommentBtnHandler)
+      btn.addEventListener("click", deleteCommentBtnHandler)
     );
   }
   if (modalBtns) {
     photoId = id;
     modalBtns.forEach((btn) => {
-      btn.addEventListener(clickEvent, deleteCommentBtnHandler);
+      btn.addEventListener("click", deleteCommentBtnHandler);
     });
   }
 }
 if (fakeCommentHome) {
   deleteBtns.forEach((btn) => {
-    btn.addEventListener(clickEvent, deleteCommentBtnHandler);
+    btn.addEventListener("click", deleteCommentBtnHandler);
   });
 }
 if (deleteBtns) {

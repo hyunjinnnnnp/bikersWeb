@@ -9,7 +9,7 @@ import carouselInit from "./photoCarousel";
 const loggedUser = document.querySelector("#jsUserInfo");
 const body = document.querySelector("body");
 const html = document.querySelector("html");
-const modalBtns = document.querySelectorAll("#jsCommentModal");
+const modalBtns = document.querySelectorAll(".jsCommentModal");
 const main = document.querySelector("main");
 const COMMENT_MODAL = "comment-modal";
 const OVERFLOW_HIDDEN = "overflow-hidden";
@@ -84,11 +84,7 @@ const handleModal = async (e) => {
 };
 
 if (modalBtns) {
-  modalBtns.forEach((btn) =>
-    btn.addEventListener("touchstart", {
-      handleModal,
-    })
-  );
+  modalBtns.forEach((btn) => btn.addEventListener("touchstart", handleModal));
 }
 
 export default handleModal;

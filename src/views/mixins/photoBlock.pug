@@ -42,7 +42,7 @@ mixin photoBlock(photo = {})
             span.author--name=photo.creator
                 span.description__content(data-photo-id=photo.id)#jsTruncate=photo.description
             a.description__comment-number
-                i.comment-number(data-photo-id=photo.id)#jsCommentModal
+                i.comment-number(data-photo-id=photo.id).jsCommentModal
                     if photo.comments.length === 0
                         span#jsCommentNumber
                     if photo.comments.length === 1

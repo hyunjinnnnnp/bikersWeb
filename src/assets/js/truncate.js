@@ -18,11 +18,11 @@ const truncateInit = () => {
       textElem.addEventListener("click", (e) => {
         const { currentTarget } = e;
         currentTarget.innerText = `${truncated}${moreTxt}`;
-        textElem.id = "jsCommentModal";
+        textElem.classList.add("jsCommentModal");
         textElem.addEventListener("click", handleModal);
       });
     } else {
-      textElem.id = "jsCommentModal";
+      textElem.classList.add = "jsCommentModal";
       textElem.addEventListener("click", handleModal);
     }
   });

@@ -1,16 +1,19 @@
 const photoBlocks = document.querySelectorAll(".photo-block");
 const photoEdit = document.querySelector(".edit-photo");
 
-let targetBlock;
+let carouselTargetBlock;
 let nextBtn;
 let prevBtn;
 const IMG_CLASS_NAME = "carousel__photo";
 const HIDE = "carousel__btn-hide";
 const SHOW = "carousel__btn-show";
 
-let targetBtn;
+let carouselTargetBtn;
 let oldActived;
 let activedElem;
+
+let touchStartX;
+let touchEndX;
 
 const toggleBtn = () => {
   if (activedElem === activedElem.parentNode.firstChild) {
@@ -47,7 +50,7 @@ const toggleBtn = () => {
 };
 
 const moveNext = () => {
-  oldActived = targetBlock.querySelector(".active");
+  oldActived = carouselTargetBlock.querySelector(".active");
   if (oldActived.previousSibling) {
     oldActived.previousSibling.className = IMG_CLASS_NAME;
   }
@@ -64,7 +67,7 @@ const moveNext = () => {
 };
 
 const movePrev = () => {
-  oldActived = targetBlock.querySelector(".active");
+  oldActived = carouselTargetBlock.querySelector(".active");
   oldActived.className = IMG_CLASS_NAME;
   activedElem = oldActived.previousSibling;
   activedElem.className = `${IMG_CLASS_NAME} active`;
@@ -78,16 +81,33 @@ const movePrev = () => {
 };
 
 const carouselClickHandler = (event) => {
-  [targetBtn, targetBlock] = event.path;
-  if (targetBtn.classList.contains("carousel__prev-i")) {
-    prevBtn = targetBtn;
+  [carouselTargetBtn, carouselTargetBlock] = event.path;
+  if (carouselTargetBtn.classList.contains("carousel__prev-i")) {
+    prevBtn = carouselTargetBtn;
     movePrev();
   }
-  if (targetBtn.classList.contains("carousel__next-i")) {
-    nextBtn = targetBtn;
+  if (carouselTargetBtn.classList.contains("carousel__next-i")) {
+    nextBtn = carouselTargetBtn;
     moveNext();
   }
 };
+
+const touchStart = (event) => {
+  touchStartX = event.touches[0].pageX;
+};
+const touchEnd = (event) => {
+  touchEndX = event.changedTouches[0].pageX;
+  let targetPhotoBlock;
+  [, carouselTargetBlock, , targetPhotoBlock] = event.path;
+  prevBtn = targetPhotoBlock.querySelector(".carousel__prev-i");
+  nextBtn = targetPhotoBlock.querySelector(".carousel__prev-i");
+  if (touchStartX > touchEndX) {
+    moveNext();
+  } else if (touchStartX < touchEndX) {
+    movePrev();
+  }
+};
+
 const multipleBlocksCaseInit = () => {
   photoBlocks.forEach((block) => {
     const imgs = block.querySelectorAll(".carousel__photo");
@@ -98,6 +118,8 @@ const multipleBlocksCaseInit = () => {
       icons.forEach((item) =>
         item.addEventListener("click", carouselClickHandler)
       );
+      block.addEventListener("touchstart", touchStart);
+      block.addEventListener("touchend", touchEnd);
     } else if (imgs.length === 1) {
       icons.forEach((item) => item.classList.remove(SHOW));
     }

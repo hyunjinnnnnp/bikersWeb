@@ -1,5 +1,3 @@
-import clickEvent from "./mobileClickToTouchEvent";
-
 const navContainer = document.querySelectorAll(".info__edit-photo");
 
 const { body } = document;
@@ -16,20 +14,19 @@ const disableEditPhotoNav = () => {
 };
 
 const enableEditPhotoNav = (event) => {
-  console.log(event);
   const [, photoBlockHeader] = event.path;
   editPhotoNav = photoBlockHeader.querySelector(".edit-photo__nav");
   const disableBtn = photoBlockHeader.querySelector(".jsCancelBtn");
   editPhotoNav.className = `${NAV_CLASS} ${SHOW_CLASS}`;
   body.classList.add(OVERFLOW_HIDDEN);
-  disableBtn.addEventListener("touchstart", disableEditPhotoNav);
+  disableBtn.addEventListener("click", disableEditPhotoNav);
 };
 
 function editPhotoNavInit() {
   const ellipsisBtns = document.querySelectorAll(".info__edit-photo");
-  ellipsisBtns.forEach((item) =>
-    item.addEventListener("touchstart", enableEditPhotoNav)
-  );
+  ellipsisBtns.forEach((item) => {
+    item.addEventListener("click", enableEditPhotoNav);
+  });
 }
 if (navContainer) {
   editPhotoNavInit();

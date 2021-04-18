@@ -4,6 +4,7 @@ html {
 html,
 body {
   height: 100%;
+  overflow: hidden;
 }
 body {
   font-family: "Open Sans", sans-serif -apple-system, BlinkMacSystemFont,
@@ -14,6 +15,7 @@ main {
   width: 100%;
   height: 100vh;
   margin-bottom: 2rem;
+  overflow: auto;
 }
 input:-webkit-autofill,
 input:-webkit-autofill:hover,
