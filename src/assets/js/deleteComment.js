@@ -71,19 +71,19 @@ function deleteCommentInit(id, modalBtns) {
   if (deleteBtns.legnth > 1) {
     photoId = id;
     deleteBtns.forEach((btn) =>
-      btn.addEventListener("click", deleteCommentBtnHandler)
+      btn.addEventListener("touchstart", deleteCommentBtnHandler)
     );
   }
   if (modalBtns) {
     photoId = id;
     modalBtns.forEach((btn) =>
-      btn.addEventListener("click", deleteCommentBtnHandler)
+      btn.addEventListener("touchstart", deleteCommentBtnHandler)
     );
   }
 }
 if (fakeCommentHome) {
   deleteBtns.forEach((btn) =>
-    btn.addEventListener("click", deleteCommentBtnHandler)
+    btn.addEventListener("touchstart", deleteCommentBtnHandler)
   );
 }
 export default deleteCommentInit;
