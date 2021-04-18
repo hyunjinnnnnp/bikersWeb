@@ -152,7 +152,6 @@ const initMap = () => {
 };
 
 if (uploadContainer) {
-  console.log("hi");
   google.maps.event.addDomListener(window, "load", initMap);
   google.maps.event.addDomListener(window, "load", searchInputInit);
 }

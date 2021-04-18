@@ -8,9 +8,6 @@ const IMG_CLASS_NAME = "carousel__photo";
 const HIDE = "carousel__btn-hide";
 const SHOW = "carousel__btn-show";
 
-let touchStartX;
-let touchEndX;
-
 let targetBtn;
 let oldActived;
 let activedElem;
@@ -91,19 +88,6 @@ const carouselClickHandler = (event) => {
     moveNext();
   }
 };
-const touchStart = (event) => {
-  touchStartX = event.touches[0].pageX;
-};
-const touchEnd = (event) => {
-  touchEndX = event.changedTouches[0].pageX;
-  const nextbtn = event.target.querySelector("carousel__next-i");
-  const prevbtn = event.target.querySelector("carousel__prev-i");
-  if (nextbtn && touchStartX > touchEndX) {
-    moveNext();
-  } else if (prevbtn && touchStartX < touchEndX) {
-    movePrev();
-  }
-};
 const multipleBlocksCaseInit = () => {
   photoBlocks.forEach((block) => {
     const imgs = block.querySelectorAll(".carousel__photo");
@@ -114,10 +98,6 @@ const multipleBlocksCaseInit = () => {
       icons.forEach((item) =>
         item.addEventListener("click", carouselClickHandler)
       );
-      photoBlocks.forEach((item) => {
-        item.addEventListener("touchstart", touchStart);
-        item.addEventListener("touchend", touchEnd);
-      });
     } else if (imgs.length === 1) {
       icons.forEach((item) => item.classList.remove(SHOW));
     }
