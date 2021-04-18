@@ -32,11 +32,6 @@ const modalScrollTo = () => {
   clearTimeout(timeOutId);
 };
 
-const detectMobileKeyboard = () => {
-  const container = document.querySelector(".comment-modal");
-  container.style.height = "50vh";
-};
-
 const enableModal = (elem) => {
   const fakeElem = elem;
   const timestamps = fakeElem.querySelectorAll("#jsTimestamp");
@@ -53,7 +48,6 @@ const enableModal = (elem) => {
     disableModal(fakeElem);
   });
   const carouselContainer = document.querySelector(".comment-modal__photo");
-  window.addEventListener("resize", detectMobileKeyboard);
   carouselInit(carouselContainer);
 };
 const handleModal = async (e) => {
