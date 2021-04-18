@@ -20,6 +20,13 @@ const increaseNumber = (elem) => {
     }개 모두 보기`;
   }
 };
+let timeOutId;
+const modalScrollTo = (targetBlock) => {
+  const container = targetBlock;
+  container.scrollTop = container.scrollHeight;
+  clearTimeout(timeOutId);
+};
+
 const cloneFakeElem = (comment, targetBlock) => {
   const fakeCommentBlock = document
     .querySelector("#jsFakeBlock .comment-block")
@@ -44,11 +51,13 @@ const cloneFakeElem = (comment, targetBlock) => {
 
   fakeCommentBlock.classList.remove("hide-element");
   fakeCommentBlock.classList.add("comment-block");
+  fakeCommentBlock.classList.add("jsNewComment");
   currentComment.innerText = comment;
   editCommentInput.value = comment;
   editBtn.setAttribute("data-comment-id", postEditUrl);
   deleteBtn.setAttribute("data-comment-id", postDelUrl);
   targetBlock.appendChild(fakeCommentBlock);
+  timeOutId = setTimeout(() => modalScrollTo(targetBlock), 500);
   const fakeCommentEditBtns = document.querySelectorAll("#jsEditComment");
   editCommentInit(fakeCommentEditBtns);
   const fakeCommentDelBtns = document.querySelectorAll("#jsDeleteComment");

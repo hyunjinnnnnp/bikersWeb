@@ -15,14 +15,6 @@ https://taeminimini.tistory.com/438
 - fixed DOM과 가상키보드 이슈
   https://nuhends.tistory.com/2
 
-- css vw,vh -> %
-- 인풋 클릭 -> 인풋 전체화면 -> 서브밋 -> 모달 전체화면
-- 인풋 submit 버튼 생성 -> 클릭 -> 마지막 댓글로 스크롤
-
-  1.헤더 픽스시킨다
-
-2. 새 댓글이 생성되면 포커스, 그 위치로 이동시킨다
-
 터치 이벤트
 https://falsy.me/%EB%AA%A8%EB%B0%94%EC%9D%BC-%EC%95%A0%ED%94%8C%EB%A6%AC%EC%BC%80%EC%9D%B4%EC%85%98-%EC%9B%B9%EB%B7%B0%EC%97%90-%EC%82%AC%EC%9A%A9%EB%90%98%EB%8A%94-%EC%9B%B9-%EC%BD%98%ED%85%90%EC%B8%A0%EC%9D%98/
 
@@ -39,9 +31,11 @@ https://falsy.me/%EB%AA%A8%EB%B0%94%EC%9D%BC-%EC%95%A0%ED%94%8C%EB%A6%AC%EC%BC%8
 
 - COMMENT MODAL
 
-  [] MODAL BLOCK 스크롤 없애기(vw, vh -> %)
+  [x] BODY 스크롤 없애기 -> HTML overflow hidden
 
-  [] 인풋 클릭시 화면이 인풋 포커스 확대 방지
+  [x] 인풋 클릭시 화면 확대 방지
+
+  [x] 새 댓글이 생성되면 포커스, 그 위치로 이동시킨다 & COLOR
 
   [] EDIT, DELETE BUTTONS 클릭 x
 
