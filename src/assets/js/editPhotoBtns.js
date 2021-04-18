@@ -21,7 +21,10 @@ const enableEditPhotoNav = (event) => {
   const disableBtn = photoBlockHeader.querySelector(".jsCancelBtn");
   editPhotoNav.className = `${NAV_CLASS} ${SHOW_CLASS}`;
   body.classList.add(OVERFLOW_HIDDEN);
-  disableBtn.addEventListener(clickEvent, () => disableEditPhotoNav());
+  disableBtn.addEventListener(clickEvent, () => {
+    disableEditPhotoNav();
+    disableBtn.style.color = "red";
+  });
 };
 
 function editPhotoNavInit() {
