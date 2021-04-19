@@ -16,15 +16,23 @@ let touchStartX;
 let touchEndX;
 
 const toggleBtn = () => {
+  // console.log(activedElem, activedElem.parentNode.firstChild);
+  // 엑티브 앨렘이 첫번째 자식이라면
+  // 이전 버튼을 활성화시킨다
+
   if (activedElem === activedElem.parentNode.firstChild) {
     if (prevBtn.classList.contains(SHOW)) {
       prevBtn.classList.remove(SHOW);
     }
     prevBtn.classList.add(HIDE);
+
+    // ㄴㅔㄱ스트버튼에 관해서 여기서 왜 해??
     if (nextBtn.classList.contains(HIDE)) {
       nextBtn.classList.remove(HIDE);
     }
     nextBtn.classList.add(SHOW);
+
+    // 엑티브 엘렘이 마지막 자식이라면
   } else if (activedElem === activedElem.parentNode.lastChild) {
     prevBtn = nextBtn.previousSibling;
     if (prevBtn.classList.contains(HIDE)) {
@@ -100,7 +108,7 @@ const touchEnd = (event) => {
   let targetPhotoBlock;
   [, carouselTargetBlock, , targetPhotoBlock] = event.path;
   prevBtn = targetPhotoBlock.querySelector(".carousel__prev-i");
-  nextBtn = targetPhotoBlock.querySelector(".carousel__prev-i");
+  nextBtn = targetPhotoBlock.querySelector(".carousel__next-i");
   if (touchStartX > touchEndX) {
     moveNext();
   } else if (touchStartX < touchEndX) {
