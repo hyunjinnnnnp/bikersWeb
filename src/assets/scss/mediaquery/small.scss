@@ -51,48 +51,16 @@ i {
 //업로드 페이지에서 헤더 없애고 업로드 패딩 없애기
 
 .form__container {
-  height: 50vh;
+  height: 90%;
+  padding: 2rem 4rem;
   #jsUploadFile {
     width: 100%;
   }
-  form {
-    background-color: $black;
-    color: $white;
-    #search-location__input {
-      color: $white !important;
-    }
-    #search-location__input::placeholder {
-      color: $white !important;
-    }
-    label > * {
-      color: $white !important;
-    }
-    input[type="submit"] {
-      color: $white;
-    }
-    #search-location__input {
-      border: 1px solid $darkGray;
-    }
-    #jsCoordinates {
-      display: none;
-    }
-    input[type="text"] {
-      background-color: $black;
-    }
-    textarea {
-      min-height: 5rem;
-      height: 5rem;
-      color: $white;
-      border-top: 1px solid $darkGray;
-      border-bottom: 1px solid $darkGray;
-      padding: 1rem;
-      margin: 1rem 0;
-    }
-  }
-  .preview-container {
-    min-height: 5rem;
-  }
 }
+.preview-container {
+  min-height: 5rem;
+}
+
 //user photos
 
 .user-photos {

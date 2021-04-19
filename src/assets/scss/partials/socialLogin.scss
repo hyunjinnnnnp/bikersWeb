@@ -6,14 +6,18 @@
   align-items: center;
   margin: 4rem 0;
   color: $black;
+  button {
+    width: 18rem;
+  }
   a {
     color: $black;
-    min-width: 16rem;
+    // min-width: 16rem;
     display: flex;
     align-items: center;
     font-weight: 600;
     i {
       font-size: 1.8rem;
+
       margin-right: 15px;
     }
   }

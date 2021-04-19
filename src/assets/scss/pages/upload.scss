@@ -13,6 +13,9 @@
   }
   .form__container {
     background-color: $black;
+    input[type="submit"] {
+      z-index: 999999999999;
+    }
     .search-location input {
       margin: 1rem;
       padding: 0.5rem 3.1rem 0.5rem 0.5rem;
