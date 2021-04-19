@@ -4,6 +4,7 @@ const userInfo = document.querySelector("#jsUserInfo");
 const photoBlocks = document.querySelectorAll(".photo-block");
 let targetPhotoBlock;
 let isClicked = true;
+let dbtapped = false;
 
 const SHOW_CLASS = "jsShow";
 const HIDE_CLASS = "jsHide";
@@ -74,10 +75,23 @@ const handleLikeClick = (e) => {
   }
 };
 
+const touchHandler = (e) => {
+  if (!dbtapped) {
+    dbtapped = true;
+    setTimeout(() => {
+      dbtapped = false;
+    }, 300);
+    return false;
+  }
+  return handleLikeClick(e);
+};
+
 if (photoBlocks && userInfo) {
   photoBlocks.forEach((photoBlock) => {
     photoBlock.addEventListener("dblclick", handleLikeClick);
+    photoBlock.addEventListener("touchstart", touchHandler);
   });
 } else if (photoBlocks.length === 1) {
   photoBlocks.addEventListener("dblclick", handleLikeClick);
+  photoBlocks.addEventListener("touchstart", touchHandler);
 }
