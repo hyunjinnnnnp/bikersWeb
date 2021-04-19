@@ -1,12 +1,13 @@
 extends layouts/main.pug
 
 block content
-    .form__container.edit-profile-contianer
-        form#jsUploadFile(action=`/users${routes.editProfile}`, method="post", enctype="multipart/form-data")
-            img.profile--avatar(src=user.avatarUrl, alt="avatar")
-            .fileUpload
-                label(for="file") 프로필 사진 바꾸기
-                input(type="file",id="file", name="avatar", accept="image/*")
-            input(type="text", placeholder="Name", name="name", value=loggedUser.name)
-            input(type="text", placeholder="Email", name="email", value=loggedUser.email)
-            input#file(type="submit", value="Update Profile")
+    .edit-profile-contianer
+        .form__container
+            form#jsUploadFile(action=`/users${routes.editProfile}`, method="post", enctype="multipart/form-data")
+                img.profile--avatar(src=user.avatarUrl, alt="avatar")
+                .fileUpload
+                    label(for="file") 프로필 사진 바꾸기
+                    input(type="file",id="file", name="avatar", accept="image/*")
+                input(type="text", placeholder="Name", name="name", value=loggedUser.name)
+                input(type="text", placeholder="Email", name="email", value=loggedUser.email)
+                input#file(type="submit", value="Update Profile")
