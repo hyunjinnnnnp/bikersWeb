@@ -160,3 +160,13 @@ label:hover {
   height: 100%;
   padding-top: $headerHeight;
 }
+
+//COOKIE NOTICE PADDING
+
+.cookieNotice {
+  position: fixed;
+  right: 0px;
+  left: 0px;
+  bottom: 0px;
+  padding-bottom: calc(env(safe-area-inset-bottom) + 20px);
+}
