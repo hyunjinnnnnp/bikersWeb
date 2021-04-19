@@ -86,14 +86,16 @@ const handleEditCommentBtn = (event) => {
 };
 function editCommentInit(editCommentBtns) {
   if (editCommentElems) {
-    editCommentElems.forEach((item) =>
-      item.addEventListener("click", handleEditCommentBtn)
-    );
+    editCommentElems.forEach((item) => {
+      item.addEventListener("click", handleEditCommentBtn);
+      item.addEventListener("touchstart", handleEditCommentBtn);
+    });
   }
   if (editCommentBtns) {
-    editCommentBtns.forEach((item) =>
-      item.addEventListener("click", handleEditCommentBtn)
-    );
+    editCommentBtns.forEach((item) => {
+      item.addEventListener("click", handleEditCommentBtn);
+      item.addEventListener("touchstart", handleEditCommentBtn);
+    });
   }
 }
 if (fakeCommentHome) {

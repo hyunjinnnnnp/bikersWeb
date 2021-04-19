@@ -25,6 +25,8 @@ i {
 
 //PHOTOBLOCK
 .photo-block {
+  overscroll-behavior-x: none; //모바일 스와이프 뒤로가기 방지
+
   .edit-photo__nav {
     justify-content: flex-end;
   }
@@ -67,4 +69,12 @@ i {
   .photo-container__photo {
     height: 10rem;
   }
+}
+
+//PHOTOBLOCK, COMMENTBLOCK edit, delete buttons
+.photo-block #jsEditComment,
+.photo-block #jsDeleteComment,
+.comment-block #jsEditComment,
+.comment-block #jsDeleteComment {
+  font-size: 1.5rem;
 }

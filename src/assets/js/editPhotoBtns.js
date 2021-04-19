@@ -20,12 +20,14 @@ const enableEditPhotoNav = (event) => {
   editPhotoNav.className = `${NAV_CLASS} ${SHOW_CLASS}`;
   body.classList.add(OVERFLOW_HIDDEN);
   disableBtn.addEventListener("click", disableEditPhotoNav);
+  disableBtn.addEventListener("touchstart", disableEditPhotoNav);
 };
 
 function editPhotoNavInit() {
   const ellipsisBtns = document.querySelectorAll(".info__edit-photo");
   ellipsisBtns.forEach((item) => {
     item.addEventListener("click", enableEditPhotoNav);
+    item.addEventListener("touchstart", enableEditPhotoNav);
   });
 }
 if (navContainer) {

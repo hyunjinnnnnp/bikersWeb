@@ -68,12 +68,10 @@
     width: 0; /* Remove scrollbar space */
     background: transparent; /* Optional: just make scrollbar invisible */
   }
+  //TEST ICON TOUCHEVENT
   .column__icons {
     display: flex;
     margin-top: 0.5rem;
-    a {
-      margin-left: 1rem;
-    }
   }
   .comment-list__form form {
     position: fixed;

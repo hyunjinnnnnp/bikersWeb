@@ -17,6 +17,8 @@ https://taeminimini.tistory.com/438
 
 - PHOTOBLOCK
 
+  [x] 좋아요 더블탭
+
   [] ELLIPSIS, CAROUSEL 아이콘 클릭 x
 
   [] ELLIPSIS -> CANCEL BUTTON
@@ -25,7 +27,7 @@ https://taeminimini.tistory.com/438
 
   [] DELETE COMMENT swipe
 
-  [] CAROUSEL swipe
+  [x] CAROUSEL swipe
 
 - COMMENT MODAL
 
