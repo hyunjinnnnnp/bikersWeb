@@ -50,11 +50,13 @@ i {
 //UPLOAD
 //업로드 페이지에서 헤더 없애고 업로드 패딩 없애기
 
-.form__container {
-  height: 90%;
-  padding: 2rem 4rem;
-  #jsUploadFile {
-    width: 100%;
+.upload {
+  .form__container {
+    height: 90%;
+    padding: 2rem 4rem;
+    #jsUploadFile {
+      width: 100%;
+    }
   }
 }
 .preview-container {

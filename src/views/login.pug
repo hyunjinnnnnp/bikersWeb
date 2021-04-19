@@ -1,9 +1,10 @@
 extends layouts/main.pug
 
 block content
-    .form__container.login-container
-        form(action=routes.login, method="post")
-            input(type="email", name="email", placeholder="Email address", required=true)
-            input(type="password", name="password", placeholder="Password",autocomplete="off", required=true)
-            input(type="submit", placeholder="Login")
-            include partials/socialLogin.pug
+    .login-container
+        .form__container
+            form(action=routes.login, method="post")
+                input(type="email", name="email", placeholder="Email address", required=true)
+                input(type="password", name="password", placeholder="Password",autocomplete="off", required=true)
+                input(type="submit", placeholder="Login")
+                include partials/socialLogin.pug
