@@ -38,9 +38,11 @@
 }
 .carousel__prev-i {
   left: 1rem;
+  display: block;
 }
 .carousel__next-i {
   right: 1rem;
+  display: block;
 }
 .carousel__btn-hide {
   display: none;

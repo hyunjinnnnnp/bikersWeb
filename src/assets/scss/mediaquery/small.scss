@@ -25,10 +25,10 @@ i {
 
 //PHOTOBLOCK
 .photo-block {
-  overscroll-behavior-x: none; //모바일 스와이프 뒤로가기 방지
+  // overscroll-behavior-x: none; //모바일 스와이프 뒤로가기 방지
 
   .edit-photo__nav {
-    justify-content: flex-end;
+    // justify-content: flex-end;
   }
   .nav__list {
     width: 50%;
