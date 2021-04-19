@@ -27,7 +27,7 @@ function editPhotoNavInit() {
   const ellipsisBtns = document.querySelectorAll(".info__edit-photo");
   ellipsisBtns.forEach((item) => {
     item.addEventListener("click", enableEditPhotoNav);
-    // item.addEventListener("touchstart", enableEditPhotoNav);
+    item.addEventListener("touchstart", enableEditPhotoNav);
   });
 }
 if (navContainer) {

@@ -25,10 +25,8 @@ i {
 
 //PHOTOBLOCK
 .photo-block {
-  // overscroll-behavior-x: none; //모바일 스와이프 뒤로가기 방지
-
   .edit-photo__nav {
-    // justify-content: flex-end;
+    justify-content: flex-end;
   }
   .nav__list {
     width: 50%;
@@ -51,13 +49,15 @@ i {
 
 //UPLOAD
 //업로드 페이지에서 헤더 없애고 업로드 패딩 없애기
-// .upload {
-//   padding-top: 0;
-// }
+
 .form__container {
-  padding: 4rem;
+  padding: 2rem 4rem;
+  height: 60vh;
   #jsUploadFile {
     width: 100%;
+  }
+  .preview-container {
+    min-height: 10rem;
   }
 }
 //user photos
